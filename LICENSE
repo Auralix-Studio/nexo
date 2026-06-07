@@ -1,84 +1,105 @@
 Nexo — Términos de licencia
 ===========================
 
-Copyright © 2026 Alessandro Villogas Gaspar.
+Copyright (c) 2026 Alessandro Villogas Gaspar.
 Todos los derechos reservados sobre el código fuente.
 
-Este repositorio (`nexo-releases`) contiene tres tipos de material,
-con licencias distintas para cada uno:
+Este repositorio (`nexo-releases`) contiene tres tipos de material
+sujetos a regímenes de licencia diferenciados.
 
----
 
-1) DOCUMENTACIÓN (archivos .md en este repo)
---------------------------------------------
+1. Documentación (archivos Markdown del repositorio)
+----------------------------------------------------
 
-Licenciados bajo Creative Commons Attribution 4.0 International
-(CC BY 4.0). Resumen humano:
+La documentación contenida en este repositorio se publica bajo la
+licencia Creative Commons Atribución 4.0 Internacional (CC BY 4.0).
+
+Resumen de la licencia (no sustituye al texto legal completo):
+
   https://creativecommons.org/licenses/by/4.0/deed.es
 
-Podés copiarla, modificarla y redistribuirla siempre que cites al
-autor original (Alessandro Villogas Gaspar) y el enlace al repo.
+Bajo los términos de esta licencia, el usuario puede copiar,
+modificar y redistribuir la documentación, con la condición de
+atribuir la autoría original a Alessandro Villogas Gaspar y
+proporcionar un enlace al repositorio fuente.
 
 Texto legal completo:
+
   https://creativecommons.org/licenses/by/4.0/legalcode.es
 
 
-2) BINARIOS DE LA APP (APKs, AAB, ejecutables en los releases)
---------------------------------------------------------------
+2. Binarios de la aplicación (APKs, AABs y ejecutables)
+-------------------------------------------------------
 
-Distribuidos para uso personal y educativo. Estás autorizado a:
-  - Instalarlos en tus propios dispositivos.
-  - Usarlos sin pago.
-  - Compartir el enlace de descarga de este repo con otros.
+Los binarios distribuidos en los releases de este repositorio se
+licencian para uso personal y educativo. El usuario está autorizado
+a:
 
-No estás autorizado a:
-  - Modificar, decompilar, re-empaquetar y redistribuir los
-    binarios bajo otro nombre.
-  - Cobrar por la app o por acceso a ella.
-  - Distribuir versiones modificadas que se presenten como "Nexo
-    oficial".
+  a) Instalar los binarios en dispositivos de su titularidad.
+  b) Utilizar la aplicación sin pago.
+  c) Compartir el enlace de descarga del repositorio público con
+     terceros.
 
-El código fuente de la app es PRIVADO y no se incluye en este repo.
+El usuario no está autorizado a:
+
+  a) Modificar, descompilar o reempaquetar los binarios para su
+     redistribución bajo otra denominación.
+  b) Cobrar contraprestación económica por la aplicación o por el
+     acceso a ella.
+  c) Distribuir versiones modificadas presentándolas como versiones
+     oficiales del proyecto.
+
+El código fuente de la aplicación no se distribuye en este
+repositorio.
 
 
-3) MODELOS DE LUMEN (archivos .task en los releases)
-----------------------------------------------------
+3. Modelos del asistente Lumen (archivos .task y .litertlm)
+-----------------------------------------------------------
 
-Los archivos .task son redistribuciones de modelos de la familia
-Gemma (Google), publicados según los términos de la Gemma Use Policy:
+Los archivos de modelo distribuidos en los releases son
+redistribuciones de modelos de la familia Gemma, publicados por
+Google bajo los términos de la Gemma Use Policy:
 
   https://ai.google.dev/gemma/terms
 
-Resumen práctico: uso personal, educativo y de investigación
-permitido. No para fines dañinos. Si redistribuís los modelos vos
-mismo (cosa que la mayoría de usuarios no necesita hacer), tenés
-que mantener los términos de Google.
+Resumen aplicable: uso personal, educativo e investigador permitido,
+con prohibición expresa de utilización para fines dañinos. La
+redistribución posterior por parte del usuario final requiere el
+mantenimiento de los términos originales de Google.
 
-Nexo aceptó esos términos al descargar los modelos desde Kaggle
-para hostearlos acá. El usuario final que solo los descarga vía la
-app no necesita aceptar nada explícitamente — su uso queda cubierto
-bajo "uso personal por terceros bajo la aceptación del operador".
-
-
-SIN GARANTÍAS
--------------
-
-Todo el material en este repo (documentación, binarios, modelos) se
-distribuye TAL CUAL, sin garantías de ningún tipo, expresas o
-implícitas. El autor no se hace responsable por:
-  - Pérdida de datos.
-  - Decisiones académicas o financieras tomadas en base a la app.
-  - Interrupciones del servicio (la app depende de servidores de
-    UPLA y Microsoft que el autor no controla).
-  - Cambios en las políticas o APIs de terceros que rompan la app.
-
-Para trámites legales, académicos o financieros importantes,
-verificá siempre con las fuentes oficiales de UPLA.
+El operador del presente repositorio aceptó los términos de la Gemma
+Use Policy al obtener los modelos desde Kaggle para su
+redistribución. El usuario final que descarga los modelos a través de
+la aplicación lo hace en el contexto de uso personal cubierto por
+dicha aceptación.
 
 
-CONTACTO
+Exención de garantías
+---------------------
+
+La totalidad del material distribuido en este repositorio
+(documentación, binarios y modelos) se proporciona TAL CUAL, sin
+garantías expresas ni implícitas de ningún tipo. El autor no asume
+responsabilidad alguna por:
+
+  - Pérdida o corrupción de datos.
+  - Decisiones académicas, administrativas o financieras adoptadas
+    con base en información presentada por la aplicación.
+  - Interrupciones del servicio derivadas de fallos en los sistemas
+    de la Universidad Peruana Los Andes o de Microsoft.
+  - Modificaciones en las políticas o APIs de terceros que afecten
+    al correcto funcionamiento de la aplicación.
+
+Para trámites legales, académicos o financieros de relevancia, el
+usuario debe verificar la información en las fuentes oficiales de la
+universidad.
+
+
+Contacto
 --------
 
-Para preguntas sobre licencia, uso comercial o NDA del código
-fuente: abrir issue en
+Las consultas sobre licencia, uso comercial o cesión bajo acuerdo de
+confidencialidad pueden remitirse mediante el sistema de issues del
+repositorio público:
+
   https://github.com/Alexito-Hub/nexo-releases/issues

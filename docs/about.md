@@ -1,124 +1,149 @@
-# Sobre Nexo y Lumen
+# Acerca de Nexo y Lumen
 
-## Por qué existe Nexo
+## Origen del proyecto
 
-Como estudiante de Ingeniería de Sistemas en UPLA, usaba SIGMA y la
-Intranet todos los días. Ambas funcionan, pero:
+Nexo nace de una observación práctica sobre la experiencia de los
+estudiantes de la Universidad Peruana Los Andes con sus sistemas
+académicos digitales:
 
-- La UX está pensada para escritorio, **no para móvil**.
-- Hay que loguearse en dos sitios separados (SIGMA y Intranet) con
-  la misma cuenta para ver toda tu info.
-- No hay notificaciones de cosas críticas (próxima cuota a vencer,
-  cambio de aula, nota nueva publicada).
-- La integración con Microsoft Teams (que UPLA usa para clases) no
-  está en ningún lado — hay que abrir Teams aparte.
-- Los PDFs (constancia de matrícula, cronograma de pagos) requieren
-  trámites o no se pueden generar en el momento.
+- Las interfaces web de SIGMA y de la Intranet UPLA fueron diseñadas
+  para uso en computadoras de escritorio y no se adaptan
+  adecuadamente a dispositivos móviles.
+- Los servicios académicos y administrativos están repartidos entre
+  dos sistemas (SIGMA e Intranet) que utilizan las mismas credenciales
+  pero requieren autenticación independiente.
+- No existen notificaciones nativas para eventos relevantes como el
+  vencimiento de cuotas, la publicación de calificaciones o los
+  cambios de aula.
+- La integración con Microsoft Teams, plataforma utilizada por UPLA
+  para el dictado virtual, no está disponible desde un único punto.
+- Los documentos académicos (constancia de matrícula, cronograma de
+  pagos) requieren navegación adicional para generarse.
 
-**Nexo es la app que yo quería tener.** Es un cliente alternativo,
-mobile-first, que centraliza todo eso. Lo hice para mí, y al ver que
-funcionaba bien decidí compartirlo con otros estudiantes UPLA.
+Nexo se concibe como un cliente alternativo, orientado a dispositivos
+móviles, que centraliza estas funcionalidades en una sola aplicación.
 
-## Por qué se llama "Nexo"
+## Denominación
 
-Porque conecta — es el nexo entre vos y los sistemas dispersos de la
-universidad. Un solo punto de entrada para SIGMA + Intranet + Teams.
+El nombre "Nexo" refleja la función de la aplicación: actuar como
+nexo entre el usuario y los distintos sistemas digitales de la
+universidad. Constituye un único punto de acceso para SIGMA,
+Intranet y Microsoft Teams.
 
-## Por qué Lumen
+## El asistente Lumen
 
-**Lumen** ("luz" en latín) es el asistente IA que vive dentro de Nexo.
+Lumen, del latín *lumen* ("luz"), es el asistente de inteligencia
+artificial integrado en Nexo. Su propósito es responder en lenguaje
+natural a las consultas frecuentes que un estudiante formula a lo
+largo de su vida académica:
 
-El problema original: incluso con Nexo centralizando todo, las preguntas
-que el estudiante se hace todos los días siguen requiriendo navegar
-pantallas:
+- ¿Cuándo es la próxima clase y en qué aula?
+- ¿Cuál es el monto adeudado en el mes en curso?
+- ¿Cuál es la fecha de vencimiento de la siguiente cuota?
+- ¿Qué carreras se imparten en una determinada facultad?
+- ¿Cuál es el procedimiento para tramitar una constancia?
 
-> "¿Cuál es mi próxima clase? ¿En qué aula? ¿Cuánto debo este mes?
-> ¿Cuándo vence mi cuota 3? ¿Qué carreras hay en Ingeniería?
-> ¿Cómo trámito una constancia?"
+Lumen formula la respuesta a partir de dos fuentes:
 
-Lumen responde estas preguntas en lenguaje natural usando tu propia
-data + un knowledge base sobre UPLA. Y lo hace **sin enviar nada a
-internet**: el modelo de IA corre en tu propio teléfono.
+1. **Datos del usuario almacenados localmente** (perfil, horario,
+   cuotas, calificaciones) que Nexo ya obtuvo de SIGMA o de la
+   Intranet UPLA.
+2. **Base de conocimiento estática** sobre la universidad (carreras,
+   sedes, trámites, asignaturas) distribuida con la aplicación.
 
-### Por qué on-device y no ChatGPT
+La inferencia se ejecuta íntegramente en el procesador del
+dispositivo. No se establece comunicación con servicios externos
+durante el uso del asistente.
 
-Tres razones:
+### Decisión técnica: ejecución local
 
-1. **Privacidad real, no prometida.** No es "no compartimos tu data" —
-   es "tu data nunca sale del dispositivo, físicamente imposible que la
-   veamos porque no tenemos servidor".
-2. **Cero costo recurrente.** ChatGPT API cobra por token. Mantener un
-   asistente con ~5000 estudiantes consultando varias veces por día
-   sería caro y requeriría monetizar la app o pedir donaciones.
-3. **Funciona sin internet.** Una vez descargado el modelo, podés
-   consultar tu horario o cuotas estando en cualquier lado, sin datos
-   móviles.
+La elección de un modelo on-device, frente a una integración con
+servicios remotos como ChatGPT o Gemini API, responde a tres
+criterios:
 
-El trade-off es que el modelo es **chico** (270M o 1B parámetros vs
-los ~70B de GPT-4) y por lo tanto:
-- Responde más cortito y a veces más seco.
-- No "razona" tan bien sobre temas complejos.
-- Está pensado para Q&A sobre tu data + conocimiento UPLA básico, no
-  para conversaciones largas o tareas creativas.
+1. **Privacidad verificable.** La afirmación "los datos del usuario no
+   abandonan el dispositivo" es comprobable mediante inspección del
+   tráfico de red, no requiere confianza en un proveedor.
+2. **Sostenibilidad operativa.** Los servicios de IA en la nube
+   facturan por uso. Mantener un asistente para una población
+   estudiantil amplia exigiría una vía de monetización (suscripciones,
+   publicidad, recopilación de datos) incompatible con los principios
+   del proyecto.
+3. **Funcionamiento sin conexión.** Tras la descarga inicial del
+   modelo, el asistente opera sin necesidad de conectividad,
+   característica relevante en entornos con cobertura intermitente.
 
-Detalles técnicos de Lumen en [`lumen.md`](./lumen.md).
+El compromiso aceptado es que el modelo utilizado (entre 270 millones
+y 1.000 millones de parámetros) tiene una capacidad significativamente
+inferior a la de los modelos comerciales de la nube
+(decenas de miles de millones de parámetros). Esto se traduce en
+respuestas más concisas, menor profundidad en razonamiento abstracto y
+limitaciones para tareas creativas extensas. El asistente está
+optimizado para consultas puntuales sobre los datos del usuario y la
+información institucional, no como sustituto de tutoría académica.
 
-## Filosofía técnica
+Documentación técnica detallada en [`lumen.md`](./lumen.md).
 
-Las reglas que sigo al desarrollar Nexo:
+## Principios técnicos
 
-1. **Cliente puro.** No tengo servidor propio. Si UPLA cae, Nexo no
-   puede hacer mucho — pero tampoco hay dependencia mía para que la
-   app funcione si yo desaparezco.
-2. **Audit-friendly.** Las requests que hace Nexo son las mismas que
-   ves en las DevTools del navegador en SIGMA. No hay magia oscura.
-3. **Sin trackers.** No mido nada de lo que hacés. Si necesito saber
-   si una feature se usa, lo pregunto en público (issue/encuesta).
-4. **Reversible.** Cualquier cosa que la app guarda se borra al
-   desinstalar o al usar los controles correspondientes (cerrar sesión,
-   borrar modelo Lumen, etc).
-5. **Multi-plataforma.** Lo mismo que ves en Android lo ves en iOS,
-   Web, Windows, macOS y Linux. Single codebase con Flutter.
+El desarrollo de Nexo se rige por los siguientes principios:
 
-## Quién lo hace
+1. **Cliente puro.** El proyecto no opera servidores propios. La
+   aplicación se comunica directamente con los servicios oficiales de
+   UPLA y de Microsoft. Esta arquitectura elimina la dependencia de
+   infraestructura mantenida por el responsable del proyecto.
+2. **Auditabilidad.** Las solicitudes HTTP que realiza la aplicación
+   son equivalentes a las observables en las herramientas de
+   desarrollo de cualquier navegador al utilizar SIGMA o la Intranet.
+3. **Ausencia de instrumentación.** No se recopila información
+   estadística sobre el uso de la aplicación.
+4. **Reversibilidad.** Toda la información almacenada por la
+   aplicación puede eliminarse mediante los controles previstos o
+   desinstalando el programa.
+5. **Multi-plataforma.** La misma base de código produce binarios
+   para Android, iOS, Windows, macOS, Linux y Web.
 
-- **Mantenedor:** Alessandro Villogas Gaspar
-  - Estudiante UPLA, Ingeniería de Sistemas y Computación, código
-    U01025B.
-  - Sede Huancayo.
-- **Tiempo invertido:** proyecto personal, contribuciones en mis ratos
-  libres.
-- **Relación con UPLA:** ninguna oficial. Soy alumno como cualquier
-  otro. La universidad no patrocina ni respalda este proyecto.
+## Equipo y vinculación institucional
 
-## Es legal lo que hago?
+- **Mantenedor:** Alessandro Villogas Gaspar.
+  Estudiante de Ingeniería de Sistemas y Computación. Código de
+  matrícula U01025B. Sede Huancayo.
+- **Modalidad:** desarrollo individual realizado fuera del horario
+  académico, sin financiación.
+- **Vinculación con UPLA:** ninguna de carácter oficial. El proyecto
+  no cuenta con patrocinio ni reconocimiento institucional.
 
-Sí. Nexo:
-- Llama a las APIs públicas que ya usan los sitios oficiales de UPLA
-  (las mismas que ves en las DevTools del navegador).
-- No bypassea autenticación: para usar Nexo tenés que loguearte con tu
-  cuenta SIGMA, igual que para entrar al sitio web.
-- No scrape contenido protegido por copyright ni redistribuye material
-  académico de la universidad.
-- No automatiza acciones que las APIs no permitan al usuario hacer
-  manualmente.
+## Marco legal
 
-Si UPLA me pide que deje de operar Nexo (cosa que dudo, porque ayuda a
-sus propios estudiantes), lo doy de baja sin drama.
+Nexo opera dentro del marco legal de uso de los servicios web de UPLA:
 
-## Roadmap (lo que viene)
+- Consume las APIs públicas que sirven a los portales oficiales de la
+  universidad.
+- Requiere autenticación válida del usuario mediante credenciales
+  SIGMA. No elude controles de acceso.
+- No redistribuye contenido protegido por derechos de autor ni
+  material académico institucional.
+- No automatiza acciones que las APIs no permitan al usuario realizar
+  de forma manual desde la web oficial.
 
-Cosas en las que estoy trabajando o pensando:
+En caso de que la universidad solicite el cese de operaciones del
+proyecto, éste se discontinuará sin objeciones.
 
-- **Lumen multimodal** (v1.5+): mandar fotos al asistente (ej.: foto
-  de tu boleta para que te diga qué es).
-- **Persistencia de chat** (v1.3): historial de conversaciones con
-  Lumen guardado en SQLite local.
-- **Modo docente más completo**: hoy hay un esqueleto, pero le faltan
-  endpoints (los que existen requieren cuenta de profesor para
-  descubrirlos).
-- **iOS oficial**: la app compila en iOS pero no la he distribuido por
-  Apple por costos del Developer Program.
-- **Voice input** para Lumen (v2): preguntar en voz alta.
+## Hoja de ruta
 
-Si querés que algo en particular suba en prioridad, abrí un issue.
+Líneas de trabajo previstas para versiones futuras:
+
+- **Lumen multimodal** (v1.5+). Capacidad de procesar imágenes
+  enviadas por el usuario (por ejemplo, fotografías de boletas).
+- **Persistencia de conversaciones** (v1.3). Almacenamiento del
+  historial de Lumen en SQLite local.
+- **Funcionalidades para docentes.** Ampliación del modo docente
+  actual con endpoints adicionales, condicionada a la disponibilidad
+  de cuentas de prueba.
+- **Distribución oficial para iOS.** Sujeta a la disponibilidad de los
+  fondos necesarios para el programa Apple Developer.
+- **Entrada por voz** (v2). Reconocimiento de voz para formular
+  consultas a Lumen.
+
+Las propuestas de funcionalidad pueden formularse mediante la apertura
+de un issue en el repositorio público.

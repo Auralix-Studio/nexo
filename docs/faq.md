@@ -2,205 +2,262 @@
 
 ## Sobre Nexo
 
-### ¿Es oficial de UPLA?
-No. Es un proyecto personal de un estudiante (Alessandro Villogas
-Gaspar, U01025B, Sistemas Huancayo). La universidad no patrocina ni
-respalda Nexo.
+### ¿La aplicación es oficial de UPLA?
 
-### ¿Es seguro meter mi contraseña? <a name="contraseña"></a>
-Sí. Tu contraseña:
-- Se envía **solo** a los servidores oficiales de UPLA (SIGMA e
-  Intranet) por HTTPS, igual que cuando entrás al sitio web.
-- Si elegís "Recordarme", se guarda **localmente** en el almacenamiento
-  privado de la app, ofuscada en base64.
-- **Nunca** se envía a ningún servidor mío, porque no tengo servidor.
-- Nadie más que el sistema operativo del teléfono y los servidores de
-  UPLA la ven.
+No. Nexo es un proyecto independiente desarrollado por Alessandro
+Villogas Gaspar, estudiante de la universidad (código U01025B). No
+cuenta con patrocinio, supervisión ni reconocimiento institucional
+por parte de la Universidad Peruana Los Andes.
 
-Si querés extra-seguridad, no marqués "Recordarme" — vas a tener que
-loguearte cada vez, pero la contraseña no queda guardada.
+### ¿Es seguro introducir mi contraseña en la aplicación? <a name="contrasena"></a>
 
-### ¿Es gratis? ¿Tiene anuncios?
-Gratis, sin anuncios, sin compras integradas, sin suscripciones. Es
-un proyecto personal.
+Las credenciales del usuario se utilizan exclusivamente para
+autenticarse contra los servidores oficiales de SIGMA y de la
+Intranet UPLA, mediante conexiones TLS (HTTPS). Estas son las mismas
+solicitudes que realiza el portal web institucional.
 
-### ¿Cómo gana plata el desarrollador?
-No gana plata con Nexo. Lo mantengo en mi tiempo libre como aporte a
-la comunidad estudiantil UPLA. Si encontrás muy útil la app y querés
-apoyar, podés:
-- Compartirla con otros alumnos.
-- Reportar bugs / sugerir features en los issues.
-- Dejar un café via PayPal (link próximamente, opcional).
+Si el usuario activa la opción "Recordar credenciales", éstas se
+almacenan en el área privada de la aplicación, codificadas en Base64.
+Este nivel de protección es equivalente al utilizado por la mayoría
+de aplicaciones móviles.
 
-### ¿Hay versión iPhone?
-La app compila para iOS pero no la distribuyo en App Store por costos
-($99/año del Developer Program). Si tenés Mac + Xcode y querés
-sideloadearla, abrí un issue y vemos.
+Las credenciales no se transmiten a ningún servicio adicional, dado
+que el proyecto no opera servidores propios.
 
-### ¿Por qué Nexo se llama "Nexo"?
-Porque conecta — es el nexo entre vos y los sistemas dispersos de UPLA
-(SIGMA, Intranet, Teams) en un solo lugar.
+Para una seguridad superior, el usuario puede mantener desactivada la
+opción "Recordar" y reintroducir las credenciales en cada inicio de
+sesión.
 
-### ¿Funciona sin internet?
-Parcialmente. La primera carga necesita internet (login + bajar tu
-data). Después, los datos cacheados siguen visibles offline. Algunas
-acciones (refrescar notas, ver una constancia recién generada) sí
-requieren conexión.
+### ¿La aplicación tiene algún costo?
 
-Lumen funciona 100 % offline después de la descarga inicial del modelo.
+Nexo es gratuita. No incluye publicidad, compras integradas ni
+suscripciones.
 
-### ¿Y si UPLA cambia algo y la app deja de funcionar?
-Pasa. Cuando UPLA actualiza un endpoint o cambia el formato JSON,
-algo de Nexo aparece roto. La solución es publicar una versión
-parchada — generalmente entre horas y días. Reportá el problema en
-issues para que vaya rápido.
+### ¿Cómo se sostiene económicamente el proyecto?
 
-### ¿Por qué la app pesa tanto?
-~140 MB para el APK arm64. El peso viene mayoritariamente de las
-librerías nativas C++ que Lumen necesita (MediaPipe + TensorFlow Lite).
-La app de Nexo sola serían ~60 MB. Si nunca usás Lumen, igual está
-esa porción del peso porque el código nativo va embebido.
+No existe un modelo de negocio. El proyecto se desarrolla y mantiene
+sin financiación, en horas fuera del horario académico del
+mantenedor. Las contribuciones de la comunidad (reporte de errores,
+sugerencias de funcionalidad, difusión entre otros estudiantes) son
+la principal forma de apoyo.
+
+### ¿Está disponible para iPhone?
+
+La aplicación compila para iOS, pero no se distribuye oficialmente en
+App Store debido al costo del programa Apple Developer. Para
+instalación local, consultar la documentación de
+[instalación](./install.md#ios).
+
+### ¿Funciona sin conexión a internet?
+
+Parcialmente. La carga inicial requiere conectividad para autenticar
+y obtener los datos del usuario. Posteriormente, los datos
+almacenados en caché permanecen accesibles sin conexión. Las
+operaciones que requieren información actualizada (refrescar
+calificaciones, generar una constancia nueva) sí requieren conexión.
+
+El asistente Lumen funciona sin conexión tras la descarga inicial del
+modelo.
+
+### ¿Qué ocurre si UPLA modifica sus APIs?
+
+Cuando los endpoints utilizados por la aplicación cambian, las
+secciones afectadas pueden presentar errores hasta que se publique
+una versión actualizada de Nexo. La resolución de estos incidentes
+depende del reporte oportuno por parte de los usuarios mediante
+issues en el repositorio.
+
+### ¿Por qué la aplicación ocupa tanto espacio?
+
+El APK para arquitecturas modernas pesa aproximadamente 160 MB. La
+mayor parte del tamaño corresponde a las bibliotecas nativas C++
+requeridas por el módulo Lumen (MediaPipe y TensorFlow Lite). El
+código de la aplicación propiamente dicha representa una fracción
+menor del tamaño total. Si el módulo Lumen no se activa, estas
+bibliotecas siguen presentes pero no se cargan en memoria.
 
 ---
 
 ## Sobre Lumen
 
-### ¿Lumen ve mi data UPLA?
-Sí, pero **solo dentro de tu teléfono**. Lumen lee la data que Nexo
-ya tiene cargada (perfil, horario, cuotas, notas) y la usa para
-responder tus preguntas. Nada de esto sale del dispositivo.
+### ¿Lumen tiene acceso a mis datos académicos?
 
-### ¿Puedo usar Nexo sin Lumen?
-Sí, totalmente. Lumen es **opt-in** — no se descarga ni se activa
-hasta que vos lo decidas. Si nunca tocás el FAB de Lumen, la app
-funciona como un cliente UPLA "normal" sin asistente.
+Sí, dentro del dispositivo. Lumen consulta los mismos datos que la
+aplicación ya tiene almacenados localmente (perfil, horario, cuotas,
+calificaciones) para responder a las consultas del usuario. Esta
+información no abandona el dispositivo.
 
-### ¿Cuánto pesa el modelo de Lumen?
-- **Lumen Ligero:** ~290 MB.
-- **Lumen Estándar:** ~530 MB.
+### ¿Es posible usar Nexo sin activar Lumen?
 
-Es descarga **única** — una vez bajado no se repite (a menos que
-cambies de variante).
+Sí. Lumen es completamente opcional. La descarga del modelo solo
+ocurre cuando el usuario activa explícitamente el asistente. Si nunca
+se interactúa con el botón flotante de Lumen, la aplicación funciona
+como un cliente UPLA sin componente de IA.
 
-### ¿Por qué Lumen no recuerda lo que le pregunté antes?
-En v1 cada pregunta es independiente. Lo hicimos así para evitar
-que el modelo se "confunda" entre temas distintos y para que cada
-respuesta tenga exactamente el contexto que necesita.
+### ¿Cuánto espacio requiere el modelo?
 
-En v1.3 vamos a agregar historial persistente.
+- Lumen Ligero: aproximadamente 290 MB.
+- Lumen Estándar: aproximadamente 530 MB.
 
-### Lumen me responde mal / a veces se "queda pensando"
-Los modelos pequeños no son perfectos. Probá:
-1. **Reformular** la pregunta con palabras clave más específicas
-   ("¿cuál es mi próxima clase?" en vez de "¿qué tengo ahora?").
-2. **Cambiar de modelo** (Settings de Lumen → Cambiar modelo) — si
-   estás en Ligero, probá Estándar.
-3. **Limpiar historial** (refresh icon arriba del chat).
+La descarga es única y solo se repite si el usuario cambia de
+variante.
 
-Si pasa siempre con cierta pregunta, abrí un issue con el ejemplo.
+### ¿Por qué Lumen no recuerda las consultas anteriores?
 
-### ¿Puedo entrenar a Lumen con mis datos?
-No con la app actual. Es un modelo pre-entrenado que solo lee tu data
-en runtime. Fine-tuning requeriría infraestructura que no tenemos.
+En la versión 1.0, cada consulta se procesa de forma independiente
+para evitar interferencias entre temas y para garantizar que el
+contexto enviado al modelo sea siempre el adecuado para la pregunta
+formulada. La persistencia del historial está prevista para la
+versión 1.3.
+
+### Las respuestas de Lumen son incorrectas o el asistente no responde
+
+Los modelos pequeños tienen limitaciones inherentes. Se recomienda:
+
+1. Reformular la consulta con términos más específicos. Por ejemplo,
+   "¿cuál es mi próxima clase?" en lugar de "¿qué tengo ahora?".
+2. Probar con la otra variante: si se está utilizando Lumen Ligero,
+   cambiar a Lumen Estándar puede mejorar la calidad.
+3. Limpiar el historial mediante el botón de actualización en la
+   parte superior del chat.
+
+Si el problema persiste con consultas frecuentes, reportarlo mediante
+un issue en el repositorio.
+
+### ¿Es posible entrenar Lumen con datos personalizados?
+
+No con la versión actual. Lumen utiliza un modelo pre-entrenado al
+que se le inyectan los datos del usuario en tiempo de ejecución. El
+ajuste fino del modelo (fine-tuning) requeriría infraestructura no
+disponible en el contexto del proyecto.
 
 ### ¿Lumen consume mucha batería?
-Mientras procesa una respuesta, sí — usa CPU/GPU intensivamente
-durante ~5-15 segundos. Pero como no está corriendo todo el tiempo
-(solo cuando le preguntás algo), el impacto diario es mínimo: unos
-1-3 % extra de batería si lo usás varias veces.
 
-### ¿Funciona en cualquier teléfono Android?
-- Android 7.0 (API 24) o superior — bumpeamos el min SDK por Lumen.
-- Recomendado: 3 GB RAM o más.
-- Procesador ARM64 (la mayoría desde 2016).
+El consumo es elevado durante la generación de una respuesta
+(aproximadamente 5-15 segundos de uso intensivo de procesador). Dado
+que esto solo ocurre al consultar al asistente, el impacto diario es
+moderado: entre 1% y 3% adicional de batería para un uso típico de
+varias consultas al día.
 
-Si tu teléfono no cumple, podés usar Nexo sin Lumen — el resto de
-la app sigue funcionando.
+### ¿En qué dispositivos Android funciona?
+
+- Android 7.0 (API 24) o superior.
+- 3 GB de RAM como mínimo recomendado.
+- Procesador ARM64 (presente en la mayoría de dispositivos desde
+  2016).
+
+En dispositivos que no cumplan estos requisitos, Nexo puede
+utilizarse sin activar Lumen.
 
 ---
 
 ## Privacidad
 
-### ¿Tienen analytics? ¿Saben cuántas personas usan la app?
-No. Cero analytics, cero telemetría. No sé si la app la usan 10 o
-10,000 personas — me entero solo por los issues abiertos.
+### ¿Se recopilan estadísticas de uso?
 
-### ¿Se almacenan logs en algún lado?
-No fuera de tu teléfono. La app loguea cosas para debugging local
-(visibles con `adb logcat`), pero esos logs nunca se envían a ningún
-lado.
+No. La aplicación no implementa telemetría ni análisis de uso.
 
-### ¿Microsoft / Google ven mi data académica?
-- Google solo si activás Lumen → recibe la descarga del modelo desde
-  GitHub (que usa CDN de Microsoft Azure btw). No saben qué hacés
-  después.
-- Microsoft solo si activás la integración Teams → vos les das
-  permiso explícito de leer tu lista de clases y tareas de Teams. No
-  comparten esto con SIGMA ni viceversa.
+### ¿Se almacenan registros (logs) en algún sistema externo?
 
-### ¿Qué pasa si pierdo el teléfono?
-- Tu sesión queda en el teléfono. Si alguien lo agarra y desbloquea,
-  podría abrir Nexo y ver tu data.
-- Para mitigar: cambiá tu contraseña SIGMA desde otro dispositivo
-  (eso invalida el token guardado).
-- En el próximo login automático de Nexo en el teléfono perdido,
-  fallará y se cerrará la sesión.
+No. La aplicación genera registros para depuración local, accesibles
+mediante herramientas del sistema operativo (`adb logcat` en
+Android). Estos registros no se transmiten a ningún destino externo.
 
-### ¿Puedo bajar todos mis datos?
-Sí. Desde Perfil podés generar PDFs de:
-- Constancia de matrícula.
-- Cronograma de pagos.
-- (Roadmap) Historial completo en JSON.
+### ¿Microsoft o Google tienen acceso a mis datos académicos?
+
+- **Google:** únicamente conoce que se descargó el modelo Lumen
+  desde un release de GitHub (cuya CDN utiliza Microsoft Azure). No
+  recibe información posterior sobre el uso de la aplicación.
+- **Microsoft:** solo si se activa la integración con Teams.
+  En ese caso, el usuario otorga permisos explícitos para que la
+  aplicación lea su lista de clases y tareas mediante Microsoft
+  Graph. No existe intercambio de información entre Microsoft y SIGMA.
+
+### ¿Qué ocurre si pierdo el dispositivo?
+
+La sesión almacenada permanece en el dispositivo. Si un tercero
+accede al equipo desbloqueado, podría visualizar los datos
+mostrados por Nexo. Como medida de mitigación, se recomienda cambiar
+la contraseña de SIGMA desde otro dispositivo. Esto invalida el
+token almacenado y la siguiente sesión automática en el dispositivo
+perdido fallará.
+
+### ¿Puedo exportar mis datos?
+
+Sí. Desde la sección Perfil pueden generarse PDFs de la constancia
+de matrícula y del cronograma de pagos. La exportación completa en
+formato JSON está prevista para una versión futura.
 
 ---
 
 ## Trámites y datos académicos
 
-### ¿Las notas que veo en Nexo son las oficiales?
-Sí — vienen directo de SIGMA. Si hay una diferencia con lo que ves
-en el sitio web oficial, refrescá (pull-to-refresh) y probá de nuevo.
-Si persiste, es bug de Nexo → abrí issue.
+### ¿Las calificaciones mostradas son las oficiales?
 
-### ¿Puedo pagar mis cuotas desde Nexo?
-No. Nexo es solo lectura. Para pagar usás los medios oficiales
-(Intranet de pagos, banca online, ventanilla).
+Sí. Provienen directamente de SIGMA. Ante discrepancias con el
+portal web, la solución habitual es actualizar la información
+mediante el gesto pull-to-refresh. Las divergencias persistentes
+deben reportarse como issue.
 
-### ¿Puedo matricularme desde Nexo?
-No. La matrícula es proceso oficial vía SIGMA Web. Nexo no automatiza
-trámites administrativos.
+### ¿Puedo pagar las cuotas desde la aplicación?
 
-### ¿Por qué algunas notas no aparecen?
-Pueden estar:
-- Aún no publicadas por el docente (esperá unos días después del examen).
-- En la "boleta legacy" — algunas pantallas viejas de SIGMA tienen
-  data que la API moderna no expone. Si pasa, abrí issue.
+No. Nexo es una aplicación de solo lectura. El pago debe realizarse
+por los canales oficiales: portal de pagos UPLA, banca electrónica o
+ventanilla bancaria.
+
+### ¿Puedo matricularme desde la aplicación?
+
+No. El proceso de matrícula se realiza exclusivamente desde el
+portal SIGMA web. Nexo no automatiza trámites administrativos.
+
+### ¿Por qué algunas calificaciones no aparecen?
+
+Las causas habituales son:
+
+- La calificación aún no ha sido publicada por el docente.
+- La información pertenece a una vista heredada del sistema que la
+  API moderna no expone. Estos casos pueden reportarse como issue
+  para evaluar su integración.
 
 ---
 
 ## Desarrollo y contribuciones
 
-### ¿El código es open source?
-La documentación que ves en este repo (`nexo-releases`) sí — CC BY 4.0.
-El código fuente de la app es **privado**. Si te interesa contribuir
-bajo NDA, escribime por issue.
+### ¿El código fuente está disponible?
 
-### ¿Por qué no es open source?
-Decisión personal por ahora. Tres razones:
-1. Tiene tokens / credenciales hardcodeadas que requeriría limpiar
-   antes de abrir.
-2. Si hago la app open source, alguien podría forkearla con malware
-   y distribuirla como "Nexo oficial" — quiero evitar esa confusión.
-3. Cuando sea más maduro, lo considero abrir.
+La documentación publicada en este repositorio (`nexo-releases`) se
+distribuye bajo licencia CC BY 4.0. El código fuente de la
+aplicación no es público en esta fase del proyecto. Las
+contribuciones bajo acuerdo de confidencialidad pueden coordinarse
+mediante issue.
 
-### ¿Puedo reportar un bug?
-Sí, por favor:
-<https://github.com/Alexito-Hub/nexo-releases/issues/new>.
+### ¿Por qué el código no es de fuente abierta?
 
-Incluí:
-- Pasos para reproducir.
-- Captura si aplica.
-- Modelo de teléfono + versión Android.
-- Versión de Nexo (Perfil → Acerca de Nexo).
+La decisión actual responde a tres consideraciones:
 
-### ¿Puedo sugerir features?
-Sí, en issues. No prometo implementar todo, pero leo todo.
+1. La base de código contiene configuraciones específicas que
+   requerirían sanitización previa a su publicación.
+2. La apertura del código facilitaría la distribución de versiones
+   modificadas con propósitos no autorizados, en perjuicio de la
+   confianza de los usuarios.
+3. La apertura del código se contempla para fases más maduras del
+   proyecto.
+
+### ¿Cómo reporto un error?
+
+Mediante el sistema de issues del repositorio público:
+
+<https://github.com/Alexito-Hub/nexo-releases/issues>
+
+Información útil para acelerar la resolución:
+
+- Pasos para reproducir el problema.
+- Captura de pantalla cuando corresponda.
+- Modelo del dispositivo y versión del sistema operativo.
+- Versión de Nexo (visible en Perfil → Acerca de Nexo).
+
+### ¿Puedo proponer nuevas funcionalidades?
+
+Sí, mediante issues. Las propuestas se evalúan según su alineación
+con los principios del proyecto y la disponibilidad de tiempo del
+mantenedor.

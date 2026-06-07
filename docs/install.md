@@ -1,139 +1,189 @@
-# Instalación de Nexo
+# Guía de instalación
 
 ## Android
 
-### Vía APK (recomendado por ahora)
+### Instalación mediante APK
 
-1. Andá al [release más reciente](https://github.com/Alexito-Hub/nexo-releases/releases/latest).
-2. Descargá el APK correspondiente a tu teléfono:
-   - **`nexo-vX.Y.Z-arm64.apk`** — para la mayoría de teléfonos modernos
-     (~140 MB).
-   - **`nexo-vX.Y.Z-armv7.apk`** — para teléfonos antiguos de 32 bits.
-   - **`nexo-vX.Y.Z-universal.apk`** — si no sabés cuál es tu
-     arquitectura (~250 MB, pesa más pero anda en todo).
-3. Abrilo desde el archivador del teléfono. Android te va a preguntar
-   si permitís instalar apps de fuentes desconocidas:
-   - Activá la opción "Permitir desde esta fuente" en Settings.
-   - Volvé y dale "Instalar".
-4. Abrí Nexo desde el cajón de apps.
-5. **Aceptá términos** → **iniciá sesión** con tu cuenta de SIGMA UPLA.
+1. Acceder al [último release](https://github.com/Alexito-Hub/nexo-releases/releases/latest).
+2. Descargar el APK correspondiente al dispositivo:
+   - `nexo-vX.Y.Z-arm64.apk` para la mayoría de dispositivos modernos
+     (Android 8.0 o superior, ~160 MB).
+   - `nexo-vX.Y.Z-armv7.apk` para dispositivos antiguos de 32 bits
+     (~27 MB; el asistente Lumen no estará disponible en esta
+     arquitectura).
+   - `nexo-vX.Y.Z-universal.apk` cuando se desconoce la arquitectura
+     del dispositivo (~252 MB; compatible con todas las plataformas
+     ARM y x86_64).
+3. Abrir el archivo desde el gestor de archivos del dispositivo.
+   Android solicitará autorización para instalar aplicaciones de
+   fuentes desconocidas:
+   - Activar la opción "Permitir desde esta fuente" en Ajustes.
+   - Regresar al instalador y confirmar la instalación.
+4. Abrir Nexo desde el menú de aplicaciones.
+5. Aceptar los términos y autenticarse con las credenciales de SIGMA
+   UPLA.
 
-### Permisos que pide
+### Permisos solicitados
 
-- **Notificaciones** — para recordatorios de clases y cuotas.
-  Podés rechazar si no las querés.
-- **Almacenamiento** (solo Android viejo, <10) — para exportar PDFs.
-  En Android 10+ no se pide.
-- **Micrófono** — solo si activás voz en Lumen (feature v1.4+).
+| Permiso | Propósito | Obligatorio |
+|---------|-----------|-------------|
+| Notificaciones | Recordatorios de clases y vencimientos | No |
+| Almacenamiento | Exportación de PDFs (solo Android 9 o anterior) | Condicional |
+| Micrófono | Entrada de voz para Lumen (versión 1.4 o posterior) | No |
 
-### Permisos que NO pide
+### Permisos no solicitados
 
-- Contactos.
-- Cámara (salvo que actives multimodal Lumen, v1.5+).
-- Ubicación.
-- SMS.
-- Historial de llamadas.
+La aplicación no solicita acceso a contactos, cámara (excepto cuando
+se active la funcionalidad multimodal de Lumen en versiones
+posteriores), ubicación, SMS ni historial de llamadas.
 
-### Por qué no está en Play Store
+### Disponibilidad en Google Play Store
 
-El proceso de publicación en Play Store requiere:
-- Pago anual al Developer Program.
-- Trámites de cumplimiento (declaración de datos, edad, etc).
-- Revisión que puede tardar y a veces objeta apps "no oficiales" de
-  instituciones.
+La publicación en Google Play Store requiere el pago de la cuota
+anual del programa Google Play Developer y la superación de los
+controles de cumplimiento de la tienda. Esta vía de distribución no
+está prevista en la fase actual del proyecto. La distribución se
+realiza mediante sideload de APK firmado.
 
-Hoy no justifica el costo para un proyecto personal. Si la app llega
-a tener mucha tracción, lo reconsidero.
+---
+
+## Windows
+
+### Instalación del paquete
+
+1. Descargar `nexo-vX.Y.Z-windows-x64.zip` del [último release](https://github.com/Alexito-Hub/nexo-releases/releases/latest).
+2. Extraer el contenido del archivo en una carpeta temporal.
+3. Ejecutar `nexo.exe` desde la carpeta extraída.
+4. En el primer arranque, la aplicación presenta un asistente con dos
+   opciones:
+   - **Instalar.** Nexo se copia a `%LOCALAPPDATA%\Nexo`, crea
+     accesos directos en el escritorio y el menú Inicio según la
+     selección del usuario, y se registra en el Panel de control de
+     Windows como aplicación instalada.
+   - **Modo portable.** La aplicación se ejecuta desde la carpeta
+     extraída sin copiar archivos a otras ubicaciones.
+
+La instalación no requiere privilegios de administrador.
+
+### Requisitos del sistema
+
+- Windows 10 versión 1809 o posterior (arquitectura x64).
+- 4 GB de RAM mínimo. 6 GB recomendados si se va a utilizar Lumen.
+- 500 MB de espacio libre para la aplicación. 800 MB adicionales si se
+  activa el modelo Lumen Ligero.
+
+### Advertencia de Windows Defender SmartScreen
+
+Los binarios distribuidos no están firmados con un certificado de
+validación extendida (EV) por motivos de costo. Es posible que
+SmartScreen presente una advertencia al ejecutar la aplicación por
+primera vez. Para continuar:
+
+1. Seleccionar "Más información" en el diálogo.
+2. Seleccionar "Ejecutar de todas formas".
 
 ---
 
 ## iOS
 
-Actualmente no distribuido oficialmente para iOS. La app compila y
-corre — si querés instalarla en tu iPhone:
+La aplicación compila correctamente para iOS, pero no se distribuye
+oficialmente en App Store. La instalación requiere compilación local
+con Xcode y sideload mediante una cuenta Apple Developer.
 
-1. Necesitás Mac + Xcode.
-2. Cloná el repo privado (acceso solo bajo NDA — escribime).
-3. Build + sideload con tu Apple ID (Free Developer Account te da 7
-   días de instalación antes de tener que renovar).
-
-Plan para v2: ver si puedo costear el Apple Developer Program ($99/año)
-y publicar en App Store.
+La publicación oficial en App Store está condicionada a la
+disponibilidad de los fondos necesarios para el programa Apple
+Developer.
 
 ---
 
-## Windows (escritorio)
+## macOS y Linux
 
-Próximamente como release oficial.
-
-Por ahora la app funciona en Windows pero la distribuyo a pedido. Si
-querés probarla en tu PC, abrí un issue con tu caso de uso y te paso
-el binario.
+No existe distribución oficial actualmente. La aplicación compila para
+ambas plataformas. Para obtener un binario, solicítese mediante un
+issue en el repositorio.
 
 ---
 
 ## Web
 
-Demo en vivo: <https://nexo.upla.dev> (si está caída, abrí un issue —
-es un host gratuito que de vez en cuando se cae).
+Demostración disponible en línea: <https://nexo.upla.dev>.
 
-**Limitaciones de la versión web:**
-- No hay notificaciones (los browsers de móvil las restringen).
-- La integración Microsoft Teams requeriría CORS proxy → no funciona
-  en web.
-- Lumen funciona pero descarga el modelo cada vez que abrís una
-  pestaña nueva (a menos que el browser haga caching).
+Limitaciones de la versión web:
 
----
-
-## Activar Lumen (cualquier plataforma)
-
-Una vez instalada Nexo:
-
-1. Vas a ver el **botón flotante de Lumen** (logo destello) en la
-   esquina inferior derecha de cualquier pantalla.
-2. Tocalo → modal de bienvenida explicando privacidad + selector de
-   modelo.
-3. Elegí:
-   - **Lumen Ligero** (~290 MB) — para teléfonos de gama media-baja.
-   - **Lumen Estándar** (~530 MB) — para teléfonos modernos.
-4. "Aceptar y descargar" → barra de progreso. Es **descarga única**,
-   no se repite.
-5. Cuando termine, podés empezar a chatear.
-
-El modelo se guarda en almacenamiento privado de la app. Para
-liberarlo: FAB Lumen →  Settings → "Borrar modelo".
-
-Más sobre Lumen en [`lumen.md`](./lumen.md).
+- Las notificaciones no están disponibles (los navegadores móviles
+  restringen su uso en pestañas inactivas).
+- La integración con Microsoft Teams requiere un proxy CORS y no se
+  encuentra habilitada.
+- El modelo de Lumen se descarga al cargar el sitio (el almacenamiento
+  en caché depende del comportamiento del navegador).
 
 ---
 
-## Verificar integridad del APK
+## Activación de Lumen
 
-Cada release publica el **SHA-256** del APK en las release notes.
-Para verificar:
+Procedimiento común a todas las plataformas:
 
+1. Localizar el botón flotante de Lumen en la esquina inferior derecha
+   de la pantalla principal.
+2. Tocar el botón. Se abrirá un diálogo de bienvenida que describe la
+   política de privacidad y presenta el selector de modelo.
+3. Seleccionar la variante:
+   - **Lumen Ligero** (~290 MB). Recomendado para dispositivos con
+     2-3 GB de RAM.
+   - **Lumen Estándar** (~530 MB). Recomendado para dispositivos con
+     4 GB de RAM o superior.
+4. Confirmar con "Aceptar y descargar". La descarga es única y solo
+   se repite al cambiar de variante.
+5. Al finalizar, el asistente queda disponible para su uso.
+
+El modelo se almacena en el directorio privado de la aplicación. Su
+eliminación se realiza desde Lumen → Configuración → "Borrar modelo".
+
+Documentación completa del asistente en [`lumen.md`](./lumen.md).
+
+---
+
+## Verificación de integridad
+
+Cada release publica los valores SHA-256 de los archivos distribuidos.
+Para verificar la integridad de una descarga:
+
+**PowerShell (Windows):**
 ```powershell
 Get-FileHash -Algorithm SHA256 .\nexo-vX.Y.Z-arm64.apk
 ```
 
+**Bash (Linux, macOS):**
 ```bash
 sha256sum nexo-vX.Y.Z-arm64.apk
 ```
 
-Si el hash no coincide con el del release, **no instales el archivo**
-— puede estar corrupto o manipulado. Abrí un issue.
+Si el valor obtenido no coincide con el publicado en el release, el
+archivo está corrupto o ha sido manipulado. En este caso, no debe
+instalarse y se recomienda informar del incidente mediante un issue.
 
 ---
 
-## Desinstalar
+## Desinstalación
 
 ### Android
-Mantené presionado el ícono → "Desinstalar". Borra todos los datos
-locales automáticamente.
 
-### Para borrar solo el modelo Lumen sin desinstalar la app
-FAB Lumen →  → "Borrar modelo".
+Mantener pulsado el icono de la aplicación y seleccionar
+"Desinstalar". El sistema operativo elimina automáticamente todos los
+datos asociados.
 
-### Para cerrar sesión sin perder configuración
-Pestaña Perfil → "Cerrar sesión".
+### Windows
+
+Panel de control → Aplicaciones → seleccionar "Nexo UPLA" →
+Desinstalar. La operación elimina los archivos de la aplicación y la
+entrada del registro.
+
+### Eliminación selectiva del modelo Lumen
+
+Lumen → Configuración → "Borrar modelo". Libera el almacenamiento sin
+desinstalar la aplicación.
+
+### Cierre de sesión sin pérdida de configuración
+
+Pestaña Perfil → "Cerrar sesión". Conserva las preferencias del
+usuario.

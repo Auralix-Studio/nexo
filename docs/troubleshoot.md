@@ -1,118 +1,167 @@
-# Troubleshooting — problemas comunes
+# Diagnóstico de problemas
 
-## La app no abre / crashea al iniciar
+## Problemas de inicio
 
-1. Verificá que tu Android sea **7.0 o superior** (API 24+).
-2. Borrá caché y datos:
-   - Settings del SO → Apps → Nexo → Almacenamiento → "Borrar datos".
-3. Reinstalá desde el APK más reciente.
-4. Si persiste, abrí un issue con el log:
+### La aplicación no abre o se cierra al iniciar
+
+1. Verificar que el dispositivo ejecute Android 7.0 (API 24) o
+   superior.
+2. Borrar los datos de la aplicación: Configuración del sistema →
+   Aplicaciones → Nexo → Almacenamiento → "Borrar datos".
+3. Reinstalar la aplicación desde el APK más reciente disponible en
+   el [release](https://github.com/Alexito-Hub/nexo-releases/releases/latest).
+4. Si el problema persiste, abrir un issue adjuntando el log obtenido
+   con:
    ```bash
    adb logcat -s pe.upla.nexo:* AndroidRuntime:E
    ```
 
-## "No se pudo conectar a SIGMA"
+### Mensaje "No se pudo conectar a SIGMA"
 
-- Probá abrir https://sigma.upla.edu.pe en tu navegador. Si tampoco
-  carga ahí → SIGMA está caído, esperá.
-- Si SIGMA carga en el navegador pero no en Nexo → posible problema
-  TLS. La app bundleа CA roots actualizados pero algunos teléfonos
-  muy viejos pueden seguir fallando. Reportá tu modelo de teléfono y
-  versión Android.
+1. Comprobar la disponibilidad del portal oficial en
+   <https://sigma.upla.edu.pe>. Si el portal tampoco responde, se
+   trata de una interrupción del servicio de UPLA.
+2. Si el portal funciona pero Nexo no logra conectarse, puede tratarse
+   de un problema TLS. La aplicación incluye un almacén actualizado
+   de autoridades certificadoras para mitigar este tipo de errores,
+   pero ciertos dispositivos antiguos pueden seguir presentando el
+   problema. Reportar el incidente indicando el modelo del
+   dispositivo y la versión de Android.
 
-## "Sesión expirada" todo el tiempo
+### Sesión expirada de forma repetida
 
-- El token JWT de SIGMA expira cada cierto tiempo (~2 hs). Nexo lo
-  refresca automáticamente.
-- Si esto sucede en cada apertura, probá:
-  1. Cerrar sesión completa (Perfil → Cerrar sesión).
-  2. Volver a iniciar sesión.
-  3. Si "Recordarme" está activo, marcarlo de nuevo.
+1. El token JWT de SIGMA caduca tras un periodo determinado (~2
+   horas). Nexo lo renueva automáticamente.
+2. Si la expiración ocurre en cada apertura de la aplicación:
+   - Cerrar sesión completamente: Perfil → "Cerrar sesión".
+   - Volver a autenticarse.
+   - Reactivar la opción "Recordar credenciales" si estaba en uso.
 
-## El horario / cuotas / notas aparecen vacíos
+---
 
-1. Pull-to-refresh (deslizá hacia abajo en la pantalla).
-2. Si sigue vacío, verificá que esa data exista en SIGMA web (a veces
-   no hay nada por mostrar — ej. estás entre periodos).
-3. Si en SIGMA web sí está pero en Nexo no → bug de la app. Issue
-   con captura.
+## Problemas de visualización de datos
 
-## Lumen no descarga el modelo
+### Horario, cuotas o calificaciones aparecen vacíos
 
-- **"Sin conexión"** durante la descarga → fijate que tengas wifi
-  estable. La descarga es ~290 o ~530 MB, no querés que se corte por
-  datos móviles flojos.
-- **Descarga llega al 100 % pero falla en "Verificando"** → el archivo
-  bajado no coincide con el SHA-256 esperado (corrupción). Probá de
-  nuevo — si pasa siempre, abrí issue.
-- **"No disponible aún"** → el modelo está temporalmente fuera de
-  línea. Esperá unas horas o cambiá a la otra variante.
+1. Realizar pull-to-refresh deslizando hacia abajo en la pantalla
+   afectada.
+2. Verificar en el portal web oficial si la información existe. Es
+   posible que no haya datos para mostrar (por ejemplo, entre
+   periodos académicos).
+3. Si la información existe en el portal pero no en Nexo, reportar el
+   incidente como issue con captura de pantalla.
 
-## Lumen tarda mucho o no responde
+---
 
-1. Verificá que tu teléfono tenga al menos 3 GB de RAM disponible.
-2. Si estás usando **Lumen Estándar** (1B) en un teléfono modesto,
-   probá cambiar a **Ligero** (270M) — settings de Lumen → Cambiar
-   modelo.
-3. Cerrá otras apps en segundo plano que consuman RAM (Chrome con
-   muchas pestañas, juegos, etc).
-4. Reiniciá la app.
+## Problemas con Lumen
 
-## Lumen responde con "**" infinito o basura
+### La descarga del modelo falla
 
-Esto era un bug viejo (mode collapse). Si te pasa con la versión
-actual, **es bug serio** — abrí issue urgentemente con:
+- **Error de conexión durante la descarga.** Asegurar una conexión
+  Wi-Fi estable. La descarga es de 290 MB o 530 MB según la variante;
+  una conexión móvil inestable puede causar interrupciones.
+- **La descarga finaliza pero falla en la verificación.** El archivo
+  descargado no coincide con el SHA-256 esperado (corrupción durante
+  la transferencia). Reintentar la descarga. Si el problema persiste
+  de forma sistemática, reportarlo como issue.
+- **Mensaje "No disponible aún".** El modelo no está publicado para
+  la plataforma actual. Probar con la otra variante o aguardar a una
+  versión posterior.
+
+### El asistente tarda excesivamente en responder o no responde
+
+1. Verificar que el dispositivo disponga de al menos 3 GB de RAM
+   libres.
+2. En dispositivos modestos que utilizan Lumen Estándar (1B), cambiar
+   a Lumen Ligero (270M) puede mejorar el rendimiento. Configuración
+   de Lumen → "Cambiar modelo".
+3. Cerrar otras aplicaciones que consuman memoria.
+4. Reiniciar la aplicación.
+
+### Respuestas con caracteres repetidos o sin contenido
+
+Este síntoma indica que el modelo entró en un estado degenerado de
+generación. La aplicación incluye un detector que interrumpe estos
+casos automáticamente. Si este síntoma persiste, reportarlo
+proporcionando:
+
 - Versión exacta de Nexo.
-- Qué le preguntaste.
-- Captura de la respuesta.
-- Variante de Lumen (Ligero / Estándar).
+- Consulta que origina el problema.
+- Captura de pantalla de la respuesta.
+- Variante de Lumen en uso.
 
-## Las notificaciones no llegan
+---
 
-1. Settings del SO → Apps → Nexo → Notificaciones → activar "Permitir
-   notificaciones".
-2. Algunas marcas (Xiaomi, Huawei, Oppo) **matan apps en segundo
-   plano agresivamente** — agregá Nexo a la lista de apps "siempre
-   permitidas" o "ejecutar al iniciar".
-3. En Android 14+, el SO puede pedir confirmación de notificaciones
-   exactas (para recordatorios de clase). Aceptá cuando aparece el
-   prompt.
+## Notificaciones
 
-## Microsoft Teams no carga
+### Las notificaciones no llegan
 
-- Tu cuenta institucional UPLA debe tener Teams activo. Si tu carrera
-  no usa Teams (raro pero posible) → no vas a ver nada.
-- El admin de Microsoft 365 de UPLA puede haber restringido el
-  acceso de apps de terceros. En ese caso, no hay mucho que hacer
-  desde Nexo.
-- Re-autorizar: Settings → Microsoft → "Cerrar sesión Microsoft" →
-  volver a loguearte.
+1. Verificar la autorización: Configuración del sistema →
+   Aplicaciones → Nexo → Notificaciones → activar.
+2. En dispositivos con interfaces de fabricante agresivas con las
+   apps en segundo plano (Xiaomi MIUI, Huawei EMUI, Oppo ColorOS),
+   añadir Nexo a la lista de aplicaciones autorizadas para
+   ejecutarse en segundo plano o al inicio del sistema.
+3. En Android 14 o superior, el sistema operativo puede solicitar
+   confirmación adicional para notificaciones programadas exactas
+   (utilizadas en los recordatorios de clases). Aceptar dicha
+   solicitud cuando aparezca.
 
-## La app se queda en pantalla blanca
+---
 
-- En Android, mantené presionado el ícono → ⓘ → "Forzar detención".
-- Volvé a abrir.
-- Si persiste → captura del logcat y reportar.
+## Microsoft Teams
 
-## Lumen consume mucha batería
+### La sección de Teams no carga
 
-- Es normal mientras procesa una respuesta (5-15 seg de CPU al 100 %).
-- Si lo notás consumiendo aún cuando NO estás chateando → bug, abrí
-  issue.
+- Verificar que la cuenta institucional UPLA tenga Microsoft Teams
+  activo. Si la carrera no utiliza Teams, no se mostrará información.
+- El administrador de Microsoft 365 de UPLA puede haber restringido
+  el acceso de aplicaciones de terceros. En ese caso, la integración
+  no podrá habilitarse desde Nexo.
+- Para reintentar la autenticación: Configuración → Microsoft →
+  "Cerrar sesión Microsoft" → volver a autenticar.
 
-## Reportar un bug efectivamente
+---
 
-Lo que necesito para arreglarlo rápido:
+## Problemas de interfaz
 
-1. **Versión de Nexo:** Perfil → Acerca de Nexo.
-2. **Plataforma:** Android XX, modelo de teléfono.
-3. **Qué hiciste:** pasos exactos para reproducir.
-4. **Qué esperabas:** lo que debería haber pasado.
-5. **Qué pasó:** lo que efectivamente pasó (captura ayuda).
-6. **Logs si tenés:**
+### Pantalla en blanco
+
+1. En Android, mantener pulsado el icono de la aplicación, abrir la
+   información de la app y seleccionar "Forzar detención".
+2. Abrir la aplicación de nuevo.
+3. Si el problema persiste, reportar como issue adjuntando el log de
+   logcat.
+
+### Consumo elevado de batería
+
+El consumo elevado durante la generación de respuestas de Lumen
+(5-15 segundos) es esperado y se debe al uso intensivo del
+procesador durante la inferencia.
+
+Si se observa consumo elevado cuando el asistente no está en uso,
+reportarlo como issue: este comportamiento no es esperado y debe
+investigarse.
+
+---
+
+## Procedimiento para reportar problemas
+
+Para que el reporte sea procesable con rapidez, se solicita aportar:
+
+1. **Versión de Nexo:** visible en Perfil → Acerca de Nexo.
+2. **Plataforma:** sistema operativo y modelo del dispositivo.
+3. **Pasos para reproducir:** secuencia exacta que provoca el
+   problema.
+4. **Resultado esperado:** descripción del comportamiento correcto.
+5. **Resultado obtenido:** descripción del comportamiento real,
+   adjuntando captura de pantalla cuando sea posible.
+6. **Registros (opcional):** salida de logcat filtrada por la
+   aplicación:
    ```bash
    adb logcat -s pe.upla.nexo:* flutter:* AndroidRuntime:E
    ```
 
-Abrir issue en
-<https://github.com/Alexito-Hub/nexo-releases/issues/new>.
+Los reportes se gestionan en:
+
+<https://github.com/Alexito-Hub/nexo-releases/issues>

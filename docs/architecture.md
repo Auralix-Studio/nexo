@@ -1,184 +1,189 @@
-# Arquitectura — cómo Nexo conversa con UPLA
+# Arquitectura
 
-Este documento explica, sin entrar en código fuente, **cómo Nexo hace
-las requests** y **dónde guarda qué cosa**. Está orientado a estudiantes
-curiosos y a auditores de privacidad.
+Este documento describe la arquitectura de comunicación de Nexo con los
+sistemas institucionales y la organización del estado y la persistencia
+en el dispositivo del usuario. El nivel de detalle es suficiente para
+auditoría de privacidad sin requerir acceso al código fuente.
 
-## Vista general
+## Visión general
 
 ```
-┌──────────────────┐         HTTPS         ┌──────────────────┐
-│                  │  ◄────────────────────│                  │
-│   Tu teléfono    │                        │  sigma.upla.    │
-│   (Nexo app)     │  POST /api/Acceso/...  │  edu.pe         │
-│                  │  GET  /api/...         │                  │
-│  ┌────────────┐  │                        └──────────────────┘
-│  │ AppStore   │  │
-│  │ (memoria)  │  │         HTTPS         ┌──────────────────┐
-│  └────┬───────┘  │  ◄────────────────────│  intranet.upla. │
-│       │          │  POST /...phpcookie    │  edu.pe          │
-│  ┌────▼───────┐  │  GET  /...             └──────────────────┘
-│  │ SQLite +   │  │
-│  │ SharedPref │  │         HTTPS         ┌──────────────────┐
-│  │ (en disco) │  │  ◄────────────────────│  login.microsoft │
-│  └────────────┘  │  OAuth2 Device Code    │  online.com +    │
-│                  │                        │  graph.microsoft │
-│  ┌────────────┐  │                        │  .com (opcional) │
-│  │ Lumen      │  │                        └──────────────────┘
-│  │ (modelo IA │  │
-│  │  local)    │  │  NADA AQUÍ
-│  └────────────┘  │     Ni servidor de Nexo, ni telemetría,
-└──────────────────┘     ni analytics, ni APIs de IA externas.
+┌──────────────────┐         HTTPS         ┌─────────────────────┐
+│                  │  ──────────────────►  │  sigma.upla.edu.pe  │
+│   Dispositivo    │  Acceso/Login (JWT)   │  (autenticación +   │
+│   del usuario    │  Estudiante/*         │   datos académicos) │
+│                  │                       └─────────────────────┘
+│  ┌────────────┐  │
+│  │ AppStore   │  │         HTTPS         ┌─────────────────────┐
+│  │ (memoria)  │  │  ──────────────────►  │ intranet.upla.edu.pe│
+│  └────┬───────┘  │  Cookie PHPSESSID     │  (datos complemen-  │
+│       │          │                       │   tarios)           │
+│  ┌────▼───────┐  │                       └─────────────────────┘
+│  │ Persisten- │  │
+│  │ cia local  │  │         HTTPS         ┌─────────────────────┐
+│  │ (SQLite +  │  │  ──────────────────►  │ login.microsoft     │
+│  │ SharedPref)│  │  OAuth2 Device Code   │ online.com +        │
+│  └────────────┘  │  (opcional)           │ graph.microsoft.com │
+│                  │                       └─────────────────────┘
+│  ┌────────────┐  │
+│  │   Lumen    │  │  No se realizan solicitudes adicionales:
+│  │ (modelo IA │  │  ningún servidor propio, ninguna telemetría,
+│  │  local)    │  │  ninguna API de IA externa.
+│  └────────────┘  │
+└──────────────────┘
 ```
 
-## Las 3 integraciones
+## Integraciones
 
-### 1. SIGMA (autenticación + datos académicos principales)
+### 1. SIGMA
 
-- **Endpoint base:** `https://sigma.upla.edu.pe/api`
-- **Autenticación:** JWT. La app envía `usuario + contraseña` al
-  endpoint `Acceso/Login`, recibe un token, lo guarda en
-  `SharedPreferences`, y lo manda como header `Authorization: Bearer`
-  en cada request subsiguiente.
-- **Endpoints que usa Nexo (lista incompleta):**
-  - `Estudiante/perfil` — perfil del alumno.
+- **URL base:** `https://sigma.upla.edu.pe/api`
+- **Autenticación:** JWT. La aplicación envía las credenciales del
+  usuario al endpoint `Acceso/Login`, recibe un token y lo conserva en
+  `SharedPreferences`. Cada solicitud posterior incluye la cabecera
+  `Authorization: Bearer <token>`.
+- **Endpoints utilizados** (listado representativo, no exhaustivo):
+  - `Estudiante/perfil` — datos personales y académicos.
   - `Estudiante/horario` — horario del periodo activo.
-  - `Estudiante/notas` — notas y promedios.
-  - `Estudiante/cuotas` — cuotas pendientes (versión SIGMA).
+  - `Estudiante/notas` — calificaciones y promedios.
+  - `Estudiante/cuotas` — cuotas pendientes.
   - `Estudiante/Publicaciones` — anuncios institucionales.
-  - `Acceso/cambiarPassword` — cambio de contraseña.
-  - Etc.
+  - `Acceso/cambiarPassword` — modificación de contraseña.
 
-Son **exactamente** los mismos endpoints que llama el sitio web
-oficial. Podés verlos en las DevTools (`F12 → Network`) cuando navegás
-SIGMA con tu navegador.
+Los endpoints utilizados son los mismos que invoca el portal web
+oficial de SIGMA. Pueden inspeccionarse mediante las herramientas de
+desarrollo del navegador.
 
-### 2. Intranet (datos complementarios)
+### 2. Intranet UPLA
 
-SIGMA no expone todo lo que el alumno puede ver. La **Intranet**
-(`intranet.upla.edu.pe`) usa otro sistema (PHP clásico con cookies de
-sesión) y tiene endpoints complementarios:
+La Intranet (`intranet.upla.edu.pe`) expone información complementaria
+no disponible en SIGMA, a través de un sistema basado en cookies de
+sesión PHP:
 
-- Pagos detallados (`consultarPensiones`, `consultartotalPensiones`).
-- Cronograma de cuotas del periodo (`obtenerCronograma`).
-- Ranking promocional (`repRankingPromocionalEst`).
-- Malla curricular (`repMallaCurricularEst`).
-- Horario detallado por matrícula (`verhorariomatriz-matriculadosEstudiante`).
+- `consultarPensiones` y `consultartotalPensiones` — detalle de pagos.
+- `obtenerCronograma` — cronograma de cuotas del periodo.
+- `repRankingPromocionalEst` — ranking promocional.
+- `repMallaCurricularEst` — malla curricular.
+- `verhorariomatriz-matriculadosEstudiante` — horario detallado.
 
-Nexo loguea contra Intranet con las mismas credenciales que SIGMA,
-guarda el cookie `PHPSESSID` localmente y lo reusa hasta que expira.
+Nexo autentica contra la Intranet utilizando las mismas credenciales
+de SIGMA, conserva la cookie `PHPSESSID` localmente y la reutiliza
+hasta su caducidad.
 
-### 3. Microsoft Teams (opcional)
+### 3. Microsoft Graph Education (opcional)
 
-Si querés ver tus clases y tareas de Teams dentro de Nexo, activás la
-integración Microsoft 365:
+Cuando el usuario activa la integración con Microsoft Teams:
 
-1. **Login:** OAuth2 **Device Code Flow** contra
+1. **Autenticación:** OAuth2 Device Code Flow contra
    `https://login.microsoftonline.com/organizations/oauth2/v2.0/`.
 2. **API:** Microsoft Graph Education
    (`https://graph.microsoft.com/v1.0/education/...`).
-3. **Permisos solicitados:** `EduRoster.ReadBasic`,
-   `EduAssignments.ReadBasic`, `User.Read`, `openid`, `profile`,
+3. **Permisos delegados solicitados:** `EduRoster.ReadBasic`,
+   `EduAssignments.ReadBasic`, `User.Read`, `openid`, `profile` y
    `offline_access`.
 
-Los tokens (access + refresh) se guardan localmente como JSON. Se
-refrescan automáticamente cuando vencen.
+Los tokens (access y refresh) se almacenan localmente en formato JSON
+y se renuevan automáticamente cuando caducan.
 
-> Esta integración **es opcional** y completamente independiente del
-> resto de Nexo. Si nunca la activás, jamás se hace una llamada a
-> Microsoft.
+Esta integración es independiente del resto de la aplicación. Sin
+activación explícita, Nexo no realiza ninguna solicitud a servicios
+de Microsoft.
 
-## Patrón "híbrido" (Resolver)
+## Patrón Resolver
 
-Algunos datos están en SIGMA Y en Intranet (a veces con formatos
-distintos, a veces solo en uno). Nexo implementa un patrón **Resolver**:
-para cada dato, define una cadena de fuentes y elige la primera que
-responda con data válida (con timeouts cortos).
+Determinados datos están disponibles en SIGMA y en la Intranet UPLA,
+en ocasiones con formatos distintos o únicamente en uno de los dos
+sistemas. Nexo implementa un patrón Resolver: para cada dato se
+declara una cadena de fuentes y se selecciona la primera que responda
+con información válida, aplicando tiempos de espera reducidos.
 
-Beneficio: si SIGMA está caído (cosa que pasa), Intranet sigue
-funcionando para los datos que tiene, y Nexo no se rompe del todo.
+Esto permite que la aplicación siga ofreciendo funcionalidad cuando
+uno de los sistemas presenta indisponibilidad temporal.
 
-## Estado en runtime — el AppStore
+## Gestión de estado
 
-Toda la data se carga en un **AppStore** in-memory (patrón
-`ChangeNotifier` de Flutter, con un wrapper `AsyncValue<T>` para
-manejar estados `idle/loading/data/error`).
+La aplicación mantiene el estado de la sesión en una instancia de
+`AppStore` (clase basada en `ChangeNotifier` de Flutter, con un
+contenedor `AsyncValue<T>` para representar los estados `idle`,
+`loading`, `data` y `error`).
 
-Las pantallas escuchan al store con `ListenableBuilder` y se
-re-renderean cuando llega data nueva. Es básicamente Redux/MobX pero
-sin librería extra — 1 archivo, ~600 líneas.
+Las pantallas observan al store mediante `ListenableBuilder` y se
+redibujan automáticamente cuando los datos cambian.
 
 ## Persistencia local
 
-| Dato | Dónde vive | Cuándo se borra |
-|------|-----------|----------------|
-| Token SIGMA | SharedPreferences | Logout o desinstalar |
-| Cookie Intranet | SharedPreferences | Logout o desinstalar |
-| Tokens Microsoft | SharedPreferences (JSON) | Revocar acceso o desinstalar |
-| Credenciales (si "Recordarme") | SharedPreferences (base64) | Desmarcar "Recordarme" o desinstalar |
-| Perfil / horario / cuotas cacheados | SharedPreferences (JSON con TTL) | Logout o desinstalar |
-| Listas grandes (histórico de pagos) | SQLite local (`sqflite`) | Logout o desinstalar |
-| Snapshot de notas (para detectar cambios) | SharedPreferences | Logout o desinstalar |
-| Tema, idioma, formato de hora | SharedPreferences | Desinstalar |
-| Modelo Lumen (~290 MB o ~530 MB) | `getApplicationSupportDirectory()` | Borrar desde settings de Lumen o desinstalar |
-| Historial de chat Lumen | Solo memoria (no persistido en v1) | Cerrar la app |
+| Dato | Ubicación | Eliminación |
+|------|-----------|-------------|
+| Token SIGMA | `SharedPreferences` | Cierre de sesión o desinstalación |
+| Cookie Intranet | `SharedPreferences` | Cierre de sesión o desinstalación |
+| Tokens Microsoft | `SharedPreferences` (JSON) | Revocación de acceso o desinstalación |
+| Credenciales (con opción "Recordar") | `SharedPreferences` (Base64) | Desactivación de la opción o desinstalación |
+| Perfil, horario y cuotas (caché) | `SharedPreferences` (JSON con TTL) | Cierre de sesión o desinstalación |
+| Histórico de pagos | SQLite local (`sqflite`) | Cierre de sesión o desinstalación |
+| Snapshot de calificaciones | `SharedPreferences` | Cierre de sesión o desinstalación |
+| Preferencias (tema, idioma) | `SharedPreferences` | Desinstalación |
+| Modelo Lumen (290–530 MB) | `getApplicationSupportDirectory()` | Configuración de Lumen → "Borrar modelo" o desinstalación |
+| Historial de conversaciones de Lumen | Memoria volátil | Cierre de la aplicación |
 
-Todo lo que vive en `SharedPreferences` y `getApplicationSupportDirectory()`
-es **privado a la app** (Android sandbox) — otras apps no pueden leerlo
-sin root.
+Toda la información persistida en `SharedPreferences` y en
+`getApplicationSupportDirectory()` reside en el sandbox privado de la
+aplicación. En Android moderno no es accesible a otras aplicaciones
+sin acceso root.
 
-## Seguridad de transporte
+## Seguridad del transporte
 
-Nexo bundlea el [CA bundle de Mozilla](https://curl.se/ca/cacert.pem)
-en `assets/certs/cacert.pem`. Esto resuelve un problema real visto en
-producción: ciertos teléfonos Android (especialmente Xiaomi con MIUI
-viejas, y algunos Samsung) tienen el almacén raíz desactualizado y/o
-SIGMA omite a veces certificados intermedios, lo que causa
+Nexo incluye el [almacén de autoridades certificadoras de
+Mozilla](https://curl.se/ca/cacert.pem) en
+`assets/certs/cacert.pem`. Este recurso aborda un problema observado
+en producción: determinados dispositivos Android, especialmente
+modelos Xiaomi con versiones antiguas de MIUI y algunos Samsung,
+presentan un almacén raíz desactualizado o reciben certificados
+intermedios incompletos por parte de SIGMA, lo que provoca el error
 `CERTIFICATE_VERIFY_FAILED`.
 
-El bundle se carga en un `SecurityContext` con `setTrustedCertificatesBytes`
-y se usa en todos los clientes HTTP de la app. En Web no aplica (el
-navegador valida).
+El almacén se carga en un `SecurityContext` mediante
+`setTrustedCertificatesBytes` y se utiliza en todos los clientes HTTP
+de la aplicación. La versión web delega esta validación al navegador.
 
 ## Notificaciones
 
-Nexo usa `flutter_local_notifications` para programar avisos **del
-sistema operativo**:
+Nexo utiliza `flutter_local_notifications` para programar avisos
+locales del sistema operativo:
 
-- Recordatorios de clases (15 min antes del inicio).
-- Recordatorios de cuotas (1 día antes del vencimiento).
-- Detección de cambio en notas (al refrescar).
+- Recordatorios de clases (quince minutos antes del inicio).
+- Avisos de vencimiento de cuotas (un día antes de la fecha límite).
+- Detección de calificaciones nuevas al actualizar el registro.
 
-**No usamos servicios push** (Firebase Cloud Messaging, APNs). Eso
-sería contradictorio con el principio de "sin servidor propio" — un
-servicio push requiere un backend que mande mensajes a Google/Apple.
+La aplicación no utiliza servicios de notificaciones push (Firebase
+Cloud Messaging, Apple Push Notification Service ni equivalentes).
+Esta decisión es coherente con el principio de no operar
+infraestructura propia: un servicio push requeriría un backend que
+emita los mensajes a través de los proveedores de cada plataforma.
 
-Las notificaciones se reprograman cada vez que abrís la app y la data
-se refresca. Si pasás semanas sin abrir Nexo, las notificaciones
-viejas siguen disparándose hasta su fecha programada, pero no
-aparecen las nuevas.
+Las notificaciones se reprograman al iniciar la aplicación. Los
+avisos cuya fecha programada se cumpla siguen disparándose aunque la
+aplicación no haya sido abierta recientemente, pero no se generan
+avisos nuevos hasta que el usuario abra la aplicación y se
+actualicen los datos.
 
-## Diferencias vs. el sitio web oficial
+## Comparativa con el portal web oficial
 
-| Aspecto | Sitio web UPLA | Nexo |
-|---------|---------------|------|
-| Login | Cada sistema (SIGMA, Intranet) por separado | Single sign-on con tus credenciales SIGMA |
-| Modo offline | No | Sí (datos cacheados) |
-| Notificaciones | No | Sí (locales) |
-| Mobile-first | Parcial | Sí |
-| Lumen (asistente IA) | No | Sí (opcional, on-device) |
-| Costo | Gratis | Gratis |
-| Ad networks | No (al momento de escribir) | No, jamás |
-| Telemetría / analytics | Probable (Google Analytics) | No |
+| Aspecto | Portal web UPLA | Nexo |
+|---------|----------------|------|
+| Autenticación | Independiente por sistema (SIGMA, Intranet) | Inicio de sesión unificado con credenciales SIGMA |
+| Modo sin conexión | No disponible | Disponible (datos en caché) |
+| Notificaciones | No disponibles | Disponibles (locales) |
+| Diseño móvil | Parcial | Optimizado |
+| Asistente integrado | No disponible | Opcional, ejecución local |
+| Costo | Gratuito | Gratuito |
+| Publicidad | No | No |
+| Telemetría / análisis | Probable | No |
 
-## ¿Y si UPLA cambia su API?
+## Mantenimiento ante cambios en APIs de UPLA
 
-Cosa que pasa de vez en cuando. La rotura típica:
-
-1. UPLA actualiza un endpoint, cambia el formato JSON.
-2. Esa sección de Nexo aparece en blanco o tira "error al cargar".
-3. Tenés que esperar a que yo (o un contributor) publique una versión
-   actualizada — generalmente entre horas y días según mi disponibilidad.
-
-Si querés que esa actualización vaya rápido, abrí un issue con la
-descripción del problema (qué endpoint, qué error, qué versión).
+Las APIs institucionales pueden modificarse sin previo aviso. Un
+cambio en el formato de respuesta de un endpoint puede causar que la
+sección correspondiente de Nexo presente errores o aparezca vacía. La
+resolución requiere la publicación de una versión actualizada de la
+aplicación. Los reportes de incidencias mediante issues aceleran este
+proceso.

@@ -1,180 +1,200 @@
-# Lumen — el asistente IA on-device de Nexo
+# Lumen — asistente de IA on-device
 
-## Qué es Lumen
+## Descripción
 
-Lumen es un **chat con un modelo de lenguaje pequeño** que vive dentro
-de Nexo. Le hacés preguntas en español; te responde usando:
+Lumen es el asistente de inteligencia artificial integrado en Nexo.
+Permite al usuario realizar consultas en lenguaje natural y obtener
+respuestas elaboradas a partir de dos fuentes:
 
-1. **Tu data en vivo** (perfil, horario, cuotas, notas) que Nexo ya
-   tiene cargada del SIGMA / Intranet.
-2. **Un knowledge base estático** sobre UPLA (carreras, sedes,
-   trámites, asignaturas) que viene bundleado en la app.
+1. **Datos del usuario disponibles localmente.** Perfil, horario,
+   cuotas y calificaciones que Nexo ya ha obtenido de SIGMA o de la
+   Intranet UPLA.
+2. **Base de conocimiento estática.** Información pública sobre la
+   universidad (carreras, sedes, trámites, asignaturas) distribuida
+   con la aplicación.
 
-Todo procesado **en tu propio teléfono**. Sin servidor, sin APIs de IA
-externas, sin internet en el momento de inferencia.
+Toda la inferencia se ejecuta en el procesador del dispositivo. No se
+realizan solicitudes a servicios de IA externos durante el uso del
+asistente.
 
-## Cómo funciona (paso a paso)
+## Funcionamiento interno
 
-Cuando le hacés una pregunta:
+El procesamiento de una consulta sigue las siguientes etapas:
 
-1. **Router de intent** clasifica tu pregunta con regex livianos:
-   - "¿cuándo es mi próxima clase?" → categoría `schedule`.
-   - "¿cuánto debo?" → categoría `payments`.
-   - "¿qué carreras hay?" → categoría `careersKb`.
-   - "hola" → ninguna categoría especial.
-2. **Context builder** arma un prompt en memoria, incluyendo solo los
-   bloques que el router flageó (para no saturar el modelo).
-3. **Engine** (capa sobre MediaPipe LLM Inference) toma ese prompt y
-   genera la respuesta token por token usando la CPU/GPU del
-   dispositivo.
-4. La UI del chat va mostrando cada token apenas llega — el efecto
-   "máquina de escribir" que ves.
-5. Cuando termina, el chat se resetea internamente. La próxima
-   pregunta es independiente (no recuerda la anterior — diseño de v1).
+1. **Clasificación de intención.** Un componente de routing aplica un
+   conjunto de expresiones regulares a la consulta del usuario para
+   identificar las categorías de información relevantes (horario,
+   pagos, calificaciones, carreras, trámites, información general
+   sobre UPLA, información sobre la aplicación).
+2. **Construcción del prompt.** El módulo de contexto incorpora
+   únicamente los bloques de información identificados como
+   relevantes, junto con la consulta del usuario y la identificación
+   del asistente. Este enfoque selectivo evita saturar el contexto del
+   modelo y mantiene el rendimiento.
+3. **Inferencia.** El motor invoca MediaPipe LLM Inference, que
+   ejecuta el modelo sobre la CPU o GPU del dispositivo y emite la
+   respuesta token a token.
+4. **Visualización.** La interfaz del chat muestra los tokens conforme
+   se generan, produciendo el efecto de escritura progresiva.
+5. **Reinicio de contexto.** Tras la respuesta, el motor reinicia el
+   contexto del modelo. Cada consulta es independiente de la anterior
+   en esta versión del producto.
 
-## Las dos variantes
+## Variantes disponibles
 
-Cuando activás Lumen por primera vez, te deja elegir:
+### Lumen Ligero (Gemma 3 — 270M, cuantización int8)
 
-### Lumen Ligero (~290 MB)
+- Tamaño de descarga: ~290 MB.
+- Consumo de memoria en ejecución: ~500 MB.
+- Velocidad de generación: 30-50 tokens por segundo en dispositivos
+  de gama media.
+- Recomendado para dispositivos con 2-3 GB de RAM.
 
-- Modelo base: ~270M parámetros, cuantización int8.
-- RAM en runtime: ~500 MB.
-- Velocidad: 30-50 tokens/segundo en teléfonos de gama media.
-- **Recomendado para:** teléfonos con 2-3 GB de RAM o gama media-baja.
-- **Limitación honesta:** modelo pequeño = respuestas más cortitas y
-  ocasionalmente menos precisas. Aún así sirve para Q&A directo
-  sobre tu data.
+Modelo de tamaño reducido, optimizado para tiempos de respuesta
+breves. Adecuado para consultas directas sobre los datos del usuario.
 
-### Lumen Estándar (~530 MB)
+### Lumen Estándar (Gemma 3 — 1B, cuantización int4 QAT)
 
-- Modelo base: ~1B parámetros, cuantización int4 (QAT).
-- RAM en runtime: ~800 MB.
-- Velocidad: 15-25 tokens/segundo en teléfonos modernos.
-- **Recomendado para:** teléfonos con 4 GB de RAM o más.
-- **Mejor calidad** general — entiende mejor preguntas elaboradas y
-  da respuestas más completas.
+- Tamaño de descarga: ~530 MB.
+- Consumo de memoria en ejecución: ~800 MB.
+- Velocidad de generación: 15-25 tokens por segundo en dispositivos
+  modernos.
+- Recomendado para dispositivos con 4 GB de RAM o superior.
 
-Podés cambiar entre variantes en cualquier momento desde el ícono de
-ajustes de Lumen → "Cambiar modelo". Se borra la actual y se descarga
+Modelo de mayor capacidad, ofrece respuestas más elaboradas y mejor
+comprensión de consultas complejas.
+
+La selección entre variantes se realiza desde Lumen → Configuración →
+"Cambiar modelo". La operación elimina la variante actual y descarga
 la nueva.
 
-## Qué puede y qué no puede
+## Capacidades
 
-### Puede
+El asistente está diseñado para responder a consultas como:
 
-- "¿Cuál es mi próxima clase?" (lee tu horario)
-- "¿Cuánto debo este mes?" (lee tus cuotas)
-- "¿Cuál es mi promedio?" (lee tus notas)
-- "¿Cómo trámito una constancia de matrícula?" (responde desde el KB)
-- "¿Qué carreras tiene la facultad de Ingeniería?" (idem)
-- "¿En qué sede está la biblioteca principal?" (idem)
-- Conversación casual ("hola", "gracias", "qué podés hacer").
+- "¿Cuál es mi próxima clase?"
+- "¿Cuánto debo este mes?"
+- "¿Cuál es mi promedio?"
+- "¿Cómo trámito una constancia de matrícula?"
+- "¿Qué carreras tiene la facultad de Ingeniería?"
+- "¿En qué sede está la biblioteca principal?"
 
-### No puede
+También admite conversación casual ("hola", "gracias") y preguntas
+sobre el propio asistente o sobre Nexo.
 
-- **Navegar internet** — el modelo es local, sin acceso a la red.
-- **Modificar datos en SIGMA** — Lumen es solo lectura.
-- **Contactar a profesores ni a otras personas** — no manda mensajes.
-- **Recordar conversaciones pasadas** — en v1 cada pregunta es
-  independiente (lo cambiaremos en v1.3).
-- **Reemplazar a asesoría académica oficial** — para trámites
-  importantes confirmá con la fuente.
-- **Razonar como GPT-4** — son modelos pequeñísimos en comparación.
-  No le pidas que te ayude con tu tesis ni que escriba código complejo.
+## Limitaciones
 
-## Por qué a veces dice "no tengo esa información"
+- **No accede a internet** durante la inferencia.
+- **No modifica información** en SIGMA ni en otros sistemas. Es un
+  agente de solo lectura.
+- **No envía mensajes** a profesores ni a terceros.
+- **No conserva el historial de la conversación entre consultas** en
+  esta versión. La persistencia se contempla para la versión 1.3.
+- **No sustituye a la asesoría académica oficial.** Para trámites de
+  importancia el usuario debe verificar la información en las fuentes
+  institucionales.
+- **No tiene la capacidad de razonamiento de los modelos comerciales
+  en la nube.** Los modelos utilizados son significativamente más
+  pequeños (270 millones a 1.000 millones de parámetros, frente a las
+  decenas de miles de millones de los servicios comerciales).
 
-Si la data que necesita la respuesta **no está en el contexto que el
-router le inyectó**, Lumen prefiere decir "no sé" antes que inventar.
-Es comportamiento intencional — preferimos respuestas vacías a
-respuestas falsas.
+## Comportamiento ante información ausente
 
-Si pasa frecuentemente con un tipo de pregunta, abrí un issue
-indicando el ejemplo. Probablemente hay que mejorar el router (agregar
-más palabras clave para esa categoría) o el knowledge base (agregar la
-info que falta).
+Si el contexto inyectado no contiene la información necesaria para
+responder con precisión a la consulta, el asistente está instruido
+para indicarlo explícitamente en lugar de generar contenido inferido.
+Este comportamiento es intencional: se prioriza la admisión de
+desconocimiento sobre la generación de información incorrecta.
 
-## Privacidad — la versión técnica
+Si una categoría de consultas presenta este síntoma con frecuencia,
+es posible que el routing requiera la incorporación de palabras clave
+adicionales o que la base de conocimiento deba ampliarse.
 
-Por qué decimos "100 % on-device":
+## Privacidad — detalles técnicos
 
-1. El modelo `.task` se descarga **una vez** desde un release público
-   de este repo (binario estático, sin telemetría).
-2. La descarga es la **única** llamada de red que hace el módulo de
-   Lumen. Después de eso, el módulo no abre sockets a internet.
-3. La inferencia ocurre vía **MediaPipe LLM Inference** (librería C++
-   de Google) sobre **TensorFlow Lite**. Estas son librerías locales
-   estándar — corren en el procesador del teléfono.
-4. El input (tu prompt) y el output (la respuesta) viven solo en RAM
-   y se descartan al cerrar el chat.
+La afirmación de que Lumen opera "completamente en el dispositivo" se
+sustenta en los siguientes hechos verificables:
 
-**Auditoría:** el código del módulo Lumen (`lib/ai/`) puede ser
-revisado bajo NDA si querés verificar la afirmación. Las únicas
-llamadas HTTP en ese módulo son a `github.com/Alexito-Hub/nexo-releases`
-para descargar el `.task` inicial.
+1. El archivo del modelo (`.task` o `.litertlm` según plataforma) se
+   descarga una única vez desde un release público de GitHub. Esta es
+   la única solicitud de red que origina el módulo Lumen.
+2. La inferencia se ejecuta mediante MediaPipe LLM Inference, una
+   biblioteca C++ desarrollada por Google que opera sobre TensorFlow
+   Lite. Ambas son bibliotecas locales estándar.
+3. La consulta del usuario y la respuesta generada residen
+   exclusivamente en la memoria del proceso y se descartan al
+   finalizar el chat.
+
+El código del módulo Lumen (`lib/ai/`) puede revisarse bajo acuerdo de
+confidencialidad para verificar estas afirmaciones de forma
+independiente.
 
 ## Licencia del modelo
 
-Los modelos `.task` que distribuimos son **versiones cuantizadas
-oficiales de Google**, redistribuidas según los términos de la
-**[Gemma Use Policy](https://ai.google.dev/gemma/terms)**.
+Los archivos de modelo distribuidos por este proyecto son versiones
+cuantizadas oficiales de Google, redistribuidas conforme a los
+términos de la [Gemma Use Policy](https://ai.google.dev/gemma/terms).
 
-Esto significa que:
-- Podés usarlos para fines personales y educativos.
-- No podés usarlos para generar contenido dañino, ilegal, etc.
-- Si los redistribuís a tu vez, debés mantener el aviso de licencia.
+Implicaciones para el usuario final:
 
-El modelo en sí fue entrenado por Google con un cutoff de conocimiento
-de **principios de 2025**. Eventos posteriores los desconoce.
+- Uso personal y educativo permitido.
+- Prohibido el uso para generar contenido dañino, ilegal o que viole
+  los términos completos publicados por Google.
+- En caso de redistribución por parte del usuario, deben mantenerse
+  los términos de licencia originales.
 
-## Por qué Lumen no menciona qué modelo usa
+El modelo se entrenó con datos cuyo corte de conocimiento es
+principios de 2025. Eventos posteriores a esa fecha no forman parte
+del conocimiento del modelo.
 
-Si le preguntás "¿qué modelo sos?", Lumen responde algo como *"soy
-Lumen, el asistente local de Nexo"* y no menciona Gemma ni Google.
+## Identificación del asistente
 
-Esto no es por ocultar nada — es producto de:
-- El nombre del producto es **Lumen**, no "Gemma".
-- Al usuario final le importa el comportamiento (rápido, privado,
-  útil), no el nombre del modelo subyacente.
-- Si en futuras versiones cambiamos el modelo subyacente (ej. una
-  variante mejor de Gemma, o Qwen, o Phi), el nombre "Lumen" sigue
-  siendo el mismo y no rompemos esa abstracción.
+Al ser consultado sobre su naturaleza técnica, el asistente responde
+identificándose como "Lumen, el asistente local de Nexo" sin
+referenciar el modelo subyacente. Esta decisión obedece a tres
+razones:
 
-La info técnica completa (qué modelo, qué cuantización, qué tamaño)
-está en este documento y en el código fuente. Cero ocultación.
+1. El producto se denomina Lumen, no Gemma.
+2. La identidad del modelo es un detalle de implementación. Lo
+   relevante para el usuario es el comportamiento (velocidad,
+   privacidad, utilidad).
+3. La posibilidad de cambiar el modelo subyacente en versiones
+   futuras (a una variante mejor de Gemma o a un modelo alternativo)
+   no debe afectar a la identidad del producto.
 
-## Roadmap de Lumen
+La información técnica completa sobre el modelo utilizado se publica
+en este documento y en el código fuente. No se oculta ninguna
+información de carácter técnico.
 
-- **v1.3:** persistencia del chat en SQLite — Lumen recordará
-  conversaciones pasadas.
-- **v1.4:** voz (input por micrófono + TTS para las respuestas).
-- **v1.5:** multimodal — mandar fotos al chat (ej.: foto de tu
-  boleta de pago para que te diga qué es cada línea).
-- **v2.0:** modelos optimizados por SoC (Snapdragon NPU, MediaTek
-  APU) para 3-5x más velocidad.
+## Hoja de ruta
 
-## Comparativa rápida
+| Versión | Funcionalidad prevista |
+|---------|------------------------|
+| 1.3 | Persistencia del historial de conversaciones en SQLite local |
+| 1.4 | Entrada de voz (reconocimiento) y salida de voz (síntesis) |
+| 1.5 | Soporte multimodal (procesamiento de imágenes) |
+| 2.0 | Modelos optimizados por SoC (Qualcomm NPU, MediaTek APU) |
 
-|  | Lumen | ChatGPT (web) | Gemini app |
-|---|-------|--------------|------------|
-| Privacidad | 100 % local | Tu prompt va a OpenAI | Tu prompt va a Google |
-| Internet requerido | Solo para descarga inicial | Sí, cada vez | Sí, cada vez |
-| Costo | Gratis, sin límite de uso | Free tier con límites + suscripción | Idem |
-| Calidad | Buena para Q&A simple | Excelente | Excelente |
-| Conoce tu data UPLA | Sí (porque Nexo se la pasa) | No | No |
-| Funciona offline | Sí, tras descarga | No | No |
+## Comparación con servicios comerciales
 
-## Cuándo NO usar Lumen
+| Aspecto | Lumen | ChatGPT (web) | Gemini app |
+|---------|-------|---------------|------------|
+| Procesamiento | Local | Servidores de OpenAI | Servidores de Google |
+| Conexión requerida | Solo para descarga inicial | Permanente | Permanente |
+| Coste | Gratuito, sin límite | Gratuito limitado / suscripción | Gratuito limitado / suscripción |
+| Calidad | Adecuada para consultas directas | Muy alta | Muy alta |
+| Acceso a datos del usuario | Sí (locales) | No | No |
+| Funcionamiento sin conexión | Sí, tras descarga | No | No |
 
-- Si necesitás precisión absoluta sobre un monto, fecha o número
-  oficial → mirá la pantalla correspondiente en Nexo (Pagos, Notas,
-  Horario) directamente. Esos datos vienen de la API oficial,
-  exactos. Lumen los lee de ahí pero puede formatearlos mal en
-  rarísimos casos.
-- Para preguntas complejas que requieran razonamiento profundo →
-  ChatGPT / Gemini Pro / Claude son mucho más capaces. Lumen es un
-  ayudante de bolsillo, no un tutor.
-- Si tu teléfono es muy viejo (<3 GB RAM) → el modelo más chico puede
-  no correr fluido. En ese caso, mejor desactivá Lumen y usá Nexo
-  normal.
+## Casos en que conviene no usar Lumen
+
+- Cuando se requiere precisión absoluta sobre un valor monetario,
+  fecha oficial o número administrativo. En estos casos la consulta
+  directa a la pantalla correspondiente de Nexo ofrece el dato exacto
+  proveniente de la API oficial.
+- Para tareas que requieren razonamiento profundo o creatividad
+  extensa. Los servicios comerciales en la nube son significativamente
+  más capaces para este tipo de tareas.
+- En dispositivos con menos de 3 GB de RAM. El rendimiento del modelo
+  más pequeño puede no ser satisfactorio. En este caso es preferible
+  desactivar Lumen y utilizar Nexo sin el asistente.

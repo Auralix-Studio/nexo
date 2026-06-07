@@ -1,225 +1,227 @@
-# Política de privacidad — Nexo y Lumen
+# Política de Privacidad
 
-**Última actualización:** 2026-06-07
-**Responsable:** Alessandro Villogas Gaspar (alumno UPLA, U01025B)
-**Contacto:** [issues del repo](https://github.com/Alexito-Hub/nexo-releases/issues)
+**Versión:** 1.0
+**Vigente desde:** 7 de junio de 2026
+**Responsable del tratamiento:** Alessandro Villogas Gaspar
+**Contacto:** [GitHub Issues](https://github.com/Alexito-Hub/nexo-releases/issues)
 
-Este documento describe **qué datos toca Nexo**, **qué hace con ellos**
-y **qué NO hace** — en lenguaje directo, sin legalese innecesario.
-
----
-
-## TL;DR
-
-- Nexo es **100 % cliente**: habla solo con los servidores oficiales
-  de UPLA y de Microsoft (si activás Teams). No tiene servidor propio.
-- **Lumen es 100 % on-device**: toda inferencia IA ocurre en tu
-  teléfono. Cero llamadas a APIs externas.
-- **Sin telemetría, sin analytics, sin tracking de uso.** Nexo no
-  reporta nada de lo que hacés en la app.
-- Tu sesión, datos cacheados e historial de chat **viven en tu
-  dispositivo** y se borran al desinstalar.
+Este documento describe el tratamiento que la aplicación Nexo
+(en adelante, "la Aplicación") realiza sobre los datos del usuario.
+Se redacta en lenguaje directo a fin de garantizar su comprensión por
+parte de personas no técnicas.
 
 ---
 
-## 1. Qué datos toca Nexo
+## 1. Principios
 
-### 1.1 Credenciales
+La Aplicación se diseñó conforme a los siguientes principios:
 
-Para iniciar sesión necesitás tu **usuario y contraseña de SIGMA UPLA**
-(los mismos que usás en https://sigma.upla.edu.pe).
-
-**Qué hacemos con ellas:**
-- Las enviamos al endpoint oficial de login de SIGMA
-  (`POST https://sigma.upla.edu.pe/api/...`) — la misma request que
-  hace tu navegador cuando entrás al sitio web.
-- Recibimos un **JWT** (token de sesión) y lo guardamos localmente.
-- Si elegís "Recordarme", también guardamos tu usuario y contraseña
-  cifradas en base64 en `SharedPreferences` (almacenamiento privado de
-  la app, no accesible a otras apps en Android moderno).
-
-**Qué NO hacemos:**
-- No mandamos tu contraseña a ningún servidor que no sea SIGMA.
-- No la transmitimos en texto plano (TLS de SIGMA con root CAs
-  verificadas — Nexo incluye su propio bundle de Mozilla para evitar
-  fallar en teléfonos con almacén raíz desactualizado).
-- No la compartimos con terceros (porque no existe ningún tercero).
-
-### 1.2 Datos académicos
-
-Cuando la sesión está activa, Nexo consulta SIGMA e Intranet para
-mostrarte:
-
-- **Perfil:** nombre, código, carrera, facultad, ciclo, modalidad,
-  sede, créditos aprobados.
-- **Horario:** cursos del periodo activo (con docente, aula, día,
-  hora).
-- **Notas:** promedio acumulado, promedios por periodo, notas por
-  curso, ranking promocional, conteo de notas pendientes.
-- **Pagos:** cuotas pendientes y vencidas, histórico de operaciones,
-  tasas/tarifas, cronograma del periodo.
-- **Trámites:** constancias de matrícula generadas.
-
-Toda esta data viaja por HTTPS entre tu teléfono y los servidores de
-UPLA. Nexo cachea localmente lo más reciente para que la app sea rápida
-y siga funcionando sin internet (modo offline básico). La caché vive en:
-
-- `SharedPreferences` para metadata pequeña.
-- SQLite local (`sqflite`) para listas más grandes.
-- Ambos privados a la app, se borran al desinstalar o al usar
-  "Cerrar sesión + limpiar".
-
-### 1.3 Microsoft Teams (opcional)
-
-Si activás la integración Teams, Nexo usa **OAuth2 Device Code Flow**
-contra Microsoft Graph. El flujo:
-
-1. La app pide un código a Microsoft.
-2. Vos abrís https://microsoft.com/devicelogin y lo confirmás con tu
-   cuenta institucional.
-3. Microsoft devuelve a Nexo un access token + refresh token, que se
-   guardan localmente.
-
-**Permisos solicitados** (mínimos posibles):
-
-- `EduRoster.ReadBasic` — leer la lista de tus clases de Teams.
-- `EduAssignments.ReadBasic` — leer tus tareas.
-- `User.Read` — leer tu nombre y email institucional.
-- `openid`, `profile`, `offline_access` — estándar OAuth.
-
-Podés revocar el acceso desde https://myaccount.microsoft.com cuando
-quieras. Eso invalida los tokens guardados en Nexo.
-
-### 1.4 Notificaciones locales
-
-Nexo programa notificaciones **en el sistema operativo** para:
-- Recordatorios de clases (15 min antes del inicio).
-- Recordatorios de cuotas (1 día antes del vencimiento).
-- Cambios en notas (cuando detecta una nueva al refrescar).
-
-Estas notificaciones son **locales** — el SO las dispara desde el
-mismo dispositivo. No usamos servicios push (ni Firebase, ni APNs).
+1. **Cliente directo.** La Aplicación se comunica exclusivamente con
+   los servidores oficiales de la Universidad Peruana Los Andes y, de
+   forma opcional, con Microsoft Graph. No existe un servidor
+   intermedio operado por el responsable.
+2. **Procesamiento local.** Toda la información del usuario se
+   almacena y procesa en el dispositivo. El asistente Lumen ejecuta su
+   inferencia íntegramente en el procesador del equipo.
+3. **Ausencia de telemetría.** La Aplicación no recopila estadísticas
+   de uso, eventos de interfaz ni métricas de rendimiento.
+4. **Reversibilidad.** Toda la información almacenada por la
+   Aplicación puede eliminarse mediante los controles previstos al
+   efecto o desinstalando el programa.
 
 ---
 
-## 2. Lumen (asistente IA on-device)
+## 2. Datos tratados
 
-Lumen es opcional. Si lo activás, descargás **una sola vez** un modelo
-de lenguaje (~290 MB o ~530 MB según la variante que elijas) desde un
-release de GitHub.
+### 2.1. Credenciales de acceso a SIGMA
 
-**Qué hace Lumen con tu data:**
+El usuario debe introducir su nombre de usuario y contraseña de SIGMA
+UPLA para utilizar las funciones que dependen de dicha plataforma.
 
-- Lee la data que ya tenés en Nexo (perfil, horario, cuotas, notas)
-  desde el almacén local — la misma que ves en pantalla.
-- Construye un prompt en memoria con esa info y se lo pasa al modelo.
-- El modelo corre **en el procesador de tu teléfono** vía MediaPipe
-  LLM Inference (capa C++ encima de TensorFlow Lite).
-- La respuesta se streamea palabra por palabra a la UI del chat.
+- Las credenciales se transmiten exclusivamente al endpoint oficial de
+  autenticación de SIGMA (`https://sigma.upla.edu.pe/api/Acceso/...`)
+  mediante TLS.
+- Si el usuario activa la opción "Recordar credenciales", éstas se
+  almacenan localmente en el área privada de la aplicación
+  (`SharedPreferences` de Android, equivalente en iOS), codificadas en
+  Base64 a efectos de ofuscación.
+- Las credenciales no se transmiten a ningún servicio adicional ni a
+  terceros.
 
-**Qué NO hace Lumen:**
+### 2.2. Datos académicos y administrativos
 
-- No envía tu pregunta a ningún servidor.
-- No envía tu data académica fuera del dispositivo.
-- No registra ni reporta nada de lo que le preguntás.
-- No usa APIs de OpenAI, Google AI, Anthropic, ni ninguna otra
-  IA en la nube.
+Mientras la sesión está activa, la Aplicación consulta los siguientes
+datos a través de las APIs oficiales de UPLA:
 
-**Auditable:** el módulo `lib/ai/` del código fuente puede ser
-revisado bajo NDA si querés verificar que cumple esto.
+- **Perfil del estudiante:** nombre completo, código, carrera,
+  facultad, ciclo, modalidad, sede, créditos aprobados.
+- **Horario académico:** asignaturas, docentes, aulas, horarios y
+  modalidad del periodo activo.
+- **Calificaciones:** promedio acumulado, promedios por periodo, notas
+  por asignatura y ranking promocional.
+- **Información financiera:** cuotas pendientes y vencidas, histórico
+  de operaciones, cronograma de pagos del periodo.
+- **Trámites:** constancias generadas, certificados, etc.
 
-Más detalles en [`docs/lumen.md`](./docs/lumen.md).
+Esta información se almacena en caché en el dispositivo
+(`SharedPreferences` para metadatos y SQLite local para listas
+extensas) con el fin de habilitar el modo sin conexión y acelerar la
+carga de pantallas. La caché se elimina al cerrar sesión o desinstalar
+la Aplicación.
 
----
+### 2.3. Integración con Microsoft 365 (opcional)
 
-## 3. Qué Nexo NO hace
+Cuando el usuario activa la integración con Microsoft Teams:
 
-Esta lista es importante. **Nada de lo siguiente ocurre** en Nexo:
+- La Aplicación inicia un flujo OAuth2 Device Code Flow contra
+  `login.microsoftonline.com`.
+- Se solicitan permisos delegados mínimos: `EduRoster.ReadBasic`,
+  `EduAssignments.ReadBasic`, `User.Read`, `openid`, `profile` y
+  `offline_access`.
+- Los tokens (access y refresh) se almacenan localmente como JSON.
+- El usuario puede revocar el acceso en cualquier momento desde
+  <https://myaccount.microsoft.com>.
 
-- **Telemetría**: no medimos sesiones, no mandamos heartbeats, no
-  trackeamos crashes en servicios tipo Sentry/Firebase Crashlytics.
-- **Analytics**: no usamos Google Analytics, ni Mixpanel, ni nada
-  parecido. Literalmente no sabemos cuándo abrís la app.
-- **Publicidad**: no hay anuncios, no hay SDKs de ad networks.
-- **Compartir con terceros**: no hay terceros — Nexo es un cliente
-  directo a UPLA + Microsoft.
-- **Procesamiento en la nube**: no tenemos servidor de Nexo. Todo
-  lo que ves se calcula en tu teléfono.
-- **Venta de datos**: nadie nos puede comprar lo que no tenemos.
+### 2.4. Notificaciones locales
 
----
+La Aplicación programa notificaciones a través del sistema operativo
+para los siguientes eventos:
 
-## 4. Tus controles
+- Recordatorios de clases (quince minutos antes del inicio).
+- Avisos de vencimiento de cuotas (un día antes de la fecha límite).
+- Detección de calificaciones nuevas (al actualizar el registro).
 
-Vos podés en cualquier momento:
-
-- **Cerrar sesión** (Perfil → Cerrar sesión) — limpia el token y el
-  caché. Las credenciales recordadas se borran si lo desactivás antes.
-- **Desactivar Lumen** (FAB Lumen →  → Borrar modelo) — libera el
-  espacio del modelo y deshabilita el asistente.
-- **Limpiar historial de Lumen** (FAB Lumen →  → Limpiar historial)
-  — borra el chat actual.
-- **Revocar Teams** (https://myaccount.microsoft.com) — invalida el
-  acceso de Nexo a Microsoft Graph.
-- **Desinstalar Nexo** — Android/iOS borran todos los datos privados
-  de la app automáticamente.
-
----
-
-## 5. Seguridad
-
-- Toda comunicación con SIGMA, Intranet y Microsoft Graph usa **TLS**
-  (HTTPS).
-- Nexo incluye el bundle de CA roots de Mozilla
-  (`assets/certs/cacert.pem`) para arreglar el handshake TLS en
-  dispositivos con almacén de certificados desactualizado.
-- Las credenciales guardadas localmente se ofuscan en base64. **No es
-  cifrado fuerte** — si alguien tiene acceso root al teléfono, las
-  puede leer. Es el mismo nivel de seguridad que la mayoría de apps
-  móviles.
-- Para datos sensibles a nivel "secret manager", considerá no marcar
-  "Recordarme" y reintroducir credenciales cada vez.
+Las notificaciones se generan localmente. La Aplicación no utiliza
+servicios de notificaciones push (Firebase Cloud Messaging, Apple Push
+Notification Service ni equivalentes).
 
 ---
 
-## 6. Menores de edad
+## 3. Asistente Lumen
 
-Nexo está diseñado para estudiantes universitarios mayores de 16 años
-(la mayoría legal de edad en Perú es 18). Si sos menor, idealmente
-pediles a tus padres o tutores que revisen esta política antes de usar
-la app.
+Lumen es un módulo opcional. Su activación requiere la descarga única
+de un modelo de lenguaje (entre 290 MB y 530 MB según la variante
+elegida) desde un release público de GitHub.
 
----
+### 3.1. Funcionamiento
 
-## 7. Cambios en esta política
+- El modelo se ejecuta en el procesador del dispositivo mediante
+  MediaPipe LLM Inference.
+- Lumen accede únicamente a la información ya disponible en la
+  Aplicación: perfil, horario, cuotas y notas.
+- El usuario formula una consulta. El sistema construye en memoria un
+  prompt que incluye únicamente los datos relevantes para esa
+  consulta, lo envía al motor de inferencia local y muestra la
+  respuesta en pantalla.
 
-Si esta política cambia (por ejemplo, agregamos una integración nueva),
-vas a ver:
+### 3.2. Lo que Lumen no hace
 
-1. La nueva versión publicada en este repo (`PRIVACY.md`).
-2. Una nota en el `CHANGELOG.md` indicando que la política cambió.
-3. **No te obligamos a aceptar nada** — si los cambios no te gustan,
-   podés desinstalar la app.
+- No transmite la consulta del usuario a ningún servidor externo.
+- No comparte datos académicos fuera del dispositivo.
+- No registra ni reporta las interacciones del usuario.
+- No utiliza APIs de OpenAI, Google AI, Anthropic ni otros
+  proveedores en la nube.
 
----
-
-## 8. Limitaciones de responsabilidad
-
-Nexo es un proyecto personal, mantenido **as-is**. Aunque hago todo lo
-razonablemente posible para que sea seguro y funcione bien:
-
-- No garantizo disponibilidad 24/7.
-- No garantizo que los datos que ves sean siempre los mismos que ves
-  en SIGMA (latencia, cache, errores transitorios de UPLA pueden
-  hacer que difieran).
-- Para trámites legales o decisiones críticas (matrícula, sustentación,
-  etc), **confirmá siempre con la fuente oficial**.
+La única solicitud de red que origina el módulo Lumen es la descarga
+inicial del modelo desde la URL pública del release. Detalles técnicos
+en [`docs/lumen.md`](./docs/lumen.md).
 
 ---
 
-## 9. Preguntas o reclamos
+## 4. Prácticas no realizadas
 
-Abrí un issue en
-<https://github.com/Alexito-Hub/nexo-releases/issues> con tu pregunta.
-Si preferís privado, escribí "PRIVATE" en el título y solo el mantenedor
-verá el contenido.
+A fin de evitar ambigüedad, la Aplicación no realiza ninguna de las
+siguientes prácticas:
+
+- Recopilación de métricas de uso ni telemetría.
+- Integración con servicios de análisis (Google Analytics, Firebase
+  Analytics, Mixpanel u otros).
+- Inclusión de publicidad o SDKs de monetización.
+- Compartición de datos con terceros.
+- Procesamiento en servidores propios.
+- Comercialización de información del usuario.
+
+---
+
+## 5. Derechos del usuario
+
+El usuario puede ejercer en todo momento los siguientes controles:
+
+- **Cerrar sesión** (Perfil → Cerrar sesión): elimina el token de
+  acceso y la caché. Las credenciales recordadas se eliminan si la
+  opción "Recordar" se desactiva previamente.
+- **Desactivar Lumen** (Lumen → Configuración → Borrar modelo): elimina
+  el modelo descargado y libera el almacenamiento ocupado.
+- **Limpiar historial de Lumen** (Lumen → Configuración → Limpiar
+  historial): elimina la conversación actual.
+- **Revocar el acceso de Microsoft 365** (<https://myaccount.microsoft.com>):
+  invalida los tokens almacenados.
+- **Desinstalar la Aplicación**: el sistema operativo elimina la
+  totalidad de los datos privados de la Aplicación.
+
+---
+
+## 6. Medidas de seguridad
+
+- Toda la comunicación con SIGMA, Intranet UPLA y Microsoft Graph
+  utiliza TLS (HTTPS).
+- La Aplicación incluye el almacén de autoridades certificadoras de
+  Mozilla (`assets/certs/cacert.pem`) y lo carga en un
+  `SecurityContext` propio para mitigar fallos de validación TLS en
+  dispositivos cuyo almacén raíz se encuentre desactualizado.
+- Las credenciales almacenadas localmente se codifican en Base64.
+  Esta medida ofusca el valor pero no constituye cifrado robusto. Los
+  usuarios que requieran un nivel de seguridad superior deberían
+  abstenerse de utilizar la opción "Recordar credenciales".
+
+---
+
+## 7. Menores de edad
+
+La Aplicación se dirige a estudiantes universitarios. Se recomienda
+que los usuarios menores de edad consulten esta política con sus
+padres o tutores antes de utilizar el servicio.
+
+---
+
+## 8. Modificaciones de esta política
+
+Cualquier modificación sustancial de esta política se reflejará en:
+
+1. La publicación de una nueva versión de este documento en el
+   repositorio público.
+2. Una entrada en el [`CHANGELOG.md`](./CHANGELOG.md) que indique el
+   cambio.
+
+El usuario no está obligado a aceptar modificaciones futuras y puede
+desinstalar la Aplicación en cualquier momento.
+
+---
+
+## 9. Limitación de responsabilidad
+
+La Aplicación se distribuye sin garantías expresas ni implícitas. El
+responsable no se hace cargo de:
+
+- Pérdida o corrupción de datos.
+- Decisiones académicas, administrativas o financieras tomadas con
+  base en información mostrada por la Aplicación.
+- Interrupciones del servicio derivadas de fallos en los sistemas de
+  UPLA o de Microsoft.
+- Modificaciones de las políticas o APIs de terceros que afecten al
+  correcto funcionamiento de la Aplicación.
+
+Para trámites legales, académicos o financieros, el usuario debe
+verificar la información en las fuentes oficiales.
+
+---
+
+## 10. Contacto
+
+Las consultas, reclamaciones o solicitudes relativas a esta política
+pueden remitirse mediante un issue en el repositorio público:
+
+<https://github.com/Alexito-Hub/nexo-releases/issues>
+
+Para asuntos que requieran reserva, se ruega indicar la palabra
+`PRIVADO` en el título del issue.
