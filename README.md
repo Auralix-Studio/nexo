@@ -27,7 +27,7 @@ respaldada oficialmente por la Universidad Peruana Los Andes.
   sobre tu propia data (horario, cuotas, notas, perfil) o sobre la
   universidad en general (carreras, trámites, sedes).
 
-📄 Detalles completos en [`docs/about.md`](./docs/about.md).
+Detalles completos en [`docs/about.md`](./docs/about.md).
 
 ---
 
@@ -43,7 +43,7 @@ respaldada oficialmente por la Universidad Peruana Los Andes.
 > dentro de la app, una sola vez. Están publicados como release
 > separado: ver [Modelos Lumen](https://github.com/Alexito-Hub/nexo-releases/releases?q=lumen-models).
 
-📄 Guía paso a paso en [`docs/install.md`](./docs/install.md).
+Guía paso a paso en [`docs/install.md`](./docs/install.md).
 
 ---
 
@@ -51,14 +51,14 @@ respaldada oficialmente por la Universidad Peruana Los Andes.
 
 Nexo fue diseñado con la premisa de que **tu data académica es tuya**.
 
-- ✅ Tu sesión, tus datos cacheados y tu chat con Lumen **viven solo en
+- Tu sesión, tus datos cacheados y tu chat con Lumen **viven solo en
   tu dispositivo**.
-- ✅ Lumen procesa todo localmente — el modelo IA corre en tu CPU/GPU.
-- ✅ Nexo no envía telemetría, no usa analytics, no perfila usuarios.
-- ✅ El código de comunicación con UPLA es auditable (las requests son
+- Lumen procesa todo localmente — el modelo IA corre en tu CPU/GPU.
+- Nexo no envía telemetría, no usa analytics, no perfila usuarios.
+- El código de comunicación con UPLA es auditable (las requests son
   las mismas que hace tu navegador en SIGMA/Intranet).
 
-📄 Política completa en [`PRIVACY.md`](./PRIVACY.md).
+Política completa en [`PRIVACY.md`](./PRIVACY.md).
 
 ---
 
@@ -74,7 +74,7 @@ usan las propias apps oficiales de UPLA:
 3. **Microsoft Graph Education** — OAuth2 Device Code Flow para
    integrar tus clases y tareas de Teams.
 
-📄 Arquitectura en [`docs/architecture.md`](./docs/architecture.md).
+Arquitectura en [`docs/architecture.md`](./docs/architecture.md).
 
 ---
 
@@ -93,7 +93,7 @@ es por sideload de APK firmado.
 **¿Lumen consume mis datos móviles cuando le pregunto?**
 No. Después de la descarga inicial del modelo (única vez), cero red.
 
-📄 [FAQ completa.](./docs/faq.md)
+[FAQ completa.](./docs/faq.md)
 
 ---
 
@@ -101,7 +101,7 @@ No. Después de la descarga inicial del modelo (única vez), cero red.
 
 Si algo no anda, abrí un issue en este repo:
 
-➡️ <https://github.com/Alexito-Hub/nexo-releases/issues/new>
+<https://github.com/Alexito-Hub/nexo-releases/issues/new>
 
 Incluí: pasos para reproducir, captura si aplica, modelo de teléfono y
 versión de Nexo (visible en **Perfil → Acerca de Nexo**).

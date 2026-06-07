@@ -28,11 +28,11 @@
 
 ### Permisos que NO pide
 
-- ❌ Contactos.
-- ❌ Cámara (salvo que actives multimodal Lumen, v1.5+).
-- ❌ Ubicación.
-- ❌ SMS.
-- ❌ Historial de llamadas.
+- Contactos.
+- Cámara (salvo que actives multimodal Lumen, v1.5+).
+- Ubicación.
+- SMS.
+- Historial de llamadas.
 
 ### Por qué no está en Play Store
 
@@ -102,9 +102,9 @@ Una vez instalada Nexo:
 5. Cuando termine, podés empezar a chatear.
 
 El modelo se guarda en almacenamiento privado de la app. Para
-liberarlo: FAB Lumen → ⚙ Settings → "Borrar modelo".
+liberarlo: FAB Lumen →  Settings → "Borrar modelo".
 
-📄 Más sobre Lumen en [`lumen.md`](./lumen.md).
+Más sobre Lumen en [`lumen.md`](./lumen.md).
 
 ---
 
@@ -133,7 +133,7 @@ Mantené presionado el ícono → "Desinstalar". Borra todos los datos
 locales automáticamente.
 
 ### Para borrar solo el modelo Lumen sin desinstalar la app
-FAB Lumen → ⚙ → "Borrar modelo".
+FAB Lumen →  → "Borrar modelo".
 
 ### Para cerrar sesión sin perder configuración
 Pestaña Perfil → "Cerrar sesión".

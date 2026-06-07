@@ -61,7 +61,7 @@ los ~70B de GPT-4) y por lo tanto:
 - Está pensado para Q&A sobre tu data + conocimiento UPLA básico, no
   para conversaciones largas o tareas creativas.
 
-📄 Detalles técnicos de Lumen en [`lumen.md`](./lumen.md).
+Detalles técnicos de Lumen en [`lumen.md`](./lumen.md).
 
 ## Filosofía técnica
 

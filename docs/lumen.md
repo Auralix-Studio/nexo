@@ -55,12 +55,13 @@ Cuando activás Lumen por primera vez, te deja elegir:
 - **Mejor calidad** general — entiende mejor preguntas elaboradas y
   da respuestas más completas.
 
-Podés cambiar entre variantes en cualquier momento desde el ⚙ de
-Lumen → "Cambiar modelo". Se borra la actual y se descarga la nueva.
+Podés cambiar entre variantes en cualquier momento desde el ícono de
+ajustes de Lumen → "Cambiar modelo". Se borra la actual y se descarga
+la nueva.
 
 ## Qué puede y qué no puede
 
-### ✅ Puede
+### Puede
 
 - "¿Cuál es mi próxima clase?" (lee tu horario)
 - "¿Cuánto debo este mes?" (lee tus cuotas)
@@ -70,7 +71,7 @@ Lumen → "Cambiar modelo". Se borra la actual y se descarga la nueva.
 - "¿En qué sede está la biblioteca principal?" (idem)
 - Conversación casual ("hola", "gracias", "qué podés hacer").
 
-### ❌ No puede
+### No puede
 
 - **Navegar internet** — el modelo es local, sin acceso a la red.
 - **Modificar datos en SIGMA** — Lumen es solo lectura.

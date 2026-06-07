@@ -11,13 +11,13 @@ y **qué NO hace** — en lenguaje directo, sin legalese innecesario.
 
 ## TL;DR
 
-- ✅ Nexo es **100 % cliente**: habla solo con los servidores oficiales
+- Nexo es **100 % cliente**: habla solo con los servidores oficiales
   de UPLA y de Microsoft (si activás Teams). No tiene servidor propio.
-- ✅ **Lumen es 100 % on-device**: toda inferencia IA ocurre en tu
+- **Lumen es 100 % on-device**: toda inferencia IA ocurre en tu
   teléfono. Cero llamadas a APIs externas.
-- ✅ **Sin telemetría, sin analytics, sin tracking de uso.** Nexo no
+- **Sin telemetría, sin analytics, sin tracking de uso.** Nexo no
   reporta nada de lo que hacés en la app.
-- ✅ Tu sesión, datos cacheados e historial de chat **viven en tu
+- Tu sesión, datos cacheados e historial de chat **viven en tu
   dispositivo** y se borran al desinstalar.
 
 ---
@@ -39,11 +39,11 @@ Para iniciar sesión necesitás tu **usuario y contraseña de SIGMA UPLA**
   la app, no accesible a otras apps en Android moderno).
 
 **Qué NO hacemos:**
-- ❌ No mandamos tu contraseña a ningún servidor que no sea SIGMA.
-- ❌ No la transmitimos en texto plano (TLS de SIGMA con root CAs
+- No mandamos tu contraseña a ningún servidor que no sea SIGMA.
+- No la transmitimos en texto plano (TLS de SIGMA con root CAs
   verificadas — Nexo incluye su propio bundle de Mozilla para evitar
   fallar en teléfonos con almacén raíz desactualizado).
-- ❌ No la compartimos con terceros (porque no existe ningún tercero).
+- No la compartimos con terceros (porque no existe ningún tercero).
 
 ### 1.2 Datos académicos
 
@@ -119,16 +119,16 @@ release de GitHub.
 
 **Qué NO hace Lumen:**
 
-- ❌ No envía tu pregunta a ningún servidor.
-- ❌ No envía tu data académica fuera del dispositivo.
-- ❌ No registra ni reporta nada de lo que le preguntás.
-- ❌ No usa APIs de OpenAI, Google AI, Anthropic, ni ninguna otra
+- No envía tu pregunta a ningún servidor.
+- No envía tu data académica fuera del dispositivo.
+- No registra ni reporta nada de lo que le preguntás.
+- No usa APIs de OpenAI, Google AI, Anthropic, ni ninguna otra
   IA en la nube.
 
 **Auditable:** el módulo `lib/ai/` del código fuente puede ser
 revisado bajo NDA si querés verificar que cumple esto.
 
-📄 Más detalles en [`docs/lumen.md`](./docs/lumen.md).
+Más detalles en [`docs/lumen.md`](./docs/lumen.md).
 
 ---
 
@@ -136,16 +136,16 @@ revisado bajo NDA si querés verificar que cumple esto.
 
 Esta lista es importante. **Nada de lo siguiente ocurre** en Nexo:
 
-- ❌ **Telemetría**: no medimos sesiones, no mandamos heartbeats, no
+- **Telemetría**: no medimos sesiones, no mandamos heartbeats, no
   trackeamos crashes en servicios tipo Sentry/Firebase Crashlytics.
-- ❌ **Analytics**: no usamos Google Analytics, ni Mixpanel, ni nada
+- **Analytics**: no usamos Google Analytics, ni Mixpanel, ni nada
   parecido. Literalmente no sabemos cuándo abrís la app.
-- ❌ **Publicidad**: no hay anuncios, no hay SDKs de ad networks.
-- ❌ **Compartir con terceros**: no hay terceros — Nexo es un cliente
+- **Publicidad**: no hay anuncios, no hay SDKs de ad networks.
+- **Compartir con terceros**: no hay terceros — Nexo es un cliente
   directo a UPLA + Microsoft.
-- ❌ **Procesamiento en la nube**: no tenemos servidor de Nexo. Todo
+- **Procesamiento en la nube**: no tenemos servidor de Nexo. Todo
   lo que ves se calcula en tu teléfono.
-- ❌ **Venta de datos**: nadie nos puede comprar lo que no tenemos.
+- **Venta de datos**: nadie nos puede comprar lo que no tenemos.
 
 ---
 
@@ -155,9 +155,9 @@ Vos podés en cualquier momento:
 
 - **Cerrar sesión** (Perfil → Cerrar sesión) — limpia el token y el
   caché. Las credenciales recordadas se borran si lo desactivás antes.
-- **Desactivar Lumen** (FAB Lumen → ⚙ → Borrar modelo) — libera el
+- **Desactivar Lumen** (FAB Lumen →  → Borrar modelo) — libera el
   espacio del modelo y deshabilita el asistente.
-- **Limpiar historial de Lumen** (FAB Lumen → ⚙ → Limpiar historial)
+- **Limpiar historial de Lumen** (FAB Lumen →  → Limpiar historial)
   — borra el chat actual.
 - **Revocar Teams** (https://myaccount.microsoft.com) — invalida el
   acceso de Nexo a Microsoft Graph.

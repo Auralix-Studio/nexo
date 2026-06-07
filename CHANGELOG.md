@@ -18,8 +18,8 @@ Primera versión pública con Lumen integrado.
   - Pantalla de chat con streaming token a token.
   - Router de intent + inyección selectiva de contexto (horario,
     cuotas, notas, KB de UPLA).
-  - Settings dedicada accesible desde el ⚙ del chat (cambiar modelo,
-    limpiar historial, borrar modelo).
+  - Settings dedicada accesible desde el ícono de ajustes del chat
+    (cambiar modelo, limpiar historial, borrar modelo).
   - 100 % on-device — cero llamadas a APIs externas en runtime.
 - Integración Microsoft Teams (OAuth2 Device Code).
 - Soporte multiplataforma: Android, iOS, Web, Windows, macOS, Linux.

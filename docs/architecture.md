@@ -26,7 +26,7 @@ curiosos y a auditores de privacidad.
 │  ┌────────────┐  │                        │  .com (opcional) │
 │  │ Lumen      │  │                        └──────────────────┘
 │  │ (modelo IA │  │
-│  │  local)    │  │  ❌ NADA AQUÍ
+│  │  local)    │  │  NADA AQUÍ
 │  └────────────┘  │     Ni servidor de Nexo, ni telemetría,
 └──────────────────┘     ni analytics, ni APIs de IA externas.
 ```
