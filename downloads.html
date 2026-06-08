@@ -6,14 +6,18 @@
   <title>Descargas · Nexo</title>
   <meta name="description" content="Descargá Nexo para Android, Windows, macOS, Linux y Web. Incluye hashes SHA-256 para verificación de integridad.">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=1.0.5">
 </head>
 <body>
 
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-      <button class="mobile-menu-btn" aria-label="Menú">☰</button><nav class="nav" aria-label="Principal">
+      <button class="mobile-menu-btn" aria-label="Menú">
+        <span class="menu-bar"></span>
+        <span class="menu-bar"></span>
+        <span class="menu-bar"></span>
+      </button><nav class="nav" aria-label="Principal">
         <a href="index.html">Inicio</a>
         <a href="lumen.html">Lumen</a>
         <a href="downloads.html" class="active">Descargas</a>
@@ -25,9 +29,9 @@
     </div>
   </header>
 
-  <main id="content">
+  <main id="content" class="split-layout">
 
-    <section data-reveal>
+    <section class="split-sidebar" data-reveal>
       <span class="eyebrow">Versión 1.0.0</span>
       <h1 class="page-title">Descargas</h1>
       <p class="page-subtitle">
@@ -35,6 +39,8 @@
         valor SHA-256 para verificación de integridad.
       </p>
     </section>
+
+    <div class="split-content">
 
     <section data-reveal>
       <h2>Android</h2>
@@ -229,6 +235,8 @@
       </div>
     </section>
 
+    </div>
+
   </main>
 
   <footer class="site-footer">
@@ -268,6 +276,6 @@
     <div class="footer-bottom">© 2026 Alessandro Villogas Gaspar. Documentación bajo Creative Commons BY 4.0.</div>
   </footer>
 
-  <script src="app.js" defer></script>
+  <script src="app.js?v=1.0.5" defer></script>
 </body>
 </html>

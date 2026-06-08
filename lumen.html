@@ -6,14 +6,18 @@
   <title>Lumen — asistente de IA on-device · Nexo</title>
   <meta name="description" content="Lumen es el asistente de inteligencia artificial integrado en Nexo. Opera íntegramente en el dispositivo, sin enviar información a internet durante el uso.">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=1.0.5">
 </head>
 <body>
 
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-      <button class="mobile-menu-btn" aria-label="Menú">☰</button><nav class="nav" aria-label="Principal">
+      <button class="mobile-menu-btn" aria-label="Menú">
+        <span class="menu-bar"></span>
+        <span class="menu-bar"></span>
+        <span class="menu-bar"></span>
+      </button><nav class="nav" aria-label="Principal">
         <a href="index.html">Inicio</a>
         <a href="lumen.html" class="active">Lumen</a>
         <a href="downloads.html">Descargas</a>
@@ -25,18 +29,34 @@
     </div>
   </header>
 
-  <main id="content" class="narrow">
+  <main id="content" class="split-layout narrow">
 
-    <section style="text-align: center;" data-reveal>
-      <img src="assets/lumen-icon.png" alt="Logo de Lumen" style="width: 100px; height: 100px; margin: 0 auto 1.5rem;">
+    <section class="split-sidebar" data-reveal>
+      <div class="lumen-orb-container">
+        <div class="lumen-orb-glow"></div>
+        <div class="lumen-orb-ring"></div>
+        <img src="assets/lumen-icon.png" alt="Logo de Lumen" class="lumen-orb-avatar">
+      </div>
       <span class="eyebrow" style="color: var(--lumen-amber);">Asistente integrado</span>
       <h1 class="page-title">Lumen</h1>
-      <p class="page-subtitle" style="margin: 0 auto 0; text-align: center;">
+      <p class="page-subtitle">
         Inteligencia artificial en tu dispositivo. Responde tus consultas
         sobre la universidad y tu propia información académica sin enviar
         nada a internet.
       </p>
+
+      <div class="lumen-chat-preview" data-reveal>
+        <div class="chat-preview-header">
+          <span class="chat-preview-status"></span> En línea · Local
+        </div>
+        <div class="chat-preview-body">
+          <div class="chat-preview-bubble user">¿Cuándo me toca Ing. Software?</div>
+          <div class="chat-preview-bubble lumen">Hoy a las 08:00 AM en el aula 302. ¡Que tengas buena clase! 🚀</div>
+        </div>
+      </div>
     </section>
+
+    <div class="split-content">
 
     <section data-reveal>
       <h2>Qué es Lumen</h2>
@@ -225,6 +245,8 @@
       </div>
     </section>
 
+    </div>
+
   </main>
 
   <footer class="site-footer">
@@ -264,6 +286,6 @@
     <div class="footer-bottom">© 2026 Alessandro Villogas Gaspar. Documentación bajo Creative Commons BY 4.0.</div>
   </footer>
 
-  <script src="app.js" defer></script>
+  <script src="app.js?v=1.0.5" defer></script>
 </body>
 </html>

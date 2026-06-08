@@ -6,14 +6,18 @@
   <title>Acerca · Nexo</title>
   <meta name="description" content="Sobre el desarrollador de Nexo. Origen del proyecto, motivaciones y dedicatoria.">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=1.0.5">
 </head>
 <body>
 
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-      <button class="mobile-menu-btn" aria-label="Menú">☰</button><nav class="nav" aria-label="Principal">
+      <button class="mobile-menu-btn" aria-label="Menú">
+        <span class="menu-bar"></span>
+        <span class="menu-bar"></span>
+        <span class="menu-bar"></span>
+      </button><nav class="nav" aria-label="Principal">
         <a href="index.html">Inicio</a>
         <a href="lumen.html">Lumen</a>
         <a href="downloads.html">Descargas</a>
@@ -25,15 +29,17 @@
     </div>
   </header>
 
-  <main id="content" class="narrow">
+  <main id="content" class="split-layout narrow">
 
-    <section data-reveal>
+    <section class="split-sidebar" data-reveal>
       <span class="eyebrow">El desarrollador</span>
       <h1 class="page-title">Detrás de Nexo</h1>
       <p class="page-subtitle">
         Origen del proyecto, motivación personal y agradecimientos.
       </p>
     </section>
+
+    <div class="split-content">
 
     <section data-reveal class="dev-card">
       <img src="https://github.com/Alexito-Hub.png" alt="Alessandro Villogas Gaspar" class="dev-avatar" loading="lazy">
@@ -129,6 +135,8 @@
       </div>
     </section>
 
+    </div>
+
   </main>
 
   <footer class="site-footer">
@@ -168,6 +176,6 @@
     <div class="footer-bottom">© 2026 Alessandro Villogas Gaspar. Documentación bajo Creative Commons BY 4.0.</div>
   </footer>
 
-  <script src="app.js" defer></script>
+  <script src="app.js?v=1.0.5" defer></script>
 </body>
 </html>
