@@ -188,11 +188,12 @@ blockquote {
 .brand:hover { color: var(--text-strong); text-decoration: none; }
 
 .brand-mark {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 7px;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   flex-shrink: 0;
+  display: block;
+  object-fit: cover;
 }
 
 .nav {
@@ -217,14 +218,20 @@ blockquote {
 .nav a:hover { color: var(--text-strong); background: var(--surface); text-decoration: none; }
 .nav a.active { color: var(--primary); background: var(--primary-soft); }
 
-.nav-cta {
-  background: var(--primary) !important;
-  color: white !important;
-  padding: 9px 16px !important;
-  margin-left: 8px;
-  font-weight: 600 !important;
+/* Selector con mayor especificidad para ganarle a .nav a:hover */
+.nav a.nav-cta {
+  background: var(--primary);
+  color: white;
+  padding: 7px 14px;
+  margin-left: 6px;
+  font-weight: 600;
+  border-radius: 6px;
+  font-size: 0.88rem;
 }
-.nav-cta:hover { background: var(--primary-dark) !important; color: white !important; }
+.nav a.nav-cta:hover {
+  background: var(--primary-dark);
+  color: white;
+}
 
 @media (max-width: 720px) {
   .site-header-inner { padding: 12px var(--pad-sm); gap: 12px; }
@@ -695,4 +702,44 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   outline: 2px solid var(--primary);
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* ============================================================
+   Typewriter rotativo (hero)
+   ============================================================ */
+
+.hero-title em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--primary), var(--lumen-violet));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+}
+
+/* Caret que parpadea al lado de la frase rotativa. Es un pseudo-elemento
+   con altura igual al text-cap para que no afecte al baseline. */
+.hero-title em[data-typewriter]::after {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 0.92em;
+  vertical-align: -0.12em;
+  margin-left: 3px;
+  background: var(--primary);
+  border-radius: 1px;
+  animation: blink 1s steps(1) infinite;
+  -webkit-text-fill-color: var(--primary);
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* En mobile el wrap permite que el caret no rompa la línea raro. */
+@media (max-width: 520px) {
+  .hero-title em { white-space: normal; }
 }
