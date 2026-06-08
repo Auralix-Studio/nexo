@@ -10,8 +10,6 @@ desktop.ini
 *.swo
 *~
 
-# Binarios temporales que no deberían commitearse al repo de docs
-# (los APKs y .task van en los releases de GitHub, no en el repo)
 *.apk
 *.aab
 *.task
