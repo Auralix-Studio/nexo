@@ -5,8 +5,8 @@ Universidad Peruana Los Andes.** Integra SIGMA, Intranet de pagos y
 Microsoft Teams en una sola aplicación. Incluye **Lumen**, un asistente
 de inteligencia artificial que opera íntegramente en el dispositivo.
 
-[![Última versión](https://img.shields.io/github/v/release/Alexito-Hub/nexo-releases?label=app&color=2563eb)](https://github.com/Alexito-Hub/nexo-releases/releases/latest)
-[![Modelos Lumen](https://img.shields.io/github/v/release/Alexito-Hub/nexo-releases?label=modelos%20lumen&filter=lumen-models-*&color=8b5cf6)](https://github.com/Alexito-Hub/nexo-releases/releases?q=lumen-models)
+[![Última versión](https://img.shields.io/github/v/release/Auralix-Studio/nexo?label=app&color=2563eb)](https://github.com/Auralix-Studio/nexo/releases/latest)
+[![Modelos Lumen](https://img.shields.io/github/v/release/Auralix-Studio/nexo?label=modelos%20lumen&filter=lumen-models-*&color=8b5cf6)](https://github.com/Auralix-Studio/nexo/releases?q=lumen-models)
 [![Privacidad](https://img.shields.io/badge/datos-100%25%20locales-10b981)](./PRIVACY.md)
 
 > **Aviso.** Nexo es un proyecto independiente mantenido por Alessandro
@@ -47,7 +47,7 @@ Documentación detallada en [`docs/about.md`](./docs/about.md).
 | Android (universal) | `nexo-vX.Y.Z-universal.apk` | ~252 MB |
 | Windows x64 | `nexo-vX.Y.Z-windows-x64.zip` | ~222 MB |
 
-Descargas disponibles en [Releases](https://github.com/Alexito-Hub/nexo-releases/releases/latest).
+Descargas disponibles en [Releases](https://github.com/Auralix-Studio/nexo/releases/latest).
 Los modelos de Lumen se distribuyen como release independiente y la
 aplicación los obtiene automáticamente cuando el usuario activa el
 asistente.
@@ -109,7 +109,7 @@ Detalles técnicos en [`docs/architecture.md`](./docs/architecture.md).
 
 Para informar de un defecto o proponer una mejora, abrir un issue en:
 
-<https://github.com/Alexito-Hub/nexo-releases/issues>
+<https://github.com/Auralix-Studio/nexo/issues>
 
 Información útil al reportar:
 
