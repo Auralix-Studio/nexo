@@ -1,21 +1,8 @@
-/**
- * Nexo · scripts del sitio (sin dependencias).
- *
- * Componentes:
- *   - Reveal on scroll para [data-reveal].
- *   - Auto-stagger de hijos en .grid cuando aparecen en viewport.
- *   - Typewriter rotativo para [data-typewriter] con `data-phrases` JSON.
- *   - Smooth accordion para .faq details (anima la altura del contenido).
- *   - Copy-to-clipboard en .sha con toast de confirmación.
- *   - Mobile side drawer (hamburger menu).
- *
- * Respeta prefers-reduced-motion: si está activo, no anima — solo muestra
- * todo de inmediato.
- */
+/* Nexo · scripts del sitio (sin dependencias). Respeta prefers-reduced-motion. */
 (function () {
   'use strict';
 
-  // Polyfills for older browsers / Android WebView compatibility
+  // Polyfills para WebView de Android viejo / IE legacy.
   if (typeof NodeList !== 'undefined' && NodeList.prototype && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = Array.prototype.forEach;
   }
@@ -35,7 +22,6 @@
   var reduceMotion = window.matchMedia
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ─── Reveal on scroll ─────────────────────────────────────────
   if (!('IntersectionObserver' in window) || reduceMotion) {
     document
       .querySelectorAll('[data-reveal], [data-reveal-stagger]')
@@ -57,7 +43,8 @@
       .forEach(function (el) { revealIO.observe(el); });
   }
 
-  // Safety fallback: force reveal all elements after 600ms in case observer fails to trigger (e.g. WebView issues)
+  // Fallback: si el IntersectionObserver no dispara (visto en WebView viejo),
+  // forzamos visible a los 600 ms para no dejar contenido oculto.
   setTimeout(function () {
     document
       .querySelectorAll('[data-reveal]:not(.revealed), [data-reveal-stagger]:not(.revealed)')
@@ -67,9 +54,6 @@
       .forEach(function (el) { el.classList.add('show'); });
   }, 600);
 
-  // ─── Auto-stagger en .grid ────────────────────────────────────
-  // Aplica fade-up secuencial a los hijos directos de cada grid cuando
-  // entran en viewport. No requiere markup extra en HTML.
   document.querySelectorAll('.grid').forEach(function (grid) {
     Array.prototype.forEach.call(grid.children, function (child) {
       child.classList.add('stagger-item');
@@ -104,7 +88,6 @@
     });
   }
 
-  // ─── Typewriter rotativo ─────────────────────────────────────
   document.querySelectorAll('[data-typewriter]').forEach(function (el) {
     var phrases;
     try {
@@ -153,21 +136,19 @@
     setTimeout(function () { deleting = true; tick(); }, HOLD_FULL);
   });
 
-  // ─── Smooth accordion (FAQ) ──────────────────────────────────
-  // El elemento <details> nativo no anima el open/close. Interceptamos
-  // el click en <summary> y animamos manualmente la altura del body.
+  // <details> nativo no anima open/close: interceptamos el click en <summary>
+  // y transicionamos la altura manualmente.
   document.querySelectorAll('.faq details').forEach(function (details) {
     var summary = details.querySelector('summary');
     var body = details.querySelector('.faq-body');
     if (!summary || !body) return;
 
-    if (reduceMotion) return; // Comportamiento nativo, sin animación.
+    if (reduceMotion) return;
 
     summary.addEventListener('click', function (e) {
       e.preventDefault();
 
       if (details.open) {
-        // Cerrar: medir altura actual, transicionar a 0, luego cerrar.
         var h = body.scrollHeight;
         body.style.height = h + 'px';
         // Forzar reflow para que la transición tome efecto.
@@ -179,7 +160,6 @@
           body.style.height = '';
         });
       } else {
-        // Abrir: setear open, medir altura, transicionar de 0 a esa altura.
         details.open = true;
         var target = body.scrollHeight;
         body.style.height = '0px';
@@ -193,7 +173,6 @@
     });
   });
 
-  // ─── Copy SHA-256 al portapapeles ────────────────────────────
   var toast = null;
   function showToast(message, isError) {
     if (!toast) {
@@ -234,13 +213,11 @@
   });
 })();
 
-// ─── Mobile side drawer ─────────────────────────────────────
 (function () {
   function initDrawer() {
     var navs = document.querySelectorAll('.nav');
     var menuBtns = document.querySelectorAll('.mobile-menu-btn');
 
-    // Create overlay (shared) if it doesn't exist yet
     var overlay = document.querySelector('.nav-overlay');
     if (!overlay) {
       overlay = document.createElement('div');
@@ -253,19 +230,16 @@
       }
     }
 
-    // Upgrade menu buttons to animated bars
     menuBtns.forEach(function(btn) {
       btn.innerHTML = '<span class="menu-bar"></span><span class="menu-bar"></span><span class="menu-bar"></span>';
       btn.setAttribute('aria-expanded', 'false');
     });
 
     navs.forEach(function(nav) {
-      // Inject drawer header inside nav if not already there
       if (!nav.querySelector('.nav-drawer-header')) {
         var header = document.createElement('div');
         header.className = 'nav-drawer-header';
 
-        // Clone brand from the page header
         var pageBrand = nav.closest('.site-header-inner');
         var brandEl = pageBrand ? pageBrand.querySelector('.brand') : null;
         if (brandEl) {
@@ -273,7 +247,6 @@
           header.appendChild(brandClone);
         }
 
-        // Close button
         var closeBtn = document.createElement('button');
         closeBtn.className = 'nav-close-btn';
         closeBtn.setAttribute('aria-label', 'Cerrar menú');
@@ -284,7 +257,6 @@
         nav.insertBefore(header, nav.firstChild);
       }
 
-      // Wrap links in a container for flex layout
       if (!nav.querySelector('.nav-links-wrapper')) {
         var wrapper = document.createElement('div');
         wrapper.className = 'nav-links-wrapper';
@@ -311,7 +283,6 @@
         }
       });
 
-      // Animate overlay from hidden
       overlay.style.display = 'block';
       requestAnimationFrame(function() {
         overlay.style.opacity = '1';
@@ -331,7 +302,7 @@
         }
       });
 
-      // Wait for transition then hide
+      // Esperar a que el overlay termine el fade antes de ocultarlo.
       setTimeout(function() {
         overlay.classList.remove('show');
         overlay.style.display = '';
@@ -357,13 +328,11 @@
       });
     });
 
-    // Close on overlay click
     overlay.addEventListener('click', function() {
       var active = getActiveNav();
       if (active) closeDrawer(active);
     });
 
-    // Close on Escape key
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         var active = getActiveNav();
@@ -371,7 +340,6 @@
       }
     });
 
-    // Close drawer when clicking a nav link (mobile UX)
     navs.forEach(function(nav) {
       nav.addEventListener('click', function(e) {
         if (e.target.tagName === 'A' && nav.classList.contains('nav-open')) {
@@ -381,7 +349,6 @@
     });
   }
 
-  // Safe instantiation: run immediately if DOM is ready, otherwise wait
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initDrawer);
   } else {

@@ -9,7 +9,7 @@
 2. Borrar los datos de la aplicación: Configuración del sistema →
    Aplicaciones → Nexo → Almacenamiento → "Borrar datos".
 3. Reinstalar la aplicación desde el APK más reciente disponible en
-   el [release](https://github.com/Alexito-Hub/nexo-releases/releases/latest).
+   el [release](https://github.com/auralix-studio/nexo/releases/latest).
 4. Si el problema persiste, abrir un issue adjuntando el log obtenido
    con:
    ```bash
@@ -164,4 +164,4 @@ Para que el reporte sea procesable con rapidez, se solicita aportar:
 
 Los reportes se gestionan en:
 
-<https://github.com/Alexito-Hub/nexo-releases/issues>
+<https://github.com/auralix-studio/nexo/issues>

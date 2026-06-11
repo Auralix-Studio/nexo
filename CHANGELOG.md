@@ -7,7 +7,7 @@ numeración sigue [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
-## [Próximamente — 1.0.0]
+## [Próximamente — 1.1.1]
 
 Primera versión pública con el asistente Lumen integrado.
 

@@ -4,7 +4,7 @@
 
 ### Instalación mediante APK
 
-1. Acceder al [último release](https://github.com/Alexito-Hub/nexo-releases/releases/latest).
+1. Acceder al [último release](https://github.com/auralix-studio/nexo/releases/latest).
 2. Descargar el APK correspondiente al dispositivo:
    - `nexo-vX.Y.Z-arm64.apk` para la mayoría de dispositivos modernos
      (Android 8.0 o superior, ~160 MB).
@@ -51,7 +51,7 @@ realiza mediante sideload de APK firmado.
 
 ### Instalación del paquete
 
-1. Descargar `nexo-vX.Y.Z-windows-x64.zip` del [último release](https://github.com/Alexito-Hub/nexo-releases/releases/latest).
+1. Descargar `nexo-vX.Y.Z-windows-x64.zip` del [último release](https://github.com/auralix-studio/nexo/releases/latest).
 2. Extraer el contenido del archivo en una carpeta temporal.
 3. Ejecutar `nexo.exe` desde la carpeta extraída.
 4. En el primer arranque, la aplicación presenta un asistente con dos

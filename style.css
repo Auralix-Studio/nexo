@@ -1,7 +1,4 @@
-/* ============================================================
-   Nexo · Sitio público
-   Diseño limpio, sin trucos. Layout sólido y responsive.
-   ============================================================ */
+/* Nexo · Sitio público */
 
 :root {
   --primary: #6366F1;
@@ -702,9 +699,7 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   border-radius: 4px;
 }
 
-/* ============================================================
-   Typewriter rotativo (hero)
-   ============================================================ */
+/* Typewriter rotativo (hero) */
 
 .hero-title em {
   font-style: normal;
@@ -742,9 +737,7 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   .hero-title em { white-space: normal; }
 }
 
-/* ============================================================
-   Stagger items (hijos de .grid revelados secuencialmente)
-   ============================================================ */
+/* Stagger items (hijos de .grid revelados secuencialmente) */
 
 .stagger-item {
   opacity: 0;
@@ -757,9 +750,7 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   transform: translateY(0);
 }
 
-/* ============================================================
-   FAQ accordion con animación de altura
-   ============================================================ */
+/* FAQ accordion con animación de altura */
 
 .faq .faq-body {
   overflow: hidden;
@@ -769,9 +760,7 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
 /* Si details está cerrado en HTML, .faq-body no se renderiza.
    Cuando el JS abre con details.open=true, la altura se anima desde 0. */
 
-/* ============================================================
-   Toast (notificación de copia, etc)
-   ============================================================ */
+/* Toast (notificación de copia, etc) */
 
 .toast {
   position: fixed;
@@ -801,9 +790,7 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   color: white;
 }
 
-/* ============================================================
-   SHA-256 clickeable (copiar al portapapeles)
-   ============================================================ */
+/* SHA-256 clickeable (copiar al portapapeles) */
 
 .sha {
   display: inline-block;
@@ -820,9 +807,7 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   transform: scale(0.99);
 }
 
-/* ============================================================
-   Logo de Lumen en banner — respiración sutil
-   ============================================================ */
+/* Logo de Lumen en banner — respiración sutil */
 
 .lumen-banner img {
   animation: lumen-breathe 5s var(--ease-in-out, ease) infinite;
@@ -841,9 +826,7 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   .toast { transition: none; }
 }
 
-/* ============================================================
-   About: tarjeta del desarrollador
-   ============================================================ */
+/* About: tarjeta del desarrollador */
 
 .dev-card {
   display: flex;
@@ -913,9 +896,7 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   .dev-meta li { align-items: center; }
 }
 
-/* ============================================================
-   About: dedicatoria
-   ============================================================ */
+/* About: dedicatoria */
 
 .dedication {
   position: relative;
@@ -1000,9 +981,7 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
 }
 
 
-/* ============================================================
-   Mobile side drawer
-   ============================================================ */
+/* Mobile side drawer */
 
 .mobile-menu-btn {
   display: none;
@@ -1183,9 +1162,7 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   .nav-overlay { display: none !important; }
 }
 
-/* ============================================================
-   Nexo UI Mockup (CSS Pure)
-   ============================================================ */
+/* Nexo UI Mockup (CSS Pure) */
 .nexo-mockup {
   background: #11141C;
   border: 1px solid #232936;
@@ -1389,10 +1366,7 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   border-bottom-left-radius: 2px;
 }
 
-/* ============================================================
-   Material 3 Adaptive Layout — Progressive Breakpoints
-   Compact (<600) → Medium (600) → Expanded (960) → Large (1280) → XL (1600)
-   ============================================================ */
+/* Material 3 Adaptive Layout — Compact <600 · Medium 600 · Expanded 960 · Large 1280 · XL 1600 */
 
 /* ── Base Split-Pane Mobile Styles ── */
 .split-layout {
@@ -1593,9 +1567,7 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   }
 }
 
-/* ============================================================
-   Lumen Interactive Showcase (Sidebar)
-   ============================================================ */
+/* Lumen Interactive Showcase (Sidebar) */
 
 .lumen-orb-container {
   position: relative;

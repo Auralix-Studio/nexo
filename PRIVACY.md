@@ -3,7 +3,7 @@
 **Versión:** 1.0
 **Vigente desde:** 7 de junio de 2026
 **Responsable del tratamiento:** Alessandro Villogas Gaspar
-**Contacto:** [GitHub Issues](https://github.com/Alexito-Hub/nexo-releases/issues)
+**Contacto:** [GitHub Issues](https://github.com/auralix-studio/nexo/issues)
 
 Este documento describe el tratamiento que la aplicación Nexo
 (en adelante, "la Aplicación") realiza sobre los datos del usuario.
@@ -221,7 +221,7 @@ verificar la información en las fuentes oficiales.
 Las consultas, reclamaciones o solicitudes relativas a esta política
 pueden remitirse mediante un issue en el repositorio público:
 
-<https://github.com/Alexito-Hub/nexo-releases/issues>
+<https://github.com/auralix-studio/nexo/issues>
 
 Para asuntos que requieran reserva, se ruega indicar la palabra
 `PRIVADO` en el título del issue.

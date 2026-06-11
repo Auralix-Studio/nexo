@@ -247,7 +247,7 @@ La decisión actual responde a tres consideraciones:
 
 Mediante el sistema de issues del repositorio público:
 
-<https://github.com/Alexito-Hub/nexo-releases/issues>
+<https://github.com/auralix-studio/nexo/issues>
 
 Información útil para acelerar la resolución:
 
