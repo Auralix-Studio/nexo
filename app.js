@@ -1,4 +1,4 @@
-/* Nexo · scripts del sitio (sin dependencias). Respeta prefers-reduced-motion. */
+﻿/* Nexo Â· scripts del sitio (sin dependencias). Respeta prefers-reduced-motion. */
 (function () {
   'use strict';
 
@@ -151,7 +151,7 @@
       if (details.open) {
         var h = body.scrollHeight;
         body.style.height = h + 'px';
-        // Forzar reflow para que la transición tome efecto.
+        // Forzar reflow para que la transiciÃ³n tome efecto.
         body.offsetHeight; // eslint-disable-line no-unused-expressions
         body.style.height = '0px';
         body.addEventListener('transitionend', function handler() {
@@ -249,8 +249,8 @@
 
         var closeBtn = document.createElement('button');
         closeBtn.className = 'nav-close-btn';
-        closeBtn.setAttribute('aria-label', 'Cerrar menú');
-        closeBtn.innerHTML = '✕';
+        closeBtn.setAttribute('aria-label', 'Cerrar menÃº');
+        closeBtn.innerHTML = 'âœ•';
         closeBtn.addEventListener('click', function () { closeDrawer(nav); });
         header.appendChild(closeBtn);
 
@@ -413,13 +413,16 @@
           el.href = androidAsset.browser_download_url;
         });
         document.querySelectorAll('[data-dynamic-meta="android"]').forEach(function (el) {
-          el.textContent = formatBytes(androidAsset.size, 1) + ' · APK';
+          el.textContent = formatBytes(androidAsset.size, 1) + ' Â· APK';
         });
         document.querySelectorAll('[data-dynamic-name="android"]').forEach(function (el) {
           el.textContent = androidAsset.name;
         });
         document.querySelectorAll('[data-dynamic-size="android"]').forEach(function (el) {
           el.textContent = formatBytes(androidAsset.size, 1);
+        });
+        document.querySelectorAll('[data-dynamic-downloads="android"]').forEach(function (el) {
+          el.textContent = androidAsset.download_count.toLocaleString();
         });
       }
 
@@ -429,13 +432,16 @@
         });
         document.querySelectorAll('[data-dynamic-meta="windows"]').forEach(function (el) {
           var ext = windowsAsset.name.split('.').pop().toUpperCase();
-          el.textContent = formatBytes(windowsAsset.size, 1) + ' · ' + ext;
+          el.textContent = formatBytes(windowsAsset.size, 1) + ' Â· ' + ext;
         });
         document.querySelectorAll('[data-dynamic-name="windows"]').forEach(function (el) {
           el.textContent = windowsAsset.name;
         });
         document.querySelectorAll('[data-dynamic-size="windows"]').forEach(function (el) {
           el.textContent = formatBytes(windowsAsset.size, 1);
+        });
+        document.querySelectorAll('[data-dynamic-downloads="windows"]').forEach(function (el) {
+          el.textContent = windowsAsset.download_count.toLocaleString();
         });
       }
 
@@ -445,6 +451,7 @@
           document.querySelectorAll('[data-dynamic-dl="' + key + '"]').forEach(function (el) { el.href = asset.browser_download_url; });
           document.querySelectorAll('[data-dynamic-name="' + key + '"]').forEach(function (el) { el.textContent = asset.name; });
           document.querySelectorAll('[data-dynamic-size="' + key + '"]').forEach(function (el) { el.textContent = formatBytes(asset.size, 1); });
+          document.querySelectorAll('[data-dynamic-downloads="' + key + '"]').forEach(function (el) { el.textContent = asset.download_count.toLocaleString(); });
         }
       }
 
@@ -511,7 +518,7 @@
               } else {
                  btnText += ' (Universal)';
               }
-              btnMeta = formatBytes(bestAsset.size, 1) + ' · APK';
+              btnMeta = formatBytes(bestAsset.size, 1) + ' Â· APK';
             }
           } else if (dev.os === 'Windows') {
             for (var i = 0; i < assetsList.length; i++) {
@@ -526,7 +533,7 @@
               found = true;
               var ext = bestAsset.name.split('.').pop().toUpperCase();
               btnText = 'Descargar para Windows';
-              btnMeta = formatBytes(bestAsset.size, 1) + ' · ' + ext;
+              btnMeta = formatBytes(bestAsset.size, 1) + ' Â· ' + ext;
             }
           } else if (dev.os === 'Linux') {
             for (var i = 0; i < assetsList.length; i++) {
@@ -540,7 +547,7 @@
               found = true;
               var ext = bestAsset.name.split('.').pop().toUpperCase();
               btnText = 'Descargar para Linux';
-              btnMeta = formatBytes(bestAsset.size, 1) + ' · ' + ext;
+              btnMeta = formatBytes(bestAsset.size, 1) + ' Â· ' + ext;
             }
           }
 
@@ -558,7 +565,7 @@
             p.style.marginBottom = '1rem';
             p.style.width = '100%';
             p.style.gridColumn = '1 / -1';
-            p.textContent = 'Aplicación no disponible para tu dispositivo (' + (dev.os !== 'Unknown' ? dev.os : 'Sistema desconocido') + ').';
+            p.textContent = 'AplicaciÃ³n no disponible para tu dispositivo (' + (dev.os !== 'Unknown' ? dev.os : 'Sistema desconocido') + ').';
             container.appendChild(p);
           }
 
@@ -603,3 +610,4 @@
       console.warn('Error fetching latest release:', err);
     });
 })();
+
