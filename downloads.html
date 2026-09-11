@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Descargas Â· Nexo</title>
-  <meta name="description" content="DescargÃ¡ Nexo para Android, Windows, macOS, Linux y Web. Incluye hashes SHA-256 para verificaciÃ³n de integridad.">
+  <title>Descargas · Nexo</title>
+  <meta name="description" content="Descargá Nexo para Android, Windows, macOS, Linux y Web. Incluye hashes SHA-256 para verificación de integridad.">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
   <link rel="stylesheet" href="style.css?v=1.0.5">
 </head>
@@ -13,7 +13,7 @@
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-      <button class="mobile-menu-btn" aria-label="MenÃº">
+      <button class="mobile-menu-btn" aria-label="Menú">
         <span class="menu-bar"></span>
         <span class="menu-bar"></span>
         <span class="menu-bar"></span>
@@ -21,7 +21,7 @@
         <a href="index.html">Inicio</a>
 
         <a href="downloads.html" class="active">Descargas</a>
-        <a href="docs.html">DocumentaciÃ³n</a>
+        <a href="docs.html">Documentación</a>
         <a href="about.html">Acerca</a>
         <a href="privacy.html">Privacidad</a>
         <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android" class="nav-cta">Descargar</a>
@@ -45,8 +45,8 @@
     <section data-reveal>
       <h2>Android</h2>
       <p>
-        Sideload de APK firmado. Durante la primera instalaciÃ³n, Android
-        solicitarÃ¡ autorizaciÃ³n para instalar aplicaciones de fuentes
+        Sideload de APK firmado. Durante la primera instalación, Android
+        solicitará autorización para instalar aplicaciones de fuentes
         desconocidas.
       </p>
 
@@ -56,7 +56,7 @@
             <tr>
               <th>Variante</th>
               <th>Archivo</th>
-              <th>TamaÃ±o</th>
+              <th>Tamaño</th>
               <th>Compatibilidad</th>
               <th></th>
             </tr>
@@ -98,27 +98,27 @@
       </div>
 
       <div class="notice">
-        <p>Cuando se desconoce la arquitectura del dispositivo, la variante <strong>Universal</strong> garantiza la compatibilidad a costa de un tamaÃ±o mayor.</p>
+        <p>Cuando se desconoce la arquitectura del dispositivo, la variante <strong>Universal</strong> garantiza la compatibilidad a costa de un tamaño mayor.</p>
       </div>
     </section>
 
     <section data-reveal>
       <h2>Windows</h2>
       <p>
-        Paquete portable con asistente de instalaciÃ³n integrado. Al
-        ejecutar <code>nexo.exe</code> por primera vez, la aplicaciÃ³n
+        Paquete portable con asistente de instalación integrado. Al
+        ejecutar <code>nexo.exe</code> por primera vez, la aplicación
         presenta dos opciones:
       </p>
       <ul>
         <li><strong>Instalar.</strong> Copia los archivos a <code>%LOCALAPPDATA%\Nexo</code>, crea accesos directos y se registra en el Panel de control.</li>
-        <li><strong>Modo portable.</strong> La aplicaciÃ³n se ejecuta desde la carpeta extraÃ­da, sin alterar el sistema.</li>
+        <li><strong>Modo portable.</strong> La aplicación se ejecuta desde la carpeta extraída, sin alterar el sistema.</li>
       </ul>
-      <p>La instalaciÃ³n no requiere privilegios de administrador.</p>
+      <p>La instalación no requiere privilegios de administrador.</p>
 
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Archivo</th><th>TamaÃ±o</th><th>Requisitos</th><th></th></tr>
+            <tr><th>Archivo</th><th>Tamaño</th><th>Requisitos</th><th></th></tr>
           </thead>
           <tbody>
             <tr>
@@ -133,14 +133,14 @@
       </div>
 
       <div class="notice warning">
-        <p>Los binarios no estÃ¡n firmados con certificado de validaciÃ³n extendida. Si Windows Defender SmartScreen muestra una advertencia, seleccionar "MÃ¡s informaciÃ³n" â†’ "Ejecutar de todas formas".</p>
+        <p>Los binarios no están firmados con certificado de validación extendida. Si Windows Defender SmartScreen muestra una advertencia, seleccionar "Más información" → "Ejecutar de todas formas".</p>
       </div>
     </section>
 
     <section data-reveal>
       <h2>iOS, macOS y Linux</h2>
       <p>
-        No existe distribuciÃ³n oficial en esta versiÃ³n. La aplicaciÃ³n
+        No existe distribución oficial en esta versión. La aplicación
         compila para todas estas plataformas. Para obtener un binario,
         abrir un issue en el repositorio.
       </p>
@@ -149,51 +149,18 @@
     <section data-reveal>
       <h2>Web</h2>
       <p>
-        DemostraciÃ³n en lÃ­nea disponible en
-        <a href="https://nexo.upla.dev">nexo.upla.dev</a>. La versiÃ³n web
+        Demostración en línea disponible en
+        <a href="https://nexo.upla.dev">nexo.upla.dev</a>. La versión web
         tiene restricciones respecto a las nativas: las notificaciones no
-        estÃ¡n disponibles y la integraciÃ³n con Microsoft Teams requiere
-        proxy CORS.
+        están disponibles.
       </p>
-    </section>
-
-    <section data-reveal>
-      <h2>VerificaciÃ³n de integridad</h2>
-      <p>
-        Cada archivo publica su valor SHA-256. El usuario puede comparar
-        el valor calculado localmente con el publicado para confirmar que
-        el archivo descargado no ha sido alterado.
-      </p>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Archivo</th><th>SHA-256</th></tr></thead>
-          <tbody>
-            <tr><td><span class="file" data-dynamic-name="android-arm64">nexo-latest-arm64.apk</span></td><td><span class="sha" id="sha-arm64">pendiente al publicar el release</span></td></tr>
-            <tr><td><span class="file" data-dynamic-name="android-armv7">nexo-latest-armv7.apk</span></td><td><span class="sha" id="sha-armv7">pendiente al publicar el release</span></td></tr>
-            <tr><td><span class="file" data-dynamic-name="android-x86_64">nexo-latest-x86_64.apk</span></td><td><span class="sha" id="sha-x86_64">pendiente al publicar el release</span></td></tr>
-            <tr><td><span class="file" data-dynamic-name="android">nexo-latest-universal.apk</span></td><td><span class="sha" id="sha-universal">pendiente al publicar el release</span></td></tr>
-            <tr><td><span class="file" data-dynamic-name="windows">nexo-latest-windows-x64.zip</span></td><td><span class="sha" id="sha-windows">pendiente al publicar el release</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Comando para PowerShell</h3>
-<pre><code>Get-FileHash -Algorithm SHA256 .\<span data-dynamic-name="android">nexo-latest-universal.apk</span></code></pre>
-
-      <h3>Comando para Bash</h3>
-<pre><code>sha256sum <span data-dynamic-name="android">nexo-latest-universal.apk</span></code></pre>
-
-      <div class="notice danger">
-        <p>Si el valor obtenido no coincide con el publicado, el archivo estÃ¡ corrupto o ha sido manipulado y no debe instalarse.</p>
-      </div>
     </section>
 
     <section data-reveal>
       <div class="cta">
-        <h2>Â¿NecesitÃ¡s ayuda con la instalaciÃ³n?</h2>
-        <p>ConsultÃ¡ la guÃ­a paso a paso por plataforma.</p>
-        <a href="install.html" class="btn btn-primary">GuÃ­a de instalaciÃ³n</a>
+        <h2>¿Necesitás ayuda con la instalación?</h2>
+        <p>Consultá la guía paso a paso por plataforma.</p>
+        <a href="install.html" class="btn btn-primary">Guía de instalación</a>
       </div>
     </section>
 
@@ -205,37 +172,37 @@
     <div class="site-footer-inner">
       <div class="footer-about">
         <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-        <p>Cliente no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Proyecto independiente, sin afiliaciÃ³n institucional.</p>
+        <p>Cliente no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Proyecto independiente, sin afiliación institucional.</p>
       </div>
       <div>
         <h4>Producto</h4>
         <ul>
           <li><a href="downloads.html">Descargas</a></li>
-          <li><a href="https://github.com/Auralix-Studio/nexo-code">CÃ³digo fuente</a></li>
-          <li><a href="install.html">InstalaciÃ³n</a></li>
+          <li><a href="https://github.com/Auralix-Studio/nexo-code">Código fuente</a></li>
+          <li><a href="install.html">Instalación</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/releases">Versiones</a></li>
         </ul>
       </div>
       <div>
-        <h4>DocumentaciÃ³n</h4>
+        <h4>Documentación</h4>
         <ul>
-          <li><a href="docs.html">Ãndice</a></li>
+          <li><a href="docs.html">Índice</a></li>
           <li><a href="architecture.html">Arquitectura</a></li>
           <li><a href="faq.html">Preguntas frecuentes</a></li>
-          <li><a href="https://github.com/auralix-studio/nexo/blob/main/docs/troubleshoot.md">DiagnÃ³stico</a></li>
+          <li><a href="https://github.com/auralix-studio/nexo/blob/main/docs/troubleshoot.md">Diagnóstico</a></li>
         </ul>
       </div>
       <div>
         <h4>Legal</h4>
         <ul>
-          <li><a href="privacy.html">PolÃ­tica de privacidad</a></li>
+          <li><a href="privacy.html">Política de privacidad</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/blob/main/LICENSE">Licencia</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/issues">Reportar un problema</a></li>
-          <li><a href="https://github.com/auralix-studio/nexo">Repositorio pÃºblico</a></li>
+          <li><a href="https://github.com/auralix-studio/nexo">Repositorio público</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">Â© 2026 Alessandro Villogas Gaspar. DocumentaciÃ³n bajo Creative Commons BY 4.0.</div>
+    <div class="footer-bottom">© 2026 Alessandro Villogas Gaspar. Documentación bajo Creative Commons BY 4.0.</div>
   </footer>
 
   <script src="app.js?v=1.0.5" defer></script>
