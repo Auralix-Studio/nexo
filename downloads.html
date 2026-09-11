@@ -19,7 +19,7 @@
         <span class="menu-bar"></span>
       </button><nav class="nav" aria-label="Principal">
         <a href="index.html">Inicio</a>
-        <a href="lumen.html">Lumen</a>
+
         <a href="downloads.html" class="active">Descargas</a>
         <a href="docs.html">Documentación</a>
         <a href="about.html">Acerca</a>
@@ -32,7 +32,7 @@
   <main id="content" class="split-layout">
 
     <section class="split-sidebar" data-reveal>
-      <span class="eyebrow">Versión 1.3.1</span>
+      <span class="eyebrow">Versión <span data-dynamic-version>1.3.1</span></span>
       <h1 class="page-title">Descargas</h1>
       <p class="page-subtitle">
         Binarios oficiales por plataforma. Todos los archivos incluyen
@@ -85,10 +85,10 @@
             </tr>
             <tr>
               <td>Universal <span class="badge ok">recomendada</span></td>
-              <td><span class="file">nexo-v1.3.1-universal.apk</span></td>
-              <td class="size">147 MB</td>
+              <td><span class="file" data-dynamic-name="android">nexo-v1.3.1-universal.apk</span></td>
+              <td class="size" data-dynamic-size="android">147 MB</td>
               <td>Cualquier dispositivo</td>
-              <td><a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-universal.apk" class="btn btn-primary btn-sm">Descargar</a></td>
+              <td><a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-universal.apk" data-dynamic-dl="android" class="btn btn-primary btn-sm">Descargar</a></td>
             </tr>
           </tbody>
         </table>
@@ -119,10 +119,10 @@
           </thead>
           <tbody>
             <tr>
-              <td><span class="file">nexo-v1.3.1-windows-x64.zip</span></td>
-              <td class="size">222 MB</td>
+              <td><span class="file" data-dynamic-name="windows">nexo-v1.3.1-windows-x64.zip</span></td>
+              <td class="size" data-dynamic-size="windows">222 MB</td>
               <td>Windows 10 1809 (x64)</td>
-              <td><a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-windows-x64.zip" class="btn btn-primary btn-sm">Descargar</a></td>
+              <td><a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-windows-x64.zip" data-dynamic-dl="windows" class="btn btn-primary btn-sm">Descargar</a></td>
             </tr>
           </tbody>
         </table>
@@ -168,17 +168,17 @@
             <tr><td><span class="file">nexo-v1.3.1-arm64.apk</span></td><td><span class="sha">pendiente al publicar el release</span></td></tr>
             <tr><td><span class="file">nexo-v1.3.1-armv7.apk</span></td><td><span class="sha">pendiente al publicar el release</span></td></tr>
             <tr><td><span class="file">nexo-v1.3.1-x86_64.apk</span></td><td><span class="sha">pendiente al publicar el release</span></td></tr>
-            <tr><td><span class="file">nexo-v1.3.1-universal.apk</span></td><td><span class="sha">9971a160a587976dbe8bca367a982deab5378ceeae545bd6b32e837c500ce288</span></td></tr>
-            <tr><td><span class="file">nexo-v1.3.1-windows-x64.zip</span></td><td><span class="sha">pendiente al publicar el release</span></td></tr>
+            <tr><td><span class="file" data-dynamic-name="android">nexo-v1.3.1-universal.apk</span></td><td><span class="sha">9971a160a587976dbe8bca367a982deab5378ceeae545bd6b32e837c500ce288</span></td></tr>
+            <tr><td><span class="file" data-dynamic-name="windows">nexo-v1.3.1-windows-x64.zip</span></td><td><span class="sha">pendiente al publicar el release</span></td></tr>
           </tbody>
         </table>
       </div>
 
       <h3>Comando para PowerShell</h3>
-<pre><code>Get-FileHash -Algorithm SHA256 .\nexo-v1.3.1-universal.apk</code></pre>
+<pre><code>Get-FileHash -Algorithm SHA256 .\<span data-dynamic-name="android">nexo-v1.3.1-universal.apk</span></code></pre>
 
       <h3>Comando para Bash</h3>
-<pre><code>sha256sum nexo-v1.3.1-universal.apk</code></pre>
+<pre><code>sha256sum <span data-dynamic-name="android">nexo-v1.3.1-universal.apk</span></code></pre>
 
       <div class="notice danger">
         <p>Si el valor obtenido no coincide con el publicado, el archivo está corrupto o ha sido manipulado y no debe instalarse.</p>
@@ -249,7 +249,7 @@
         <h4>Producto</h4>
         <ul>
           <li><a href="downloads.html">Descargas</a></li>
-          <li><a href="lumen.html">Lumen</a></li>
+          <li><a href="https://github.com/Auralix-Studio/nexo-code">Código fuente</a></li>
           <li><a href="install.html">Instalación</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/releases">Versiones</a></li>
         </ul>

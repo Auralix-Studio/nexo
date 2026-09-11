@@ -355,3 +355,76 @@
     initDrawer();
   }
 })();
+
+// --- DYNAMIC DOWNLOAD SCRIPT ---
+(function() {
+  var REPO = 'Auralix-Studio/nexo-code';
+  var API_URL = 'https://api.github.com/repos/' + REPO + '/releases/latest';
+
+  function formatBytes(bytes, decimals) {
+    if (!+bytes) return '0 B';
+    var k = 1024, dm = decimals < 0 ? 0 : decimals, sizes = ['B', 'KB', 'MB', 'GB'];
+    var i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }
+
+  fetch(API_URL)
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (!data || !data.tag_name) return;
+      var version = data.tag_name;
+      
+      document.querySelectorAll('[data-dynamic-version]').forEach(function(el) {
+        el.textContent = version;
+      });
+
+      var assets = data.assets || [];
+      var androidAsset = null;
+      var windowsAsset = null;
+
+      for (var i = 0; i < assets.length; i++) {
+        var name = assets[i].name.toLowerCase();
+        if (name.indexOf('.apk') !== -1) {
+          if (!androidAsset) androidAsset = assets[i];
+        } else if (name.indexOf('windows') !== -1 || name.indexOf('.exe') !== -1 || name.indexOf('.zip') !== -1) {
+          if (name.indexOf('mac') === -1 && name.indexOf('linux') === -1) {
+             if (!windowsAsset) windowsAsset = assets[i];
+          }
+        }
+      }
+
+      if (androidAsset) {
+        document.querySelectorAll('[data-dynamic-dl="android"]').forEach(function(el) {
+          el.href = androidAsset.browser_download_url;
+        });
+        document.querySelectorAll('[data-dynamic-meta="android"]').forEach(function(el) {
+          el.textContent = formatBytes(androidAsset.size, 1) + ' · APK';
+        });
+        document.querySelectorAll('[data-dynamic-name="android"]').forEach(function(el) {
+          el.textContent = androidAsset.name;
+        });
+        document.querySelectorAll('[data-dynamic-size="android"]').forEach(function(el) {
+          el.textContent = formatBytes(androidAsset.size, 1);
+        });
+      }
+
+      if (windowsAsset) {
+        document.querySelectorAll('[data-dynamic-dl="windows"]').forEach(function(el) {
+          el.href = windowsAsset.browser_download_url;
+        });
+        document.querySelectorAll('[data-dynamic-meta="windows"]').forEach(function(el) {
+          var ext = windowsAsset.name.split('.').pop().toUpperCase();
+          el.textContent = formatBytes(windowsAsset.size, 1) + ' · ' + ext;
+        });
+        document.querySelectorAll('[data-dynamic-name="windows"]').forEach(function(el) {
+          el.textContent = windowsAsset.name;
+        });
+        document.querySelectorAll('[data-dynamic-size="windows"]').forEach(function(el) {
+          el.textContent = formatBytes(windowsAsset.size, 1);
+        });
+      }
+    })
+    .catch(function(err) {
+      console.warn('Error fetching latest release:', err);
+    });
+})();

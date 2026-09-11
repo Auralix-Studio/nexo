@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexo — cliente UPLA multiplataforma con Lumen</title>
-  <meta name="description" content="Cliente no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Integra SIGMA, Intranet de pagos y Microsoft Teams. Incluye Lumen, asistente de IA on-device.">
-  <meta property="og:title" content="Nexo — cliente UPLA con asistente Lumen">
-  <meta property="og:description" content="SIGMA, Intranet y Teams en una sola aplicación. Asistente de IA on-device. Sin telemetría.">
+  <title>Nexo — cliente UPLA de código abierto</title>
+  <meta name="description" content="Cliente no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Integra SIGMA, Intranet de pagos y Microsoft Teams. Ahora de código abierto.">
+  <meta property="og:title" content="Nexo — cliente UPLA de código abierto">
+  <meta property="og:description" content="SIGMA, Intranet y Teams en una sola aplicación. Sin telemetría y de código abierto.">
   <meta property="og:image" content="assets/nexo-icon.png">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
   <link rel="stylesheet" href="style.css?v=1.0.5">
@@ -25,12 +25,11 @@
         <span class="menu-bar"></span>
       </button><nav class="nav" aria-label="Principal">
         <a href="index.html" class="active">Inicio</a>
-        <a href="lumen.html">Lumen</a>
         <a href="downloads.html">Descargas</a>
         <a href="docs.html">Documentación</a>
         <a href="about.html">Acerca</a>
         <a href="privacy.html">Privacidad</a>
-        <a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-universal.apk" class="nav-cta">Descargar</a>
+        <a href="https://github.com/Auralix-Studio/nexo-code/releases/latest" data-dynamic-dl="android" class="nav-cta">Descargar <span data-dynamic-version></span></a>
       </nav>
     </div>
   </header>
@@ -39,19 +38,22 @@
 
     <section class="hero">
       <div class="hero-content">
-        <span class="eyebrow">Versión 1.1.1 disponible</span>
+        <span class="eyebrow">Versión <span data-dynamic-version>1.1.1</span> disponible</span>
         <h1 class="hero-title">Tu vida académica UPLA en <em data-typewriter data-phrases='["una sola aplicación","tu bolsillo","todo momento","cualquier dispositivo"]'>una sola aplicación</em>.</h1>
         <p class="hero-lead">
           Cliente multiplataforma que unifica SIGMA, la Intranet de pagos y
-          Microsoft Teams. Incluye Lumen, un asistente de inteligencia
-          artificial que opera íntegramente en el dispositivo.
+          Microsoft Teams. Proyecto de código abierto, auditable y centrado en tu privacidad.
         </p>
         <div class="hero-actions">
-          <a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-universal.apk" class="btn btn-primary">
+          <a href="https://github.com/Auralix-Studio/nexo-code/releases/latest" data-dynamic-dl="android" class="btn btn-primary">
             Descargar para Android
-            <span class="btn-meta">147 MB · APK</span>
+            <span class="btn-meta" data-dynamic-meta="android">APK</span>
           </a>
-          <a href="downloads.html" class="btn btn-secondary">Otras plataformas</a>
+          <a href="https://github.com/Auralix-Studio/nexo-code/releases/latest" data-dynamic-dl="windows" class="btn btn-secondary">
+            Descargar para Windows
+            <span class="btn-meta" data-dynamic-meta="windows">ZIP</span>
+          </a>
+          <a href="downloads.html" class="btn btn-secondary" style="border-color: transparent; background: transparent; text-decoration: underline;">Otras plataformas</a>
         </div>
         <p class="hero-foot">
           Compatible con Android 7.0 o superior. Disponible para Windows,
@@ -74,7 +76,6 @@
               </div>
               <nav class="mockup-nav">
                 <span class="active">Panel</span>
-                <span>Asistente</span>
                 <span>Notas</span>
                 <span>Ajustes</span>
               </nav>
@@ -104,14 +105,13 @@
                     </div>
                   </div>
                 </div>
-                <div class="mockup-chat">
-                  <div class="chat-header">
-                    <img src="assets/lumen-icon.png" alt="Lumen">
-                    <span>Lumen AI · On-Device</span>
-                  </div>
-                  <div class="chat-messages">
-                    <div class="msg user">¿Mi promedio?</div>
-                    <div class="msg lumen">Tu promedio actual es <strong>17.5</strong>. ¡2° puesto! ✨</div>
+                <div class="mockup-card">
+                  <div class="mockup-card-header">
+                    <span class="mockup-icon" style="background: var(--text-strong); color: var(--bg);">&lt;/&gt;</span>
+                    <div>
+                      <h4>Open Source</h4>
+                      <p>github.com/Auralix-Studio/nexo-code</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -166,17 +166,16 @@
 
     <section data-reveal>
       <div class="lumen-banner">
-        <img src="assets/lumen-icon.png" alt="Logo de Lumen">
+        <img src="assets/nexo-icon.png" alt="Nexo Code" style="filter: grayscale(100%);">
         <div>
-          <span class="eyebrow" style="color: var(--lumen-amber); margin-bottom: 0.5rem;">Asistente integrado</span>
-          <h3>Lumen — inteligencia artificial en tu dispositivo</h3>
+          <span class="eyebrow" style="color: var(--lumen-amber); margin-bottom: 0.5rem;">Código Abierto</span>
+          <h3>Nexo Code — Transparencia y desarrollo abierto</h3>
           <p>
-            Lumen responde tus consultas sobre horario, cuotas, calificaciones
-            y trámites UPLA mediante un modelo de lenguaje que se ejecuta
-            íntegramente en el procesador de tu teléfono. La información
-            nunca abandona el dispositivo.
+            Nexo es ahora un proyecto de código abierto. Todo el código fuente está disponible públicamente
+            para ser auditado, modificado y mejorado por la comunidad. Las nuevas versiones se publican 
+            directamente en nuestro repositorio.
           </p>
-          <a href="lumen.html" class="btn btn-lumen">Conocer Lumen</a>
+          <a href="https://github.com/Auralix-Studio/nexo-code" class="btn btn-lumen" target="_blank" rel="noopener">Ver en GitHub</a>
         </div>
       </div>
     </section>
@@ -207,8 +206,7 @@
           <p class="card-body">
             Los datos consultados permanecen en caché local. La aplicación
             sigue mostrando la información disponible incluso sin
-            conectividad. Lumen opera completamente sin conexión tras la
-            descarga inicial del modelo.
+            conectividad.
           </p>
         </div>
         <div class="card">
@@ -274,10 +272,13 @@
         <h2>Comenzá ahora.</h2>
         <p>La instalación toma menos de un minuto.</p>
         <div class="hero-actions">
-          <a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-universal.apk" class="btn btn-primary">
+          <a href="https://github.com/Auralix-Studio/nexo-code/releases/latest" data-dynamic-dl="android" class="btn btn-primary">
             Descargar APK universal
           </a>
-          <a href="install.html" class="btn btn-secondary">Guía de instalación</a>
+          <a href="https://github.com/Auralix-Studio/nexo-code/releases/latest" data-dynamic-dl="windows" class="btn btn-secondary">
+            Descargar para Windows
+          </a>
+          <a href="install.html" class="btn btn-secondary" style="border-color: transparent; background: transparent; text-decoration: underline;">Guía de instalación</a>
         </div>
       </div>
     </section>
@@ -301,9 +302,9 @@
         <h4>Producto</h4>
         <ul>
           <li><a href="downloads.html">Descargas</a></li>
-          <li><a href="lumen.html">Lumen</a></li>
+          <li><a href="https://github.com/Auralix-Studio/nexo-code">Código fuente</a></li>
           <li><a href="install.html">Instalación</a></li>
-          <li><a href="https://github.com/auralix-studio/nexo/releases">Versiones</a></li>
+          <li><a href="https://github.com/Auralix-Studio/nexo/releases">Versiones</a></li>
         </ul>
       </div>
       <div>
