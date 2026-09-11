@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Política de privacidad · Nexo</title>
-  <meta name="description" content="Política de privacidad de Nexo. Tratamiento de credenciales, datos académicos, integración con Microsoft Teams y asistente Lumen.">
+  <title>PolÃ­tica de privacidad Â· Nexo</title>
+  <meta name="description" content="PolÃ­tica de privacidad de Nexo. Tratamiento de credenciales, datos acadÃ©micos e integraciÃ³n con Microsoft Teams.">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
   <link rel="stylesheet" href="style.css?v=1.0.5">
 </head>
@@ -13,7 +13,7 @@
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-      <button class="mobile-menu-btn" aria-label="Menú">
+      <button class="mobile-menu-btn" aria-label="MenÃº">
         <span class="menu-bar"></span>
         <span class="menu-bar"></span>
         <span class="menu-bar"></span>
@@ -21,10 +21,10 @@
         <a href="index.html">Inicio</a>
 
         <a href="downloads.html">Descargas</a>
-        <a href="docs.html">Documentación</a>
+        <a href="docs.html">DocumentaciÃ³n</a>
         <a href="about.html">Acerca</a>
         <a href="privacy.html" class="active">Privacidad</a>
-        <a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-universal.apk" class="nav-cta">Descargar</a>
+        <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android" class="nav-cta">Descargar</a>
       </nav>
     </div>
   </header>
@@ -33,13 +33,13 @@
 
     <section class="split-sidebar" data-reveal>
       <span class="eyebrow">Documento legal</span>
-      <h1 class="page-title">Política de privacidad</h1>
+      <h1 class="page-title">PolÃ­tica de privacidad</h1>
       <p class="page-subtitle">
-        Tratamiento que la aplicación Nexo realiza sobre los datos del
+        Tratamiento que la aplicaciÃ³n Nexo realiza sobre los datos del
         usuario. Redactada en lenguaje directo.
       </p>
       <ul class="spec-list" style="max-width: 480px;">
-        <li><span>Versión</span><strong>1.0</strong></li>
+        <li><span>VersiÃ³n</span><strong>1.0</strong></li>
         <li><span>Vigente desde</span><strong>7 de junio de 2026</strong></li>
         <li><span>Responsable</span><strong>Alessandro Villogas Gaspar</strong></li>
       </ul>
@@ -50,10 +50,10 @@
     <section data-reveal>
       <h2>1. Principios</h2>
       <ol>
-        <li><strong>Cliente directo.</strong> La aplicación se comunica exclusivamente con los servidores oficiales de la Universidad Peruana Los Andes y, de forma opcional, con Microsoft Graph.</li>
-        <li><strong>Procesamiento local.</strong> Toda la información del usuario se almacena y procesa en el dispositivo. Lumen ejecuta su inferencia íntegramente en el procesador del equipo.</li>
-        <li><strong>Ausencia de telemetría.</strong> La aplicación no recopila estadísticas de uso, eventos de interfaz ni métricas de rendimiento.</li>
-        <li><strong>Reversibilidad.</strong> Toda la información almacenada puede eliminarse mediante los controles previstos o desinstalando el programa.</li>
+        <li><strong>Cliente directo.</strong> La aplicaciÃ³n se comunica exclusivamente con los servidores oficiales de la Universidad Peruana Los Andes y, de forma opcional, con Microsoft Graph.</li>
+        <li><strong>Procesamiento local.</strong> Toda la informaciÃ³n del usuario se almacena y procesa en el dispositivo.</li>
+        <li><strong>Ausencia de telemetrÃ­a.</strong> La aplicaciÃ³n no recopila estadÃ­sticas de uso, eventos de interfaz ni mÃ©tricas de rendimiento.</li>
+        <li><strong>Reversibilidad.</strong> Toda la informaciÃ³n almacenada puede eliminarse mediante los controles previstos o desinstalando el programa.</li>
       </ol>
     </section>
 
@@ -61,116 +61,93 @@
       <h2>2. Datos tratados</h2>
 
       <h3>2.1. Credenciales de acceso a SIGMA</h3>
-      <p>El usuario debe introducir su nombre de usuario y contraseña de SIGMA UPLA para utilizar las funciones que dependen de dicha plataforma.</p>
+      <p>El usuario debe introducir su nombre de usuario y contraseÃ±a de SIGMA UPLA para utilizar las funciones que dependen de dicha plataforma.</p>
       <ul>
-        <li>Las credenciales se transmiten exclusivamente al endpoint oficial de autenticación de SIGMA mediante TLS.</li>
-        <li>Si el usuario activa "Recordar credenciales", éstas se almacenan localmente en el área privada de la aplicación, codificadas en Base64.</li>
-        <li>Las credenciales no se transmiten a ningún servicio adicional ni a terceros.</li>
+        <li>Las credenciales se transmiten exclusivamente al endpoint oficial de autenticaciÃ³n de SIGMA mediante TLS.</li>
+        <li>Si el usuario activa "Recordar credenciales", Ã©stas se almacenan localmente en el Ã¡rea privada de la aplicaciÃ³n, codificadas en Base64.</li>
+        <li>Las credenciales no se transmiten a ningÃºn servicio adicional ni a terceros.</li>
       </ul>
 
-      <h3>2.2. Datos académicos y administrativos</h3>
-      <p>Mientras la sesión está activa, la aplicación consulta los siguientes datos a través de las APIs oficiales de UPLA:</p>
+      <h3>2.2. Datos acadÃ©micos y administrativos</h3>
+      <p>Mientras la sesiÃ³n estÃ¡ activa, la aplicaciÃ³n consulta los siguientes datos a travÃ©s de las APIs oficiales de UPLA:</p>
       <ul>
-        <li><strong>Perfil:</strong> nombre, código, carrera, facultad, ciclo, modalidad, sede, créditos aprobados.</li>
-        <li><strong>Horario académico</strong> del periodo activo.</li>
+        <li><strong>Perfil:</strong> nombre, cÃ³digo, carrera, facultad, ciclo, modalidad, sede, crÃ©ditos aprobados.</li>
+        <li><strong>Horario acadÃ©mico</strong> del periodo activo.</li>
         <li><strong>Calificaciones:</strong> promedio acumulado, promedios por periodo, notas por asignatura y ranking promocional.</li>
-        <li><strong>Información financiera:</strong> cuotas pendientes y vencidas, histórico de operaciones, cronograma de pagos.</li>
-        <li><strong>Trámites:</strong> constancias generadas, certificados.</li>
+        <li><strong>InformaciÃ³n financiera:</strong> cuotas pendientes y vencidas, histÃ³rico de operaciones, cronograma de pagos.</li>
+        <li><strong>TrÃ¡mites:</strong> constancias generadas, certificados.</li>
       </ul>
-      <p>Esta información se almacena en caché en el dispositivo. La caché se elimina al cerrar sesión o desinstalar la aplicación.</p>
+      <p>Esta informaciÃ³n se almacena en cachÃ© en el dispositivo. La cachÃ© se elimina al cerrar sesiÃ³n o desinstalar la aplicaciÃ³n.</p>
 
-      <h3>2.3. Integración con Microsoft 365 (opcional)</h3>
-      <p>Cuando el usuario activa la integración con Microsoft Teams:</p>
+      <h3>2.3. IntegraciÃ³n con Microsoft 365 (opcional)</h3>
+      <p>Cuando el usuario activa la integraciÃ³n con Microsoft Teams:</p>
       <ul>
-        <li>La aplicación inicia un flujo OAuth2 Device Code Flow contra <code>login.microsoftonline.com</code>.</li>
-        <li>Se solicitan permisos delegados mínimos: <code>EduRoster.ReadBasic</code>, <code>EduAssignments.ReadBasic</code>, <code>User.Read</code>, <code>openid</code>, <code>profile</code> y <code>offline_access</code>.</li>
+        <li>La aplicaciÃ³n inicia un flujo OAuth2 Device Code Flow contra <code>login.microsoftonline.com</code>.</li>
+        <li>Se solicitan permisos delegados mÃ­nimos: <code>EduRoster.ReadBasic</code>, <code>EduAssignments.ReadBasic</code>, <code>User.Read</code>, <code>openid</code>, <code>profile</code> y <code>offline_access</code>.</li>
         <li>Los tokens se almacenan localmente como JSON.</li>
         <li>El usuario puede revocar el acceso desde <a href="https://myaccount.microsoft.com">myaccount.microsoft.com</a>.</li>
       </ul>
 
       <h3>2.4. Notificaciones locales</h3>
-      <p>La aplicación programa notificaciones a través del sistema operativo para recordatorios de clases, vencimientos de cuotas y detección de calificaciones nuevas. La aplicación no utiliza servicios de notificaciones push.</p>
+      <p>La aplicaciÃ³n programa notificaciones a travÃ©s del sistema operativo para recordatorios de clases, vencimientos de cuotas y detecciÃ³n de calificaciones nuevas. La aplicaciÃ³n no utiliza servicios de notificaciones push.</p>
     </section>
 
     <section data-reveal>
-      <h2>3. Asistente Lumen</h2>
-      <p>Lumen es un módulo opcional. Su activación requiere la descarga única de un modelo de lenguaje desde un release público de GitHub.</p>
-
-      <h3>3.1. Funcionamiento</h3>
+      <h2>3. PrÃ¡cticas no realizadas</h2>
+      <p>A fin de evitar ambigÃ¼edad, la aplicaciÃ³n no realiza ninguna de las siguientes prÃ¡cticas:</p>
       <ul>
-        <li>El modelo se ejecuta en el procesador del dispositivo mediante MediaPipe LLM Inference.</li>
-        <li>Lumen accede únicamente a la información ya disponible en la aplicación.</li>
-        <li>El sistema construye un prompt en memoria, lo envía al motor de inferencia local y muestra la respuesta en pantalla.</li>
-      </ul>
-
-      <h3>3.2. Lo que Lumen no hace</h3>
-      <ul>
-        <li>No transmite la consulta del usuario a ningún servidor externo.</li>
-        <li>No comparte datos académicos fuera del dispositivo.</li>
-        <li>No registra ni reporta las interacciones del usuario.</li>
-        <li>No utiliza APIs de OpenAI, Google AI, Anthropic ni otros proveedores en la nube.</li>
-      </ul>
-      <p>La única solicitud de red que origina el módulo Lumen es la descarga inicial del modelo. Más información en <a href="lumen.html">la página de Lumen</a>.</p>
-    </section>
-
-    <section data-reveal>
-      <h2>4. Prácticas no realizadas</h2>
-      <p>A fin de evitar ambigüedad, la aplicación no realiza ninguna de las siguientes prácticas:</p>
-      <ul>
-        <li>Recopilación de métricas de uso ni telemetría.</li>
-        <li>Integración con servicios de análisis (Google Analytics, Firebase Analytics, Mixpanel u otros).</li>
-        <li>Inclusión de publicidad o SDKs de monetización.</li>
-        <li>Compartición de datos con terceros.</li>
+        <li>RecopilaciÃ³n de mÃ©tricas de uso ni telemetrÃ­a.</li>
+        <li>IntegraciÃ³n con servicios de anÃ¡lisis (Google Analytics, Firebase Analytics, Mixpanel u otros).</li>
+        <li>InclusiÃ³n de publicidad o SDKs de monetizaciÃ³n.</li>
+        <li>ComparticiÃ³n de datos con terceros.</li>
         <li>Procesamiento en servidores propios.</li>
-        <li>Comercialización de información del usuario.</li>
+        <li>ComercializaciÃ³n de informaciÃ³n del usuario.</li>
       </ul>
     </section>
 
     <section data-reveal>
-      <h2>5. Derechos del usuario</h2>
+      <h2>4. Derechos del usuario</h2>
       <p>El usuario puede ejercer en todo momento los siguientes controles:</p>
       <ul>
-        <li><strong>Cerrar sesión</strong> (Perfil → Cerrar sesión).</li>
-        <li><strong>Desactivar Lumen</strong> (Lumen → Configuración → Borrar modelo).</li>
-        <li><strong>Limpiar historial de Lumen</strong> (Lumen → Configuración → Limpiar historial).</li>
+        <li><strong>Cerrar sesiÃ³n</strong> (Perfil â†’ Cerrar sesiÃ³n).</li>
         <li><strong>Revocar acceso a Microsoft 365</strong> (<a href="https://myaccount.microsoft.com">myaccount.microsoft.com</a>).</li>
-        <li><strong>Desinstalar la aplicación</strong>: el sistema operativo elimina la totalidad de los datos privados.</li>
+        <li><strong>Desinstalar la aplicaciÃ³n</strong>: el sistema operativo elimina la totalidad de los datos privados.</li>
       </ul>
     </section>
 
     <section data-reveal>
-      <h2>6. Medidas de seguridad</h2>
+      <h2>5. Medidas de seguridad</h2>
       <ul>
-        <li>Toda la comunicación con SIGMA, Intranet UPLA y Microsoft Graph utiliza TLS (HTTPS).</li>
-        <li>La aplicación incluye el almacén de autoridades certificadoras de Mozilla para mitigar fallos de validación TLS.</li>
+        <li>Toda la comunicaciÃ³n con SIGMA, Intranet UPLA y Microsoft Graph utiliza TLS (HTTPS).</li>
+        <li>La aplicaciÃ³n incluye el almacÃ©n de autoridades certificadoras de Mozilla para mitigar fallos de validaciÃ³n TLS.</li>
         <li>Las credenciales almacenadas localmente se codifican en Base64. Esta medida ofusca el valor pero no constituye cifrado robusto.</li>
       </ul>
       <div class="notice warning">
-        <p>Los usuarios que requieran un nivel de seguridad superior deberían abstenerse de utilizar la opción "Recordar credenciales".</p>
+        <p>Los usuarios que requieran un nivel de seguridad superior deberÃ­an abstenerse de utilizar la opciÃ³n "Recordar credenciales".</p>
       </div>
     </section>
 
     <section data-reveal>
-      <h2>7. Menores de edad</h2>
-      <p>La aplicación se dirige a estudiantes universitarios. Se recomienda que los usuarios menores de edad consulten esta política con sus padres o tutores antes de utilizar el servicio.</p>
+      <h2>6. Menores de edad</h2>
+      <p>La aplicaciÃ³n se dirige a estudiantes universitarios. Se recomienda que los usuarios menores de edad consulten esta polÃ­tica con sus padres o tutores antes de utilizar el servicio.</p>
     </section>
 
     <section data-reveal>
-      <h2>8. Modificaciones</h2>
-      <p>Cualquier modificación sustancial se reflejará en una nueva versión de este documento y en el <a href="https://github.com/auralix-studio/nexo/blob/main/CHANGELOG.md">CHANGELOG</a>. El usuario no está obligado a aceptar modificaciones futuras y puede desinstalar la aplicación en cualquier momento.</p>
+      <h2>7. Modificaciones</h2>
+      <p>Cualquier modificaciÃ³n sustancial se reflejarÃ¡ en una nueva versiÃ³n de este documento y en el <a href="https://github.com/auralix-studio/nexo/blob/main/CHANGELOG.md">CHANGELOG</a>. El usuario no estÃ¡ obligado a aceptar modificaciones futuras y puede desinstalar la aplicaciÃ³n en cualquier momento.</p>
     </section>
 
     <section data-reveal>
-      <h2>9. Limitación de responsabilidad</h2>
-      <p>La aplicación se distribuye sin garantías. El responsable no se hace cargo de pérdida de datos, decisiones tomadas en base a la información mostrada, interrupciones del servicio derivadas de fallos en los sistemas de UPLA o Microsoft, ni modificaciones de las políticas o APIs de terceros.</p>
-      <p>Para trámites legales, académicos o financieros, el usuario debe verificar la información en las fuentes oficiales.</p>
+      <h2>8. LimitaciÃ³n de responsabilidad</h2>
+      <p>La aplicaciÃ³n se distribuye sin garantÃ­as. El responsable no se hace cargo de pÃ©rdida de datos, decisiones tomadas en base a la informaciÃ³n mostrada, interrupciones del servicio derivadas de fallos en los sistemas de UPLA o Microsoft, ni modificaciones de las polÃ­ticas o APIs de terceros.</p>
+      <p>Para trÃ¡mites legales, acadÃ©micos o financieros, el usuario debe verificar la informaciÃ³n en las fuentes oficiales.</p>
     </section>
 
     <section data-reveal>
-      <h2>10. Contacto</h2>
-      <p>Las consultas, reclamaciones o solicitudes relativas a esta política pueden remitirse mediante un issue en el repositorio público:</p>
+      <h2>9. Contacto</h2>
+      <p>Las consultas, reclamaciones o solicitudes relativas a esta polÃ­tica pueden remitirse mediante un issue en el repositorio pÃºblico:</p>
       <p><a href="https://github.com/auralix-studio/nexo/issues">github.com/auralix-studio/nexo/issues</a></p>
-      <p>Para asuntos que requieran reserva, se ruega indicar la palabra <strong>PRIVADO</strong> en el título del issue.</p>
+      <p>Para asuntos que requieran reserva, se ruega indicar la palabra <strong>PRIVADO</strong> en el tÃ­tulo del issue.</p>
     </section>
 
     </div>
@@ -181,37 +158,37 @@
     <div class="site-footer-inner">
       <div class="footer-about">
         <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-        <p>Cliente no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Proyecto independiente, sin afiliación institucional.</p>
+        <p>Cliente no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Proyecto independiente, sin afiliaciÃ³n institucional.</p>
       </div>
       <div>
         <h4>Producto</h4>
         <ul>
           <li><a href="downloads.html">Descargas</a></li>
-          <li><a href="https://github.com/Auralix-Studio/nexo-code">Código fuente</a></li>
-          <li><a href="install.html">Instalación</a></li>
+          <li><a href="https://github.com/Auralix-Studio/nexo-code">CÃ³digo fuente</a></li>
+          <li><a href="install.html">InstalaciÃ³n</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/releases">Versiones</a></li>
         </ul>
       </div>
       <div>
-        <h4>Documentación</h4>
+        <h4>DocumentaciÃ³n</h4>
         <ul>
-          <li><a href="docs.html">Índice</a></li>
+          <li><a href="docs.html">Ãndice</a></li>
           <li><a href="architecture.html">Arquitectura</a></li>
           <li><a href="faq.html">Preguntas frecuentes</a></li>
-          <li><a href="https://github.com/auralix-studio/nexo/blob/main/docs/troubleshoot.md">Diagnóstico</a></li>
+          <li><a href="https://github.com/auralix-studio/nexo/blob/main/docs/troubleshoot.md">DiagnÃ³stico</a></li>
         </ul>
       </div>
       <div>
         <h4>Legal</h4>
         <ul>
-          <li><a href="privacy.html">Política de privacidad</a></li>
+          <li><a href="privacy.html">PolÃ­tica de privacidad</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/blob/main/LICENSE">Licencia</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/issues">Reportar un problema</a></li>
-          <li><a href="https://github.com/auralix-studio/nexo">Repositorio público</a></li>
+          <li><a href="https://github.com/auralix-studio/nexo">Repositorio pÃºblico</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">© 2026 Alessandro Villogas Gaspar. Documentación bajo Creative Commons BY 4.0.</div>
+    <div class="footer-bottom">Â© 2026 Alessandro Villogas Gaspar. DocumentaciÃ³n bajo Creative Commons BY 4.0.</div>
   </footer>
 
   <script src="app.js?v=1.0.5" defer></script>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Descargas · Nexo</title>
-  <meta name="description" content="Descargá Nexo para Android, Windows, macOS, Linux y Web. Incluye hashes SHA-256 para verificación de integridad.">
+  <title>Descargas Â· Nexo</title>
+  <meta name="description" content="DescargÃ¡ Nexo para Android, Windows, macOS, Linux y Web. Incluye hashes SHA-256 para verificaciÃ³n de integridad.">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
   <link rel="stylesheet" href="style.css?v=1.0.5">
 </head>
@@ -13,7 +13,7 @@
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-      <button class="mobile-menu-btn" aria-label="Menú">
+      <button class="mobile-menu-btn" aria-label="MenÃº">
         <span class="menu-bar"></span>
         <span class="menu-bar"></span>
         <span class="menu-bar"></span>
@@ -21,10 +21,10 @@
         <a href="index.html">Inicio</a>
 
         <a href="downloads.html" class="active">Descargas</a>
-        <a href="docs.html">Documentación</a>
+        <a href="docs.html">DocumentaciÃ³n</a>
         <a href="about.html">Acerca</a>
         <a href="privacy.html">Privacidad</a>
-        <a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-universal.apk" class="nav-cta">Descargar</a>
+        <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android" class="nav-cta">Descargar</a>
       </nav>
     </div>
   </header>
@@ -32,7 +32,7 @@
   <main id="content" class="split-layout">
 
     <section class="split-sidebar" data-reveal>
-      <span class="eyebrow">Versión <span data-dynamic-version>1.3.1</span></span>
+      <span class="eyebrow">Última versión <span data-dynamic-version></span></span>
       <h1 class="page-title">Descargas</h1>
       <p class="page-subtitle">
         Binarios oficiales por plataforma. Todos los archivos incluyen
@@ -45,8 +45,8 @@
     <section data-reveal>
       <h2>Android</h2>
       <p>
-        Sideload de APK firmado. Durante la primera instalación, Android
-        solicitará autorización para instalar aplicaciones de fuentes
+        Sideload de APK firmado. Durante la primera instalaciÃ³n, Android
+        solicitarÃ¡ autorizaciÃ³n para instalar aplicaciones de fuentes
         desconocidas.
       </p>
 
@@ -56,87 +56,86 @@
             <tr>
               <th>Variante</th>
               <th>Archivo</th>
-              <th>Tamaño</th>
+              <th>TamaÃ±o</th>
               <th>Compatibilidad</th>
               <th></th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
+            <tr data-arch-row="arm64">
               <td>arm64-v8a</td>
-              <td><span class="file">nexo-v1.3.1-arm64.apk</span></td>
-              <td class="size">159 MB</td>
+              <td><span class="file" data-dynamic-name="android-arm64">nexo-latest-arm64.apk</span></td>
+              <td class="size" data-dynamic-size="android-arm64">-- MB</td>
               <td>Android desde 2017</td>
-              <td><a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-arm64.apk" class="btn btn-secondary btn-sm">Descargar</a></td>
+              <td><a href="https://github.com/auralix-studio/nexo/releases/latest" data-dynamic-dl="android-arm64" class="btn btn-secondary btn-sm">Descargar</a></td>
             </tr>
-            <tr>
-              <td>armeabi-v7a <span class="badge warn">sin Lumen</span></td>
-              <td><span class="file">nexo-v1.3.1-armv7.apk</span></td>
-              <td class="size">27 MB</td>
+            <tr data-arch-row="armv7">
+              <td>armeabi-v7a</td>
+              <td><span class="file" data-dynamic-name="android-armv7">nexo-latest-armv7.apk</span></td>
+              <td class="size" data-dynamic-size="android-armv7">-- MB</td>
               <td>Dispositivos 32-bit</td>
-              <td><a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-armv7.apk" class="btn btn-secondary btn-sm">Descargar</a></td>
+              <td><a href="https://github.com/auralix-studio/nexo/releases/latest" data-dynamic-dl="android-armv7" class="btn btn-secondary btn-sm">Descargar</a></td>
             </tr>
-            <tr>
+            <tr data-arch-row="x86_64">
               <td>x86_64</td>
-              <td><span class="file">nexo-v1.3.1-x86_64.apk</span></td>
-              <td class="size">82 MB</td>
+              <td><span class="file" data-dynamic-name="android-x86_64">nexo-latest-x86_64.apk</span></td>
+              <td class="size" data-dynamic-size="android-x86_64">-- MB</td>
               <td>Emuladores</td>
-              <td><a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-x86_64.apk" class="btn btn-secondary btn-sm">Descargar</a></td>
+              <td><a href="https://github.com/auralix-studio/nexo/releases/latest" data-dynamic-dl="android-x86_64" class="btn btn-secondary btn-sm">Descargar</a></td>
             </tr>
-            <tr>
-              <td>Universal <span class="badge ok">recomendada</span></td>
-              <td><span class="file" data-dynamic-name="android">nexo-v1.3.1-universal.apk</span></td>
-              <td class="size" data-dynamic-size="android">147 MB</td>
+            <tr data-arch-row="universal">
+              <td>Universal <span class="badge ok" id="recommended-badge">recomendada</span></td>
+              <td><span class="file" data-dynamic-name="android">nexo-latest-universal.apk</span></td>
+              <td class="size" data-dynamic-size="android">-- MB</td>
               <td>Cualquier dispositivo</td>
-              <td><a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-universal.apk" data-dynamic-dl="android" class="btn btn-primary btn-sm">Descargar</a></td>
+              <td><a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android" class="btn btn-primary btn-sm">Descargar</a></td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <div class="notice">
-        <p>Cuando se desconoce la arquitectura del dispositivo, la variante <strong>Universal</strong> garantiza la compatibilidad a costa de un tamaño mayor.</p>
+        <p>Cuando se desconoce la arquitectura del dispositivo, la variante <strong>Universal</strong> garantiza la compatibilidad a costa de un tamaÃ±o mayor.</p>
       </div>
     </section>
 
     <section data-reveal>
       <h2>Windows</h2>
       <p>
-        Paquete portable con asistente de instalación integrado. Al
-        ejecutar <code>nexo.exe</code> por primera vez, la aplicación
+        Paquete portable con asistente de instalaciÃ³n integrado. Al
+        ejecutar <code>nexo.exe</code> por primera vez, la aplicaciÃ³n
         presenta dos opciones:
       </p>
       <ul>
         <li><strong>Instalar.</strong> Copia los archivos a <code>%LOCALAPPDATA%\Nexo</code>, crea accesos directos y se registra en el Panel de control.</li>
-        <li><strong>Modo portable.</strong> La aplicación se ejecuta desde la carpeta extraída, sin alterar el sistema.</li>
+        <li><strong>Modo portable.</strong> La aplicaciÃ³n se ejecuta desde la carpeta extraÃ­da, sin alterar el sistema.</li>
       </ul>
-      <p>La instalación no requiere privilegios de administrador.</p>
+      <p>La instalaciÃ³n no requiere privilegios de administrador.</p>
 
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Archivo</th><th>Tamaño</th><th>Requisitos</th><th></th></tr>
+            <tr><th>Archivo</th><th>TamaÃ±o</th><th>Requisitos</th><th></th></tr>
           </thead>
           <tbody>
             <tr>
-              <td><span class="file" data-dynamic-name="windows">nexo-v1.3.1-windows-x64.zip</span></td>
-              <td class="size" data-dynamic-size="windows">222 MB</td>
+              <td><span class="file" data-dynamic-name="windows">nexo-latest-windows-x64.zip</span></td>
+              <td class="size" data-dynamic-size="windows">-- MB</td>
               <td>Windows 10 1809 (x64)</td>
-              <td><a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-windows-x64.zip" data-dynamic-dl="windows" class="btn btn-primary btn-sm">Descargar</a></td>
+              <td><a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="windows" class="btn btn-primary btn-sm">Descargar</a></td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <div class="notice warning">
-        <p>Los binarios no están firmados con certificado de validación extendida. Si Windows Defender SmartScreen muestra una advertencia, seleccionar "Más información" → "Ejecutar de todas formas".</p>
+        <p>Los binarios no estÃ¡n firmados con certificado de validaciÃ³n extendida. Si Windows Defender SmartScreen muestra una advertencia, seleccionar "MÃ¡s informaciÃ³n" â†’ "Ejecutar de todas formas".</p>
       </div>
     </section>
 
     <section data-reveal>
       <h2>iOS, macOS y Linux</h2>
       <p>
-        No existe distribución oficial en esta versión. La aplicación
+        No existe distribuciÃ³n oficial en esta versiÃ³n. La aplicaciÃ³n
         compila para todas estas plataformas. Para obtener un binario,
         abrir un issue en el repositorio.
       </p>
@@ -145,16 +144,16 @@
     <section data-reveal>
       <h2>Web</h2>
       <p>
-        Demostración en línea disponible en
-        <a href="https://nexo.upla.dev">nexo.upla.dev</a>. La versión web
+        DemostraciÃ³n en lÃ­nea disponible en
+        <a href="https://nexo.upla.dev">nexo.upla.dev</a>. La versiÃ³n web
         tiene restricciones respecto a las nativas: las notificaciones no
-        están disponibles, la integración con Microsoft Teams requiere
-        proxy CORS, y Lumen descarga el modelo en cada carga del sitio.
+        estÃ¡n disponibles y la integraciÃ³n con Microsoft Teams requiere
+        proxy CORS.
       </p>
     </section>
 
     <section data-reveal>
-      <h2>Verificación de integridad</h2>
+      <h2>VerificaciÃ³n de integridad</h2>
       <p>
         Cada archivo publica su valor SHA-256. El usuario puede comparar
         el valor calculado localmente con el publicado para confirmar que
@@ -165,73 +164,31 @@
         <table>
           <thead><tr><th>Archivo</th><th>SHA-256</th></tr></thead>
           <tbody>
-            <tr><td><span class="file">nexo-v1.3.1-arm64.apk</span></td><td><span class="sha">pendiente al publicar el release</span></td></tr>
-            <tr><td><span class="file">nexo-v1.3.1-armv7.apk</span></td><td><span class="sha">pendiente al publicar el release</span></td></tr>
-            <tr><td><span class="file">nexo-v1.3.1-x86_64.apk</span></td><td><span class="sha">pendiente al publicar el release</span></td></tr>
-            <tr><td><span class="file" data-dynamic-name="android">nexo-v1.3.1-universal.apk</span></td><td><span class="sha">9971a160a587976dbe8bca367a982deab5378ceeae545bd6b32e837c500ce288</span></td></tr>
-            <tr><td><span class="file" data-dynamic-name="windows">nexo-v1.3.1-windows-x64.zip</span></td><td><span class="sha">pendiente al publicar el release</span></td></tr>
+            <tr><td><span class="file" data-dynamic-name="android-arm64">nexo-latest-arm64.apk</span></td><td><span class="sha" id="sha-arm64">pendiente al publicar el release</span></td></tr>
+            <tr><td><span class="file" data-dynamic-name="android-armv7">nexo-latest-armv7.apk</span></td><td><span class="sha" id="sha-armv7">pendiente al publicar el release</span></td></tr>
+            <tr><td><span class="file" data-dynamic-name="android-x86_64">nexo-latest-x86_64.apk</span></td><td><span class="sha" id="sha-x86_64">pendiente al publicar el release</span></td></tr>
+            <tr><td><span class="file" data-dynamic-name="android">nexo-latest-universal.apk</span></td><td><span class="sha" id="sha-universal">pendiente al publicar el release</span></td></tr>
+            <tr><td><span class="file" data-dynamic-name="windows">nexo-latest-windows-x64.zip</span></td><td><span class="sha" id="sha-windows">pendiente al publicar el release</span></td></tr>
           </tbody>
         </table>
       </div>
 
       <h3>Comando para PowerShell</h3>
-<pre><code>Get-FileHash -Algorithm SHA256 .\<span data-dynamic-name="android">nexo-v1.3.1-universal.apk</span></code></pre>
+<pre><code>Get-FileHash -Algorithm SHA256 .\<span data-dynamic-name="android">nexo-latest-universal.apk</span></code></pre>
 
       <h3>Comando para Bash</h3>
-<pre><code>sha256sum <span data-dynamic-name="android">nexo-v1.3.1-universal.apk</span></code></pre>
+<pre><code>sha256sum <span data-dynamic-name="android">nexo-latest-universal.apk</span></code></pre>
 
       <div class="notice danger">
-        <p>Si el valor obtenido no coincide con el publicado, el archivo está corrupto o ha sido manipulado y no debe instalarse.</p>
+        <p>Si el valor obtenido no coincide con el publicado, el archivo estÃ¡ corrupto o ha sido manipulado y no debe instalarse.</p>
       </div>
-    </section>
-
-    <section data-reveal>
-      <h2>Modelos de Lumen</h2>
-      <p>
-        Los modelos del asistente Lumen se distribuyen en un release
-        separado. La aplicación los descarga automáticamente cuando el
-        usuario activa el asistente.
-      </p>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Variante</th><th>Plataforma</th><th>Archivo</th><th>Tamaño</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td rowspan="2"><strong>Lumen Ligero</strong></td>
-              <td>Móvil y Web</td>
-              <td><span class="file">gemma-3-270m-it-int8.task</span></td>
-              <td class="size">290 MB</td>
-            </tr>
-            <tr>
-              <td>Escritorio</td>
-              <td><span class="file">gemma-3-270m-it-int8.litertlm</span></td>
-              <td class="size">290 MB</td>
-            </tr>
-            <tr>
-              <td><strong>Lumen Estándar</strong></td>
-              <td>Móvil y Web</td>
-              <td><span class="file">gemma3-1B-it-int4.task</span></td>
-              <td class="size">529 MB</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p style="margin-top: 1rem;">
-        <a href="https://github.com/auralix-studio/nexo/releases/tag/lumen-models-v1">Ver release de modelos →</a>
-        &nbsp;·&nbsp;
-        <a href="lumen.html">Más sobre Lumen →</a>
-      </p>
     </section>
 
     <section data-reveal>
       <div class="cta">
-        <h2>¿Necesitás ayuda con la instalación?</h2>
-        <p>Consultá la guía paso a paso por plataforma.</p>
-        <a href="install.html" class="btn btn-primary">Guía de instalación</a>
+        <h2>Â¿NecesitÃ¡s ayuda con la instalaciÃ³n?</h2>
+        <p>ConsultÃ¡ la guÃ­a paso a paso por plataforma.</p>
+        <a href="install.html" class="btn btn-primary">GuÃ­a de instalaciÃ³n</a>
       </div>
     </section>
 
@@ -243,37 +200,37 @@
     <div class="site-footer-inner">
       <div class="footer-about">
         <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-        <p>Cliente no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Proyecto independiente, sin afiliación institucional.</p>
+        <p>Cliente no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Proyecto independiente, sin afiliaciÃ³n institucional.</p>
       </div>
       <div>
         <h4>Producto</h4>
         <ul>
           <li><a href="downloads.html">Descargas</a></li>
-          <li><a href="https://github.com/Auralix-Studio/nexo-code">Código fuente</a></li>
-          <li><a href="install.html">Instalación</a></li>
+          <li><a href="https://github.com/Auralix-Studio/nexo-code">CÃ³digo fuente</a></li>
+          <li><a href="install.html">InstalaciÃ³n</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/releases">Versiones</a></li>
         </ul>
       </div>
       <div>
-        <h4>Documentación</h4>
+        <h4>DocumentaciÃ³n</h4>
         <ul>
-          <li><a href="docs.html">Índice</a></li>
+          <li><a href="docs.html">Ãndice</a></li>
           <li><a href="architecture.html">Arquitectura</a></li>
           <li><a href="faq.html">Preguntas frecuentes</a></li>
-          <li><a href="https://github.com/auralix-studio/nexo/blob/main/docs/troubleshoot.md">Diagnóstico</a></li>
+          <li><a href="https://github.com/auralix-studio/nexo/blob/main/docs/troubleshoot.md">DiagnÃ³stico</a></li>
         </ul>
       </div>
       <div>
         <h4>Legal</h4>
         <ul>
-          <li><a href="privacy.html">Política de privacidad</a></li>
+          <li><a href="privacy.html">PolÃ­tica de privacidad</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/blob/main/LICENSE">Licencia</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/issues">Reportar un problema</a></li>
-          <li><a href="https://github.com/auralix-studio/nexo">Repositorio público</a></li>
+          <li><a href="https://github.com/auralix-studio/nexo">Repositorio pÃºblico</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">© 2026 Alessandro Villogas Gaspar. Documentación bajo Creative Commons BY 4.0.</div>
+    <div class="footer-bottom">Â© 2026 Alessandro Villogas Gaspar. DocumentaciÃ³n bajo Creative Commons BY 4.0.</div>
   </footer>
 
   <script src="app.js?v=1.0.5" defer></script>

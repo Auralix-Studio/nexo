@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DiagnÃ³stico de problemas Â· Nexo</title>
-  <meta name="description" content="SÃ­ntomas comunes de Nexo y procedimientos de resoluciÃ³n: inicio, datos, Lumen, notificaciones y Microsoft Teams.">
+  <title>DiagnÃƒÂ³stico de problemas Ã‚Â· Nexo</title>
+  <meta name="description" content="SÃƒÂ­ntomas comunes de Nexo y procedimientos de resoluciÃƒÂ³n: inicio, datos, notificaciones y Microsoft Teams.">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
   <link rel="stylesheet" href="style.css?v=1.0.5">
 </head>
@@ -13,7 +13,7 @@
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-      <button class="mobile-menu-btn" aria-label="MenÃº">
+      <button class="mobile-menu-btn" aria-label="MenÃƒÂº">
         <span class="menu-bar"></span>
         <span class="menu-bar"></span>
         <span class="menu-bar"></span>
@@ -21,10 +21,10 @@
         <a href="index.html">Inicio</a>
 
         <a href="downloads.html">Descargas</a>
-        <a href="docs.html" class="active">DocumentaciÃ³n</a>
+        <a href="docs.html" class="active">DocumentaciÃƒÂ³n</a>
         <a href="about.html">Acerca</a>
         <a href="privacy.html">Privacidad</a>
-        <a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.0/nexo-v1.3.0-universal.apk" class="nav-cta">Descargar</a>
+        <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android" class="nav-cta">Descargar</a>
       </nav>
     </div>
   </header>
@@ -33,10 +33,10 @@
 
     <section class="split-sidebar" data-reveal>
       <span class="eyebrow">Soporte</span>
-      <h1 class="page-title">DiagnÃ³stico de problemas</h1>
+      <h1 class="page-title">DiagnÃƒÂ³stico de problemas</h1>
       <p class="page-subtitle">
-        SÃ­ntomas comunes y procedimientos de resoluciÃ³n, organizados por
-        Ã¡rea de la aplicaciÃ³n.
+        SÃƒÂ­ntomas comunes y procedimientos de resoluciÃƒÂ³n, organizados por
+        ÃƒÂ¡rea de la aplicaciÃƒÂ³n.
       </p>
     </section>
 
@@ -45,87 +45,59 @@
     <section data-reveal>
       <h2>Problemas de inicio</h2>
 
-      <h3>La aplicaciÃ³n no abre o se cierra al iniciar</h3>
+      <h3>La aplicaciÃƒÂ³n no abre o se cierra al iniciar</h3>
       <ol>
         <li>Verificar que el dispositivo ejecute Android 7.0 (API 24) o superior.</li>
-        <li>Borrar los datos de la aplicaciÃ³n: ConfiguraciÃ³n del sistema â†’ Aplicaciones â†’ Nexo â†’ Almacenamiento â†’ "Borrar datos".</li>
-        <li>Reinstalar la aplicaciÃ³n desde el APK mÃ¡s reciente disponible en el <a href="https://github.com/auralix-studio/nexo/releases/latest">Ãºltimo release</a>.</li>
+        <li>Borrar los datos de la aplicaciÃƒÂ³n: ConfiguraciÃƒÂ³n del sistema Ã¢â€ â€™ Aplicaciones Ã¢â€ â€™ Nexo Ã¢â€ â€™ Almacenamiento Ã¢â€ â€™ "Borrar datos".</li>
+        <li>Reinstalar la aplicaciÃƒÂ³n desde el APK mÃƒÂ¡s reciente disponible en el <a href="https://github.com/auralix-studio/nexo/releases/latest">ÃƒÂºltimo release</a>.</li>
         <li>Si el problema persiste, abrir un issue adjuntando el log obtenido con:</li>
       </ol>
 <pre><code>adb logcat -s pe.upla.nexo:* AndroidRuntime:E</code></pre>
 
       <h3>Mensaje "No se pudo conectar a SIGMA"</h3>
       <ol>
-        <li>Comprobar la disponibilidad del portal oficial en <a href="https://sigma.upla.edu.pe">sigma.upla.edu.pe</a>. Si el portal tampoco responde, se trata de una interrupciÃ³n del servicio de UPLA.</li>
-        <li>Si el portal funciona pero Nexo no logra conectarse, puede tratarse de un problema TLS. La aplicaciÃ³n incluye un almacÃ©n actualizado de autoridades certificadoras para mitigar este tipo de errores, pero ciertos dispositivos antiguos pueden seguir presentando el problema. Reportar el incidente indicando el modelo del dispositivo y la versiÃ³n de Android.</li>
+        <li>Comprobar la disponibilidad del portal oficial en <a href="https://sigma.upla.edu.pe">sigma.upla.edu.pe</a>. Si el portal tampoco responde, se trata de una interrupciÃƒÂ³n del servicio de UPLA.</li>
+        <li>Si el portal funciona pero Nexo no logra conectarse, puede tratarse de un problema TLS. La aplicaciÃƒÂ³n incluye un almacÃƒÂ©n actualizado de autoridades certificadoras para mitigar este tipo de errores, pero ciertos dispositivos antiguos pueden seguir presentando el problema. Reportar el incidente indicando el modelo del dispositivo y la versiÃƒÂ³n de Android.</li>
       </ol>
 
-      <h3>SesiÃ³n expirada de forma repetida</h3>
+      <h3>SesiÃƒÂ³n expirada de forma repetida</h3>
       <ol>
-        <li>El token de sesiÃ³n caduca tras un periodo determinado (~2 horas). Nexo lo renueva automÃ¡ticamente.</li>
-        <li>Si la expiraciÃ³n ocurre en cada apertura de la aplicaciÃ³n: cerrar sesiÃ³n completamente (Perfil â†’ "Cerrar sesiÃ³n"), volver a autenticarse y reactivar la opciÃ³n "Recordar credenciales" si estaba en uso.</li>
+        <li>El token de sesiÃƒÂ³n caduca tras un periodo determinado (~2 horas). Nexo lo renueva automÃƒÂ¡ticamente.</li>
+        <li>Si la expiraciÃƒÂ³n ocurre en cada apertura de la aplicaciÃƒÂ³n: cerrar sesiÃƒÂ³n completamente (Perfil Ã¢â€ â€™ "Cerrar sesiÃƒÂ³n"), volver a autenticarse y reactivar la opciÃƒÂ³n "Recordar credenciales" si estaba en uso.</li>
       </ol>
     </section>
 
     <section data-reveal>
-      <h2>Problemas de visualizaciÃ³n de datos</h2>
+      <h2>Problemas de visualizaciÃƒÂ³n de datos</h2>
 
-      <h3>Horario, cuotas o calificaciones aparecen vacÃ­os</h3>
+      <h3>Horario, cuotas o calificaciones aparecen vacÃƒÂ­os</h3>
       <ol>
         <li>Realizar pull-to-refresh deslizando hacia abajo en la pantalla afectada.</li>
-        <li>Verificar en el portal web oficial si la informaciÃ³n existe. Es posible que no haya datos para mostrar (por ejemplo, entre periodos acadÃ©micos).</li>
-        <li>Si la informaciÃ³n existe en el portal pero no en Nexo, reportar el incidente como issue con captura de pantalla.</li>
+        <li>Verificar en el portal web oficial si la informaciÃƒÂ³n existe. Es posible que no haya datos para mostrar (por ejemplo, entre periodos acadÃƒÂ©micos).</li>
+        <li>Si la informaciÃƒÂ³n existe en el portal pero no en Nexo, reportar el incidente como issue con captura de pantalla.</li>
       </ol>
     </section>
 
-    <section data-reveal>
-      <h2>Problemas con Lumen</h2>
-
-      <h3>La descarga del modelo falla</h3>
-      <ul>
-        <li><strong>Error de conexiÃ³n durante la descarga.</strong> Asegurar una conexiÃ³n Wi-Fi estable. La descarga es de 290 MB o 530 MB segÃºn la variante; una conexiÃ³n mÃ³vil inestable puede causar interrupciones.</li>
-        <li><strong>La descarga finaliza pero falla en la verificaciÃ³n.</strong> El archivo descargado no coincide con el SHA-256 esperado. Reintentar la descarga. Si el problema persiste de forma sistemÃ¡tica, reportarlo como issue.</li>
-        <li><strong>Mensaje "No disponible aÃºn".</strong> El modelo no estÃ¡ publicado para la plataforma actual. Probar con la otra variante o esperar a una versiÃ³n posterior.</li>
-      </ul>
-
-      <h3>El asistente tarda excesivamente en responder o no responde</h3>
-      <ol>
-        <li>Verificar que el dispositivo disponga de al menos 3 GB de RAM libres.</li>
-        <li>En dispositivos modestos que utilizan Lumen EstÃ¡ndar, cambiar a Lumen Ligero puede mejorar el rendimiento: ConfiguraciÃ³n de Lumen â†’ "Cambiar modelo".</li>
-        <li>Cerrar otras aplicaciones que consuman memoria.</li>
-        <li>Reiniciar la aplicaciÃ³n.</li>
-      </ol>
-
-      <h3>Respuestas con caracteres repetidos o sin contenido</h3>
-      <p>
-        Este sÃ­ntoma indica que el modelo entrÃ³ en un estado degenerado de
-        generaciÃ³n. La aplicaciÃ³n incluye un detector que interrumpe estos
-        casos automÃ¡ticamente. Si el sÃ­ntoma persiste, reportarlo
-        proporcionando: versiÃ³n exacta de Nexo, consulta que origina el
-        problema, captura de pantalla de la respuesta y variante de Lumen
-        en uso.
-      </p>
-    </section>
 
     <section data-reveal>
       <h2>Notificaciones</h2>
 
       <h3>Las notificaciones no llegan</h3>
       <ol>
-        <li>Verificar la autorizaciÃ³n: ConfiguraciÃ³n del sistema â†’ Aplicaciones â†’ Nexo â†’ Notificaciones â†’ activar.</li>
-        <li>En dispositivos con interfaces de fabricante restrictivas con las aplicaciones en segundo plano (Xiaomi MIUI, Huawei EMUI, Oppo ColorOS), aÃ±adir Nexo a la lista de aplicaciones autorizadas para ejecutarse en segundo plano o al inicio del sistema.</li>
-        <li>En Android 14 o superior, el sistema operativo puede solicitar confirmaciÃ³n adicional para notificaciones programadas exactas, utilizadas en los recordatorios de clases. Aceptar dicha solicitud cuando aparezca.</li>
+        <li>Verificar la autorizaciÃƒÂ³n: ConfiguraciÃƒÂ³n del sistema Ã¢â€ â€™ Aplicaciones Ã¢â€ â€™ Nexo Ã¢â€ â€™ Notificaciones Ã¢â€ â€™ activar.</li>
+        <li>En dispositivos con interfaces de fabricante restrictivas con las aplicaciones en segundo plano (Xiaomi MIUI, Huawei EMUI, Oppo ColorOS), aÃƒÂ±adir Nexo a la lista de aplicaciones autorizadas para ejecutarse en segundo plano o al inicio del sistema.</li>
+        <li>En Android 14 o superior, el sistema operativo puede solicitar confirmaciÃƒÂ³n adicional para notificaciones programadas exactas, utilizadas en los recordatorios de clases. Aceptar dicha solicitud cuando aparezca.</li>
       </ol>
     </section>
 
     <section data-reveal>
       <h2>Microsoft Teams</h2>
 
-      <h3>La secciÃ³n de Teams no carga</h3>
+      <h3>La secciÃƒÂ³n de Teams no carga</h3>
       <ul>
-        <li>Verificar que la cuenta institucional UPLA tenga Microsoft Teams activo. Si la carrera no utiliza Teams, no se mostrarÃ¡ informaciÃ³n.</li>
-        <li>El administrador de Microsoft 365 de UPLA puede haber restringido el acceso de aplicaciones de terceros. En ese caso, la integraciÃ³n no podrÃ¡ habilitarse desde Nexo.</li>
-        <li>Para reintentar la autenticaciÃ³n: ConfiguraciÃ³n â†’ Microsoft â†’ "Cerrar sesiÃ³n Microsoft" â†’ volver a autenticar.</li>
+        <li>Verificar que la cuenta institucional UPLA tenga Microsoft Teams activo. Si la carrera no utiliza Teams, no se mostrarÃƒÂ¡ informaciÃƒÂ³n.</li>
+        <li>El administrador de Microsoft 365 de UPLA puede haber restringido el acceso de aplicaciones de terceros. En ese caso, la integraciÃƒÂ³n no podrÃƒÂ¡ habilitarse desde Nexo.</li>
+        <li>Para reintentar la autenticaciÃƒÂ³n: ConfiguraciÃƒÂ³n Ã¢â€ â€™ Microsoft Ã¢â€ â€™ "Cerrar sesiÃƒÂ³n Microsoft" Ã¢â€ â€™ volver a autenticar.</li>
       </ul>
     </section>
 
@@ -134,18 +106,16 @@
 
       <h3>Pantalla en blanco</h3>
       <ol>
-        <li>En Android, mantener pulsado el icono de la aplicaciÃ³n, abrir la informaciÃ³n de la app y seleccionar "Forzar detenciÃ³n".</li>
-        <li>Abrir la aplicaciÃ³n de nuevo.</li>
+        <li>En Android, mantener pulsado el icono de la aplicaciÃƒÂ³n, abrir la informaciÃƒÂ³n de la app y seleccionar "Forzar detenciÃƒÂ³n".</li>
+        <li>Abrir la aplicaciÃƒÂ³n de nuevo.</li>
         <li>Si el problema persiste, reportar como issue adjuntando el log de logcat.</li>
       </ol>
 
-      <h3>Consumo elevado de baterÃ­a</h3>
+      <h3>Consumo elevado de baterÃƒÂ­a</h3>
       <p>
-        El consumo elevado durante la generaciÃ³n de respuestas de Lumen
-        (5-15 segundos) es esperado y se debe al uso intensivo del
-        procesador durante la inferencia. Si se observa consumo elevado
-        cuando el asistente no estÃ¡ en uso, reportarlo como issue: este
-        comportamiento no es esperado y debe investigarse.
+        Si se observa un consumo elevado constante de baterÃƒÂ­a,
+        reportarlo como issue: este comportamiento no es esperado y debe
+        investigarse.
       </p>
     </section>
 
@@ -153,20 +123,20 @@
       <h2>Procedimiento para reportar problemas</h2>
       <p>Para que el reporte sea procesable con rapidez, se solicita aportar:</p>
       <ol>
-        <li><strong>VersiÃ³n de Nexo:</strong> visible en Perfil â†’ Acerca de Nexo.</li>
+        <li><strong>VersiÃƒÂ³n de Nexo:</strong> visible en Perfil Ã¢â€ â€™ Acerca de Nexo.</li>
         <li><strong>Plataforma:</strong> sistema operativo y modelo del dispositivo.</li>
         <li><strong>Pasos para reproducir:</strong> secuencia exacta que provoca el problema.</li>
-        <li><strong>Resultado esperado:</strong> descripciÃ³n del comportamiento correcto.</li>
-        <li><strong>Resultado obtenido:</strong> descripciÃ³n del comportamiento real, adjuntando captura de pantalla cuando sea posible.</li>
-        <li><strong>Registros, de forma opcional:</strong> salida de logcat filtrada por la aplicaciÃ³n.</li>
+        <li><strong>Resultado esperado:</strong> descripciÃƒÂ³n del comportamiento correcto.</li>
+        <li><strong>Resultado obtenido:</strong> descripciÃƒÂ³n del comportamiento real, adjuntando captura de pantalla cuando sea posible.</li>
+        <li><strong>Registros, de forma opcional:</strong> salida de logcat filtrada por la aplicaciÃƒÂ³n.</li>
       </ol>
 <pre><code>adb logcat -s pe.upla.nexo:* flutter:* AndroidRuntime:E</code></pre>
     </section>
 
     <section data-reveal>
       <div class="cta">
-        <h2>Â¿El problema continÃºa?</h2>
-        <p>Abre un issue en el repositorio pÃºblico y serÃ¡ atendido en cuanto sea posible.</p>
+        <h2>Ã‚Â¿El problema continÃƒÂºa?</h2>
+        <p>Abre un issue en el repositorio pÃƒÂºblico y serÃƒÂ¡ atendido en cuanto sea posible.</p>
         <a href="https://github.com/auralix-studio/nexo/issues/new" class="btn btn-primary">Abrir un issue</a>
       </div>
     </section>
@@ -179,37 +149,37 @@
     <div class="site-footer-inner">
       <div class="footer-about">
         <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-        <p>AplicaciÃ³n no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Proyecto independiente, sin afiliaciÃ³n institucional.</p>
+        <p>AplicaciÃƒÂ³n no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Proyecto independiente, sin afiliaciÃƒÂ³n institucional.</p>
       </div>
       <div>
         <h4>Producto</h4>
         <ul>
           <li><a href="downloads.html">Descargas</a></li>
-          <li><a href="https://github.com/Auralix-Studio/nexo-code">Código fuente</a></li>
-          <li><a href="install.html">InstalaciÃ³n</a></li>
+          <li><a href="https://github.com/Auralix-Studio/nexo-code">CÃ³digo fuente</a></li>
+          <li><a href="install.html">InstalaciÃƒÂ³n</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/releases">Versiones</a></li>
         </ul>
       </div>
       <div>
-        <h4>DocumentaciÃ³n</h4>
+        <h4>DocumentaciÃƒÂ³n</h4>
         <ul>
-          <li><a href="docs.html">Ãndice</a></li>
+          <li><a href="docs.html">ÃƒÂndice</a></li>
           <li><a href="architecture.html">Arquitectura</a></li>
           <li><a href="faq.html">Preguntas frecuentes</a></li>
-          <li><a href="troubleshoot.html">DiagnÃ³stico</a></li>
+          <li><a href="troubleshoot.html">DiagnÃƒÂ³stico</a></li>
         </ul>
       </div>
       <div>
         <h4>Legal</h4>
         <ul>
-          <li><a href="privacy.html">PolÃ­tica de privacidad</a></li>
+          <li><a href="privacy.html">PolÃƒÂ­tica de privacidad</a></li>
           <li><a href="license.html">Licencia</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/issues">Reportar un problema</a></li>
-          <li><a href="https://github.com/auralix-studio/nexo">Repositorio pÃºblico</a></li>
+          <li><a href="https://github.com/auralix-studio/nexo">Repositorio pÃƒÂºblico</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">Â© 2026 Alessandro Villogas Gaspar. DocumentaciÃ³n bajo Creative Commons BY 4.0.</div>
+    <div class="footer-bottom">Ã‚Â© 2026 Alessandro Villogas Gaspar. DocumentaciÃƒÂ³n bajo Creative Commons BY 4.0.</div>
   </footer>
 
   <script src="app.js?v=1.0.5" defer></script>

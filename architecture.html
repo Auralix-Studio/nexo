@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arquitectura · Nexo</title>
-  <meta name="description" content="Arquitectura de comunicación de Nexo con SIGMA, Intranet UPLA y Microsoft Graph. Patrón Resolver, persistencia y seguridad de transporte.">
+  <title>Arquitectura Â· Nexo</title>
+  <meta name="description" content="Arquitectura de comunicaciÃ³n de Nexo con SIGMA, Intranet UPLA y Microsoft Graph. PatrÃ³n Resolver, persistencia y seguridad de transporte.">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
   <link rel="stylesheet" href="style.css?v=1.0.5">
 </head>
@@ -13,7 +13,7 @@
   <header class="site-header">
     <div class="site-header-inner">
       <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-      <button class="mobile-menu-btn" aria-label="Menú">
+      <button class="mobile-menu-btn" aria-label="MenÃº">
         <span class="menu-bar"></span>
         <span class="menu-bar"></span>
         <span class="menu-bar"></span>
@@ -21,10 +21,10 @@
         <a href="index.html">Inicio</a>
 
         <a href="downloads.html">Descargas</a>
-        <a href="docs.html">Documentación</a>
+        <a href="docs.html">DocumentaciÃ³n</a>
         <a href="about.html">Acerca</a>
         <a href="privacy.html">Privacidad</a>
-        <a href="https://github.com/auralix-studio/nexo/releases/download/v1.3.1/nexo-v1.3.1-universal.apk" class="nav-cta">Descargar</a>
+        <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android" class="nav-cta">Descargar</a>
       </nav>
     </div>
   </header>
@@ -32,41 +32,39 @@
   <main id="content" class="split-layout">
 
     <section class="split-sidebar" data-reveal>
-      <span class="eyebrow">Documentación técnica</span>
+      <span class="eyebrow">DocumentaciÃ³n tÃ©cnica</span>
       <h1 class="page-title">Arquitectura</h1>
       <p class="page-subtitle">
-        Diseño de la integración de Nexo con los sistemas institucionales,
-        organización del estado y persistencia en el dispositivo.
+        DiseÃ±o de la integraciÃ³n de Nexo con los sistemas institucionales,
+        organizaciÃ³n del estado y persistencia en el dispositivo.
       </p>
     </section>
 
     <div class="split-content">
 
     <section data-reveal>
-      <h2>Visión general</h2>
-<div class="ascii-diagram">┌──────────────────┐         HTTPS         ┌─────────────────────┐
-│                  │  ──────────────────▶  │  sigma.upla.edu.pe  │
-│   Dispositivo    │  Acceso/Login (JWT)   │  (autenticación +   │
-│   del usuario    │  Estudiante/*         │   datos académicos) │
-│                  │                       └─────────────────────┘
-│  ┌────────────┐  │
-│  │ AppStore   │  │         HTTPS         ┌─────────────────────┐
-│  │ (memoria)  │  │  ──────────────────▶  │ intranet.upla.edu.pe│
-│  └────┬───────┘  │  Cookie PHPSESSID     │ (datos complementa- │
-│       │          │                       │  rios)              │
-│  ┌────▼───────┐  │                       └─────────────────────┘
-│  │ Persisten- │  │
-│  │ cia local  │  │         HTTPS         ┌─────────────────────┐
-│  │ (SQLite +  │  │  ──────────────────▶  │ login.microsoft     │
-│  │ SharedPref)│  │  OAuth2 Device Code   │ online.com +        │
-│  └────────────┘  │  (opcional)           │ graph.microsoft.com │
-│                  │                       └─────────────────────┘
-│  ┌────────────┐  │
-│  │   Lumen    │  │  No se realizan solicitudes adicionales:
-│  │ (modelo IA │  │  ningún servidor propio, ninguna telemetría,
-│  │   local)   │  │  ninguna API de IA externa.
-│  └────────────┘  │
-└──────────────────┘</div>
+      <h2>VisiÃ³n general</h2>
+<div class="ascii-diagram">â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         HTTPS         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                  â”‚  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¶  â”‚  sigma.upla.edu.pe  â”‚
+â”‚   Dispositivo    â”‚  Acceso/Login (JWT)   â”‚  (autenticaciÃ³n +   â”‚
+â”‚   del usuario    â”‚  Estudiante/*         â”‚   datos acadÃ©micos) â”‚
+â”‚                  â”‚                       â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚  â”‚ AppStore   â”‚  â”‚         HTTPS         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  â”‚ (memoria)  â”‚  â”‚  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¶  â”‚ intranet.upla.edu.peâ”‚
+â”‚  â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚  Cookie PHPSESSID     â”‚ (datos complementa- â”‚
+â”‚       â”‚          â”‚                       â”‚  rios)              â”‚
+â”‚  â”Œâ”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”  â”‚                       â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+â”‚  â”‚ Persisten- â”‚  â”‚
+â”‚  â”‚ cia local  â”‚  â”‚         HTTPS         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  â”‚ (SQLite +  â”‚  â”‚  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¶  â”‚ login.microsoft     â”‚
+â”‚  â”‚ SharedPref)â”‚  â”‚  OAuth2 Device Code   â”‚ online.com +        â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚  (opcional)           â”‚ graph.microsoft.com â”‚
+â”‚                  â”‚                       â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+â”‚                  â”‚  No se realizan solicitudes adicionales:
+â”‚                  â”‚  ningÃºn servidor propio, ninguna telemetrÃ­a.
+â”‚                  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜</div>
     </section>
 
     <section data-reveal>
@@ -75,7 +73,7 @@
       <h3>1. SIGMA</h3>
       <ul>
         <li><strong>URL base:</strong> <code>https://sigma.upla.edu.pe/api</code></li>
-        <li><strong>Autenticación:</strong> JWT. La aplicación envía las credenciales al endpoint <code>Acceso/Login</code>, recibe un token y lo conserva en <code>SharedPreferences</code>. Cada solicitud posterior incluye la cabecera <code>Authorization: Bearer &lt;token&gt;</code>.</li>
+        <li><strong>AutenticaciÃ³n:</strong> JWT. La aplicaciÃ³n envÃ­a las credenciales al endpoint <code>Acceso/Login</code>, recibe un token y lo conserva en <code>SharedPreferences</code>. Cada solicitud posterior incluye la cabecera <code>Authorization: Bearer &lt;token&gt;</code>.</li>
       </ul>
       <p><strong>Endpoints utilizados</strong> (representativos):</p>
       <ul>
@@ -89,7 +87,7 @@
       <p>Los endpoints utilizados son los mismos que invoca el portal web oficial de SIGMA.</p>
 
       <h3>2. Intranet UPLA</h3>
-      <p>La Intranet (<code>intranet.upla.edu.pe</code>) expone información complementaria no disponible en SIGMA, mediante cookies de sesión PHP:</p>
+      <p>La Intranet (<code>intranet.upla.edu.pe</code>) expone informaciÃ³n complementaria no disponible en SIGMA, mediante cookies de sesiÃ³n PHP:</p>
       <ul>
         <li><code>consultarPensiones</code> y <code>consultartotalPensiones</code></li>
         <li><code>obtenerCronograma</code></li>
@@ -101,76 +99,74 @@
 
       <h3>3. Microsoft Graph Education (opcional)</h3>
       <ol>
-        <li><strong>Autenticación:</strong> OAuth2 Device Code Flow contra <code>https://login.microsoftonline.com/organizations/oauth2/v2.0/</code>.</li>
+        <li><strong>AutenticaciÃ³n:</strong> OAuth2 Device Code Flow contra <code>https://login.microsoftonline.com/organizations/oauth2/v2.0/</code>.</li>
         <li><strong>API:</strong> Microsoft Graph Education.</li>
         <li><strong>Permisos delegados:</strong> <code>EduRoster.ReadBasic</code>, <code>EduAssignments.ReadBasic</code>, <code>User.Read</code>, <code>openid</code>, <code>profile</code>, <code>offline_access</code>.</li>
       </ol>
-      <p>Los tokens se almacenan localmente y se renuevan automáticamente.</p>
+      <p>Los tokens se almacenan localmente y se renuevan automÃ¡ticamente.</p>
       <div class="notice">
-        <p>Sin activación explícita, Nexo no realiza ninguna solicitud a servicios de Microsoft.</p>
+        <p>Sin activaciÃ³n explÃ­cita, Nexo no realiza ninguna solicitud a servicios de Microsoft.</p>
       </div>
     </section>
 
     <section data-reveal>
-      <h2>Patrón Resolver</h2>
+      <h2>PatrÃ³n Resolver</h2>
       <p>
-        Determinados datos están disponibles en SIGMA y en la Intranet
-        UPLA. Nexo implementa un patrón Resolver: para cada dato se
+        Determinados datos estÃ¡n disponibles en SIGMA y en la Intranet
+        UPLA. Nexo implementa un patrÃ³n Resolver: para cada dato se
         declara una cadena de fuentes y se selecciona la primera que
-        responda con información válida. Si una fuente presenta
-        indisponibilidad temporal, la aplicación continúa funcionando con
+        responda con informaciÃ³n vÃ¡lida. Si una fuente presenta
+        indisponibilidad temporal, la aplicaciÃ³n continÃºa funcionando con
         la alternativa.
       </p>
     </section>
 
     <section data-reveal>
-      <h2>Gestión de estado</h2>
+      <h2>GestiÃ³n de estado</h2>
       <p>
-        La aplicación mantiene el estado en una instancia de
+        La aplicaciÃ³n mantiene el estado en una instancia de
         <code>AppStore</code> (basada en <code>ChangeNotifier</code> de
         Flutter, con un contenedor <code>AsyncValue&lt;T&gt;</code> para
         representar los estados <code>idle</code>, <code>loading</code>,
         <code>data</code> y <code>error</code>).
       </p>
-      <p>Las pantallas observan al store mediante <code>ListenableBuilder</code> y se redibujan automáticamente cuando los datos cambian.</p>
+      <p>Las pantallas observan al store mediante <code>ListenableBuilder</code> y se redibujan automÃ¡ticamente cuando los datos cambian.</p>
     </section>
 
     <section data-reveal>
       <h2>Persistencia local</h2>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Dato</th><th>Ubicación</th><th>Eliminación</th></tr></thead>
+          <thead><tr><th>Dato</th><th>UbicaciÃ³n</th><th>EliminaciÃ³n</th></tr></thead>
           <tbody>
-            <tr><td>Token SIGMA</td><td>SharedPreferences</td><td>Logout o desinstalación</td></tr>
-            <tr><td>Cookie Intranet</td><td>SharedPreferences</td><td>Logout o desinstalación</td></tr>
-            <tr><td>Tokens Microsoft</td><td>SharedPreferences (JSON)</td><td>Revocación o desinstalación</td></tr>
-            <tr><td>Credenciales (con "Recordar")</td><td>SharedPreferences (Base64)</td><td>Desactivación o desinstalación</td></tr>
-            <tr><td>Perfil, horario, cuotas (caché)</td><td>SharedPreferences (JSON con TTL)</td><td>Logout o desinstalación</td></tr>
-            <tr><td>Histórico de pagos</td><td>SQLite local</td><td>Logout o desinstalación</td></tr>
-            <tr><td>Snapshot de calificaciones</td><td>SharedPreferences</td><td>Logout o desinstalación</td></tr>
-            <tr><td>Preferencias (tema, idioma)</td><td>SharedPreferences</td><td>Desinstalación</td></tr>
-            <tr><td>Modelo Lumen (290-530 MB)</td><td>getApplicationSupportDirectory()</td><td>Configuración → "Borrar modelo"</td></tr>
-            <tr><td>Historial de chat de Lumen</td><td>Memoria volátil</td><td>Cierre de la aplicación</td></tr>
+            <tr><td>Token SIGMA</td><td>SharedPreferences</td><td>Logout o desinstalaciÃ³n</td></tr>
+            <tr><td>Cookie Intranet</td><td>SharedPreferences</td><td>Logout o desinstalaciÃ³n</td></tr>
+            <tr><td>Tokens Microsoft</td><td>SharedPreferences (JSON)</td><td>RevocaciÃ³n o desinstalaciÃ³n</td></tr>
+            <tr><td>Credenciales (con "Recordar")</td><td>SharedPreferences (Base64)</td><td>DesactivaciÃ³n o desinstalaciÃ³n</td></tr>
+            <tr><td>Perfil, horario, cuotas (cachÃ©)</td><td>SharedPreferences (JSON con TTL)</td><td>Logout o desinstalaciÃ³n</td></tr>
+            <tr><td>HistÃ³rico de pagos</td><td>SQLite local</td><td>Logout o desinstalaciÃ³n</td></tr>
+            <tr><td>Snapshot de calificaciones</td><td>SharedPreferences</td><td>Logout o desinstalaciÃ³n</td></tr>
+            <tr><td>Preferencias (tema, idioma)</td><td>SharedPreferences</td><td>DesinstalaciÃ³n</td></tr>
           </tbody>
         </table>
       </div>
-      <p>Toda la información persistida reside en el sandbox privado de la aplicación. En Android moderno no es accesible a otras aplicaciones sin acceso root.</p>
+      <p>Toda la informaciÃ³n persistida reside en el sandbox privado de la aplicaciÃ³n. En Android moderno no es accesible a otras aplicaciones sin acceso root.</p>
     </section>
 
     <section data-reveal>
       <h2>Seguridad del transporte</h2>
       <p>
-        Nexo incluye el almacén de autoridades certificadoras de Mozilla
+        Nexo incluye el almacÃ©n de autoridades certificadoras de Mozilla
         en <code>assets/certs/cacert.pem</code>. Este recurso aborda un
-        problema observado en producción: determinados dispositivos
+        problema observado en producciÃ³n: determinados dispositivos
         Android (modelos Xiaomi con MIUI antiguo, algunos Samsung)
-        presentan un almacén raíz desactualizado o reciben certificados
+        presentan un almacÃ©n raÃ­z desactualizado o reciben certificados
         intermedios incompletos por parte de SIGMA, lo que provoca el
         error <code>CERTIFICATE_VERIFY_FAILED</code>.
       </p>
       <p>
-        El almacén se carga en un <code>SecurityContext</code> y se
-        utiliza en todos los clientes HTTP de la aplicación.
+        El almacÃ©n se carga en un <code>SecurityContext</code> y se
+        utiliza en todos los clientes HTTP de la aplicaciÃ³n.
       </p>
     </section>
 
@@ -179,10 +175,10 @@
       <p>Nexo utiliza <code>flutter_local_notifications</code> para programar avisos locales:</p>
       <ul>
         <li>Recordatorios de clases (quince minutos antes del inicio).</li>
-        <li>Avisos de vencimiento de cuotas (un día antes de la fecha límite).</li>
-        <li>Detección de calificaciones nuevas al actualizar el registro.</li>
+        <li>Avisos de vencimiento de cuotas (un dÃ­a antes de la fecha lÃ­mite).</li>
+        <li>DetecciÃ³n de calificaciones nuevas al actualizar el registro.</li>
       </ul>
-      <p>La aplicación no utiliza servicios de notificaciones push. Esta decisión es coherente con el principio de no operar infraestructura propia.</p>
+      <p>La aplicaciÃ³n no utiliza servicios de notificaciones push. Esta decisiÃ³n es coherente con el principio de no operar infraestructura propia.</p>
     </section>
 
     <section data-reveal>
@@ -191,14 +187,13 @@
         <table>
           <thead><tr><th>Aspecto</th><th>Portal web UPLA</th><th>Nexo</th></tr></thead>
           <tbody>
-            <tr><td><strong>Autenticación</strong></td><td>Independiente por sistema</td><td>Unificada con credenciales SIGMA</td></tr>
-            <tr><td><strong>Modo sin conexión</strong></td><td>No disponible</td><td>Disponible (datos en caché)</td></tr>
+            <tr><td><strong>AutenticaciÃ³n</strong></td><td>Independiente por sistema</td><td>Unificada con credenciales SIGMA</td></tr>
+            <tr><td><strong>Modo sin conexiÃ³n</strong></td><td>No disponible</td><td>Disponible (datos en cachÃ©)</td></tr>
             <tr><td><strong>Notificaciones</strong></td><td>No disponibles</td><td>Disponibles (locales)</td></tr>
-            <tr><td><strong>Diseño móvil</strong></td><td>Parcial</td><td>Optimizado</td></tr>
-            <tr><td><strong>Asistente integrado</strong></td><td>No disponible</td><td>Opcional, ejecución local</td></tr>
+            <tr><td><strong>DiseÃ±o mÃ³vil</strong></td><td>Parcial</td><td>Optimizado</td></tr>
             <tr><td><strong>Coste</strong></td><td>Gratuito</td><td>Gratuito</td></tr>
             <tr><td><strong>Publicidad</strong></td><td>No</td><td>No</td></tr>
-            <tr><td><strong>Telemetría</strong></td><td>Probable</td><td>No</td></tr>
+            <tr><td><strong>TelemetrÃ­a</strong></td><td>Probable</td><td>No</td></tr>
           </tbody>
         </table>
       </div>
@@ -208,9 +203,9 @@
       <h2>Mantenimiento ante cambios en APIs</h2>
       <p>
         Las APIs institucionales pueden modificarse sin previo aviso. Un
-        cambio en el formato de respuesta puede causar que la sección
-        correspondiente de Nexo presente errores. La resolución requiere
-        la publicación de una versión actualizada de la aplicación.
+        cambio en el formato de respuesta puede causar que la secciÃ³n
+        correspondiente de Nexo presente errores. La resoluciÃ³n requiere
+        la publicaciÃ³n de una versiÃ³n actualizada de la aplicaciÃ³n.
       </p>
     </section>
 
@@ -222,37 +217,37 @@
     <div class="site-footer-inner">
       <div class="footer-about">
         <a href="index.html" class="brand"><img src="assets/nexo-icon.png" alt="" class="brand-mark">Nexo</a>
-        <p>Cliente no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Proyecto independiente, sin afiliación institucional.</p>
+        <p>Cliente no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Proyecto independiente, sin afiliaciÃ³n institucional.</p>
       </div>
       <div>
         <h4>Producto</h4>
         <ul>
           <li><a href="downloads.html">Descargas</a></li>
-          <li><a href="https://github.com/Auralix-Studio/nexo-code">Código fuente</a></li>
-          <li><a href="install.html">Instalación</a></li>
+          <li><a href="https://github.com/Auralix-Studio/nexo-code">CÃ³digo fuente</a></li>
+          <li><a href="install.html">InstalaciÃ³n</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/releases">Versiones</a></li>
         </ul>
       </div>
       <div>
-        <h4>Documentación</h4>
+        <h4>DocumentaciÃ³n</h4>
         <ul>
-          <li><a href="docs.html">Índice</a></li>
+          <li><a href="docs.html">Ãndice</a></li>
           <li><a href="architecture.html">Arquitectura</a></li>
           <li><a href="faq.html">Preguntas frecuentes</a></li>
-          <li><a href="https://github.com/auralix-studio/nexo/blob/main/docs/troubleshoot.md">Diagnóstico</a></li>
+          <li><a href="https://github.com/auralix-studio/nexo/blob/main/docs/troubleshoot.md">DiagnÃ³stico</a></li>
         </ul>
       </div>
       <div>
         <h4>Legal</h4>
         <ul>
-          <li><a href="privacy.html">Política de privacidad</a></li>
+          <li><a href="privacy.html">PolÃ­tica de privacidad</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/blob/main/LICENSE">Licencia</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/issues">Reportar un problema</a></li>
-          <li><a href="https://github.com/auralix-studio/nexo">Repositorio público</a></li>
+          <li><a href="https://github.com/auralix-studio/nexo">Repositorio pÃºblico</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">© 2026 Alessandro Villogas Gaspar. Documentación bajo Creative Commons BY 4.0.</div>
+    <div class="footer-bottom">Â© 2026 Alessandro Villogas Gaspar. DocumentaciÃ³n bajo Creative Commons BY 4.0.</div>
   </footer>
 
   <script src="app.js?v=1.0.5" defer></script>
