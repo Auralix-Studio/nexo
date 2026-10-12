@@ -6,7 +6,7 @@
   <title>Descargas · Nexo</title>
   <meta name="description" content="Descargá Nexo para Android, Windows, macOS, Linux y Web. Incluye hashes SHA-256 para verificación de integridad.">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
-  <link rel="stylesheet" href="style.css?v=2.1.0">
+  <link rel="stylesheet" href="style.css?v=2.2.0">
 </head>
 <body>
 
@@ -57,13 +57,14 @@
               <th>Variante</th>
               <th>Archivo</th>
               <th>Tamaño</th>
+              <th>Descargas</th>
               <th>Compatibilidad</th>
               <th></th>
             </tr>
           </thead>
             <tr data-arch-row="arm64">
               <td>arm64-v8a</td>
-              <td><span class="file" data-dynamic-name="android-arm64">nexo-latest-arm64.apk</span></td>
+              <td><span class="file" data-dynamic-name="android-arm64">nexo-arm64.apk</span></td>
               <td class="size" data-dynamic-size="android-arm64">-- MB</td>
               <td data-dynamic-downloads="android-arm64">--</td>
               <td>Android desde 2017</td>
@@ -71,7 +72,7 @@
             </tr>
             <tr data-arch-row="armv7">
               <td>armeabi-v7a</td>
-              <td><span class="file" data-dynamic-name="android-armv7">nexo-latest-armv7.apk</span></td>
+              <td><span class="file" data-dynamic-name="android-armv7">nexo-armv7.apk</span></td>
               <td class="size" data-dynamic-size="android-armv7">-- MB</td>
               <td data-dynamic-downloads="android-armv7">--</td>
               <td>Dispositivos 32-bit</td>
@@ -79,7 +80,7 @@
             </tr>
             <tr data-arch-row="x86_64">
               <td>x86_64</td>
-              <td><span class="file" data-dynamic-name="android-x86_64">nexo-latest-x86_64.apk</span></td>
+              <td><span class="file" data-dynamic-name="android-x86_64">nexo-x86_64.apk</span></td>
               <td class="size" data-dynamic-size="android-x86_64">-- MB</td>
               <td data-dynamic-downloads="android-x86_64">--</td>
               <td>Emuladores</td>
@@ -87,7 +88,7 @@
             </tr>
             <tr data-arch-row="universal">
               <td>Universal <span class="badge ok" id="recommended-badge">recomendada</span></td>
-              <td><span class="file" data-dynamic-name="android">nexo-latest-universal.apk</span></td>
+              <td><span class="file" data-dynamic-name="android">nexo-universal.apk</span></td>
               <td class="size" data-dynamic-size="android">-- MB</td>
               <td data-dynamic-downloads="android">--</td>
               <td>Cualquier dispositivo</td>
@@ -118,31 +119,78 @@
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Archivo</th><th>Tamaño</th><th>Requisitos</th><th></th></tr>
+            <tr><th>Variante</th><th>Archivo</th><th>Tamaño</th><th>Descargas</th><th></th></tr>
           </thead>
           <tbody>
             <tr>
-              <td><span class="file" data-dynamic-name="windows">nexo-latest-windows-x64.zip</span></td>
+              <td>Instalador <span class="badge ok">recomendado</span></td>
+              <td><span class="file" data-dynamic-name="windows">nexo-setup-x64.exe</span></td>
               <td class="size" data-dynamic-size="windows">-- MB</td>
               <td data-dynamic-downloads="windows">--</td>
-              <td>Windows 10 1809 (x64)</td>
               <td><a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="windows" class="btn btn-primary btn-sm">Descargar</a></td>
+            </tr>
+            <tr>
+              <td>Portable (ZIP)</td>
+              <td><span class="file" data-dynamic-name="windows-zip">nexo-windows-x64.zip</span></td>
+              <td class="size" data-dynamic-size="windows-zip">-- MB</td>
+              <td data-dynamic-downloads="windows-zip">--</td>
+              <td><a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="windows-zip" class="btn btn-secondary btn-sm">Descargar</a></td>
             </tr>
           </tbody>
         </table>
       </div>
+      <p>Requiere Windows 10 (1809) u 11 de 64 bits.</p>
 
       <div class="notice warning">
         <p>Los binarios no están firmados con certificado de validación extendida. Si Windows Defender SmartScreen muestra una advertencia, seleccionar "Más información" → "Ejecutar de todas formas".</p>
       </div>
     </section>
 
-    <section data-reveal>
-      <h2>iOS, macOS y Linux</h2>
+    <section data-reveal id="macos">
+      <h2>macOS</h2>
+      <p>Aplicación para Mac con Apple Silicon o Intel, en un ZIP. Descomprimir y arrastrar <code>Nexo.app</code> a Aplicaciones.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Archivo</th><th>Tamaño</th><th>Descargas</th><th></th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="file" data-dynamic-name="macos">nexo-macos.zip</span></td>
+              <td class="size" data-dynamic-size="macos">-- MB</td>
+              <td data-dynamic-downloads="macos">--</td>
+              <td><a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="macos" class="btn btn-primary btn-sm">Descargar</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="notice warning">
+        <p>La app no está firmada por Apple. La primera vez, macOS dirá que no se puede abrir: haz clic derecho sobre Nexo, elige <strong>Abrir</strong> y confirma. Desde la segunda vez abre normal.</p>
+      </div>
+    </section>
+
+    <section data-reveal id="linux">
+      <h2>Linux</h2>
+      <p>Paquete para distribuciones de 64 bits con GTK 3 (Ubuntu 22.04 o superior, Fedora, Debian…). Descomprimir y ejecutar <code>./nexo</code>.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Archivo</th><th>Tamaño</th><th>Descargas</th><th></th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="file" data-dynamic-name="linux">nexo-linux-x64.tar.gz</span></td>
+              <td class="size" data-dynamic-size="linux">-- MB</td>
+              <td data-dynamic-downloads="linux">--</td>
+              <td><a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="linux" class="btn btn-primary btn-sm">Descargar</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section data-reveal id="ios">
+      <h2>iPhone y iPad</h2>
       <p>
-        No existe distribución oficial en esta versión. La aplicación
-        compila para todas estas plataformas. Para obtener un binario,
-        abrir un issue en el repositorio.
+        Todavía no hay versión para iPhone ni iPad: Apple solo permite
+        instalar apps firmadas y distribuidas por la App Store o TestFlight.
+        Mientras tanto puedes usar Nexo en Android, Windows, macOS o Linux.
       </p>
     </section>
 
@@ -206,6 +254,6 @@
     <div class="footer-bottom">© 2026 Alessandro Villogas Gaspar. Documentación bajo Creative Commons BY 4.0.</div>
   </footer>
 
-  <script src="app.js?v=2.1.0" defer></script>
+  <script src="app.js?v=2.2.0" defer></script>
 </body>
 </html>
