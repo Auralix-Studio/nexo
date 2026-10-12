@@ -357,18 +357,33 @@
       else if (/iPhone|iPad|iPod/i.test(ua)) os = 'iOS';
       else if (/Linux/i.test(ua)) os = 'Linux';
 
+      // Portada nueva: los botones ya están en el HTML con su enlace real;
+      // solo se pone primero el del sistema de quien visita.
+      if (container.hasAttribute('data-static')) {
+        const key = os === 'Windows' ? 'windows' : os === 'Android' ? 'android' : null;
+        const btn = key && container.querySelector(`[data-dynamic-dl="${key}"]`);
+        if (btn && btn !== container.firstElementChild) {
+          const first = container.firstElementChild;
+          const firstClass = first.className;
+          first.className = btn.className;
+          btn.className = firstClass;
+          container.insertBefore(btn, first);
+        }
+        return;
+      }
+
       let bestAsset = null;
       let btnText = '';
       let btnMeta = '';
 
       if (os === 'Android') {
-        bestAsset = assetsList.find(a => a.name.toLowerCase().includes('.apk'));
+        bestAsset = assetsList.find(a => a.name.toLowerCase().endsWith('universal.apk')) || assetsList.find(a => a.name.toLowerCase().endsWith('.apk'));
         if (bestAsset) {
           btnText = 'Descargar para Android'; // <-- Texto limpio, sin "(Universal)"
           btnMeta = `${formatBytes(bestAsset.size)} · APK`;
         }
       } else if (os === 'Windows') {
-        bestAsset = assetsList.find(a => a.name.toLowerCase().match(/\.exe|\.msix/));
+        bestAsset = assetsList.find(a => a.name.toLowerCase().endsWith('setup-x64.exe')) || assetsList.find(a => a.name.toLowerCase().match(/\.exe|\.msix/));
         if (bestAsset) {
           btnText = 'Descargar para Windows';
           btnMeta = `${formatBytes(bestAsset.size)} · ${bestAsset.name.split('.').pop().toUpperCase()}`;

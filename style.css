@@ -1,5 +1,20 @@
 /* Nexo · Sitio público */
 
+/* Tipografías propias (servidas desde el sitio, sin terceros).
+   Super Mindset: la del logotipo NEXO de la app. Schibsted Grotesk: texto (OFL). */
+@font-face {
+  font-family: 'Super Mindset';
+  src: url('assets/fonts/super-mindset.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Schibsted Grotesk';
+  src: url('assets/fonts/schibsted-grotesk.woff') format('woff');
+  font-weight: 400 900;
+  font-display: swap;
+}
+
 :root {
   --primary: #6366F1;
   --primary-dark: #4338CA;
@@ -29,8 +44,11 @@
   --shadow-md: 0 4px 12px rgba(11, 18, 32, 0.05), 0 1px 3px rgba(11, 18, 32, 0.03);
   --shadow-lg: 0 16px 40px rgba(11, 18, 32, 0.08);
 
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI Variable',
+  --font: 'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI Variable',
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --display: 'Super Mindset', 'Schibsted Grotesk', system-ui, sans-serif;
+  --accent: #22D3EE;
+  --night: #080A12;
   --mono: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', Consolas, monospace;
 
   --max: 1080px;
@@ -101,6 +119,7 @@ h1, h2, h3, h4 {
   letter-spacing: -0.02em;
 }
 h1 { font-size: clamp(2rem, 4vw + 1rem, 3rem); font-weight: 800; letter-spacing: -0.03em; }
+.page-title { font-family: var(--display); font-weight: 400; letter-spacing: 0.005em; line-height: 1.05; }
 h2 { font-size: clamp(1.5rem, 2vw + 1rem, 2rem); }
 h3 { font-size: 1.2rem; }
 h4 { font-size: 1rem; }
@@ -188,9 +207,10 @@ blockquote {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   color: var(--text-strong);
 }
 .brand:hover { color: var(--text-strong); text-decoration: none; }
@@ -240,6 +260,11 @@ blockquote {
   background: var(--primary-dark);
   color: white;
 }
+@media (prefers-color-scheme: dark) {
+  /* Texto blanco sobre el índigo claro del tema oscuro no se leía bien */
+  .nav a.nav-cta { background: #6366F1; }
+  .nav a.nav-cta:hover { background: #4F46E5; }
+}
 
 @media (max-width: 959px) {
   .site-header-inner { padding: 12px var(--pad); gap: 12px; }
@@ -279,11 +304,9 @@ section:last-child { margin-bottom: 0; }
 
 .eyebrow {
   display: inline-block;
-  font-size: 0.74rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.9rem;
   color: var(--primary);
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
@@ -653,10 +676,8 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   gap: 32px;
 }
 .site-footer h4 {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-mute);
+  font-size: 0.92rem;
+  color: var(--text-strong);
   margin: 0 0 12px;
   font-weight: 700;
 }

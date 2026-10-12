@@ -4,21 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexo</title>
+  <title>Nexo · Tu vida en la UPLA, en una sola app</title>
   <meta name="description"
-    content="Cliente no oficial para estudiantes y docentes de la Universidad Peruana Los Andes. Integra la vida universitaria en una sola aplicación.">
-  <meta property="og:title" content="Nexo - UPLA">
+    content="App no oficial para estudiantes y docentes de la Universidad Peruana Los Andes: horario, notas, pagos y asistencia en un solo lugar, sin servidores intermedios.">
+  <meta name="theme-color" content="#080A12">
+  <meta property="og:title" content="Nexo · UPLA">
   <meta property="og:description"
-    content="Tu vida universitaria en una sola aplicación. Sin telemetría y centrado en tu privacidad.">
+    content="Horario, notas, pagos y asistencia de la UPLA en una sola app. Sin telemetría y sin servidores intermedios.">
   <meta property="og:image" content="https://auralix-studio.github.io/nexo/assets/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://auralix-studio.github.io/nexo/assets/social-preview.png">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
-  <link rel="stylesheet" href="style.css?v=1.0.5">
+  <link rel="preload" href="assets/fonts/super-mindset.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="style.css?v=2.0.0">
+  <link rel="stylesheet" href="home.css?v=2.0.0">
+  <script>
+    /* La intro se muestra una vez por sesión y nunca con "reducir movimiento".
+       Se decide antes de pintar para que el hero no parpadee. */
+    (function () {
+      try {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!reduce && !sessionStorage.getItem('nexo.intro')) {
+          document.documentElement.classList.add('intro-pending');
+          /* Red de seguridad: si el script de la intro no carga, se muestra el sitio. */
+          setTimeout(function () { document.documentElement.classList.remove('intro-pending'); }, 6000);
+        }
+      } catch (e) { /* sin sessionStorage: sin intro */ }
+    })();
+  </script>
 </head>
 
-<body>
+<body class="home">
 
-  <header class="site-header">
+  <a class="skip-link" href="#content">Saltar al contenido</a>
+
+  <header class="site-header on-stage">
     <div class="site-header-inner">
       <a href="index.html" class="brand">
         <img src="assets/nexo-icon.png" alt="" class="brand-mark">
@@ -33,239 +53,202 @@
         <a href="index.html" class="active">Inicio</a>
         <a href="downloads.html">Descargas</a>
         <a href="docs.html">Documentación</a>
-        <a href="about.html">Acerca</a>
+        <a href="changelog.html">Novedades</a>
         <a href="privacy.html">Privacidad</a>
         <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android"
-          class="nav-cta">Descargar <span data-dynamic-version></span></a>
+          class="nav-cta">Descargar</a>
       </nav>
     </div>
   </header>
 
   <main id="content">
 
-    <section class="hero">
-      <div class="hero-content">
-        <span class="eyebrow">Versión <span data-dynamic-version>1.1.1</span> disponible</span>
-        <h1 class="hero-title">Tu vida académica UPLA en <em data-typewriter
-            data-phrases='["una sola aplicación","tu bolsillo","todo momento","cualquier dispositivo"]'>una sola
-            aplicación</em>.</h1>
-        <p class="hero-lead">
-          Cliente multiplataforma que unifica la vida universitaria.
-          Centrado en tu privacidad.
-        </p>
-        <div class="hero-actions" id="hero-download-actions">
-          <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android"
-            class="btn btn-primary">
-            Descargar para Android
-            <span class="btn-meta" data-dynamic-meta="android">APK</span>
-          </a>
-          <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="windows"
-            class="btn btn-secondary">
-            Descargar para Windows
-            <span class="btn-meta" data-dynamic-meta="windows">ZIP</span>
-          </a>
-          <a href="downloads.html" class="btn btn-secondary"
-            style="border-color: transparent; background: transparent; text-decoration: underline;">Otras
-            plataformas</a>
+    <!-- Escenario: la intro termina aquí y el logotipo se queda en el hero -->
+    <section class="stage" aria-labelledby="hero-title">
+      <canvas class="stage-sky" aria-hidden="true"></canvas>
+
+      <div class="stage-inner">
+        <div class="stage-copy">
+          <p class="wordmark" aria-hidden="true" data-wordmark>
+            <span>N</span><span>E</span><span>X</span><span>O</span>
+          </p>
+          <h1 id="hero-title" class="stage-title" data-stage-in>
+            Tu vida en la UPLA, en una sola app.
+          </h1>
+          <p class="stage-lead" data-stage-in>
+            Horario, notas, pagos y asistencia, directo desde los sistemas de la
+            universidad a tu teléfono. Para estudiantes y docentes.
+          </p>
+          <div class="stage-actions" id="hero-download-actions" data-static data-stage-in>
+            <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android"
+              class="btn btn-glow">
+              Descargar para Android
+              <span class="btn-meta" data-dynamic-meta="android">APK</span>
+            </a>
+            <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="windows"
+              class="btn btn-ghost">
+              Descargar para Windows
+              <span class="btn-meta" data-dynamic-meta="windows">Instalador</span>
+            </a>
+          </div>
+          <p class="stage-foot" data-stage-in>
+            Versión <span data-dynamic-version>más reciente</span>. Android 7.0 o superior y Windows 10 u 11.
+            <a href="downloads.html">Otras plataformas</a>
+          </p>
         </div>
-        <p class="hero-foot">
-          Compatible con Android 7.0 o superior. Disponible para Windows,
-          macOS, Linux y Web.
-        </p>
-      </div>
-      <div class="hero-visual">
-        <div class="nexo-mockup">
-          <div class="mockup-header">
-            <div class="mockup-dots">
-              <span></span><span></span><span></span>
+
+        <div class="stage-device" data-stage-in aria-hidden="true">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="app-top">
+                <span class="app-greet">Buenos días, Ana</span>
+                <span class="app-avatar">AQ</span>
+              </div>
+              <div class="app-card app-next">
+                <span class="app-kicker"><i class="live-dot"></i>En 25 minutos</span>
+                <strong>Programación IV</strong>
+                <span>Laboratorio 05 · 10:00 – 11:40</span>
+              </div>
+              <div class="app-row">
+                <div class="app-card app-mini">
+                  <span class="app-kicker">Promedio</span>
+                  <strong class="app-num">15.4</strong>
+                  <span class="app-bar"><i style="width:77%"></i></span>
+                </div>
+                <div class="app-card app-mini">
+                  <span class="app-kicker">Cuota</span>
+                  <strong class="app-num">S/ 380</strong>
+                  <span>Vence el viernes</span>
+                </div>
+              </div>
+              <div class="app-card">
+                <span class="app-kicker">Hoy</span>
+                <ul class="app-list">
+                  <li><b>08:00</b> Ingeniería de Software <em>Pab. I 302</em></li>
+                  <li class="now"><b>10:00</b> Programación IV <em>Lab. 05</em></li>
+                  <li><b>15:00</b> Estadística <em>Pab. G 104</em></li>
+                </ul>
+              </div>
+              <div class="app-tabbar">
+                <span class="on">Inicio</span><span>Horario</span><span>Notas</span><span>Pagos</span>
+              </div>
             </div>
-            <div class="mockup-title">nexo-app <span data-dynamic-version></span></div>
-          </div>
-          <div class="mockup-body">
-            <aside class="mockup-sidebar">
-              <div class="mockup-brand">
-                <img src="assets/nexo-icon.png" alt="Icono de Nexo">
-                <span>Nexo</span>
-              </div>
-              <nav class="mockup-nav">
-                <span class="active">Inicio</span>
-                <span>Horarios</span>
-                <span>Notas</span>
-                <span>Pagos</span>
-              </nav>
-            </aside>
-            <main class="mockup-content">
-              <div class="mockup-tabs">
-                <span class="active">Proxima clase.</span>
-              </div>
-              
-              <div class="mockup-dashboard">
-                <div class="mockup-card">
-                  <div class="mockup-card-header">
-                    <span class="mockup-icon sigma">S</span>
-                    <div>
-                      <h4>Ingenieria de software</h4>
-                      <p>Pabellon I 302 • 08:00</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="mockup-card">
-                  <div class="mockup-card-header">
-                    <span class="mockup-icon intranet">I</span>
-                    <div>
-                      <h4>Programación IV</h4>
-                      <p>Laboratorio 05 • 10:00</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </main>
           </div>
         </div>
       </div>
+
+      <a class="stage-scroll" href="#conexiones" aria-label="Ver qué hace Nexo">
+        <span></span>
+      </a>
     </section>
 
-    <section data-reveal>
-      <div class="section-header-split">
-        <div>
-          <span class="eyebrow">Funcionalidades principales</span>
-          <h2>Una aplicación, dos sistemas integrados.</h2>
-        </div>
+    <!-- El "nexo": cada parte de la universidad conectada en un lugar -->
+    <section class="hub" id="conexiones" aria-labelledby="hub-title">
+      <div class="hub-intro">
+        <h2 id="hub-title">Lo que estaba repartido entre SIGMA y la Intranet.</h2>
         <p>
-          Nexo elimina la necesidad de alternar entre los portales de la
-          universidad. Todas las funciones académicas y administrativas se
-          acceden con las mismas credenciales universitarias.
+          Nexo entra a los dos con tu misma cuenta de la UPLA y lo junta en una
+          sola pantalla. Toca cada parte para ver qué hace.
         </p>
       </div>
-      <div class="grid grid-3">
-        <div class="card">
-          <div class="card-mark">S</div>
-          <h3 class="card-title">Vida Universitaria</h3>
-          <p class="card-body">
-            Perfil, horario académico, calificaciones, promedios, cuotas y
-            anuncios institucionales. Autenticación por JWT contra la API
-            oficial.
-          </p>
+
+      <div class="hub-board">
+        <div class="hub-map" data-hub>
+          <svg class="hub-lines" viewBox="0 0 600 600" aria-hidden="true">
+            <defs>
+              <radialGradient id="hubCore" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#818CF8" stop-opacity=".55" />
+                <stop offset="100%" stop-color="#818CF8" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <circle cx="300" cy="300" r="150" fill="url(#hubCore)" />
+            <circle class="hub-orbit" cx="300" cy="300" r="210" />
+          </svg>
+          <div class="hub-core"><span>Nexo</span></div>
+          <div class="hub-nodes" role="tablist" aria-label="Partes de Nexo"></div>
         </div>
-        <div class="card">
-          <div class="card-mark">I</div>
-          <h3 class="card-title">Tu informacíon</h3>
-          <p class="card-body">
-            Datos complementarios sobre pagos, malla curricular, ranking
-            promocional y cronogramas de cuotas. Sesión persistente por
-            cookies.
-          </p>
+
+        <div class="hub-detail" aria-live="polite">
+          <h3 class="hub-detail-title"></h3>
+          <p class="hub-detail-body"></p>
+          <ul class="hub-detail-list"></ul>
         </div>
       </div>
     </section>
 
-
-
-    <section data-reveal>
-      <div class="section-header-split">
-        <div>
-          <span class="eyebrow">Diferenciadores</span>
-          <h2>Diseñado con criterios estrictos.</h2>
-        </div>
+    <!-- Docentes -->
+    <section class="teachers" data-reveal aria-labelledby="teachers-title">
+      <div class="teachers-copy">
+        <h2 id="teachers-title">Y si enseñas, también es para ti.</h2>
         <p>
-          La privacidad, la velocidad y la tolerancia a fallos son el núcleo del desarrollo.
-          Nexo opera directamente entre tu dispositivo y la universidad, sin servidores intermedios.
+          Con una cuenta docente, Nexo cambia a tus cursos: pasa lista en clase,
+          registra notas y revisa tu marcación sin abrir la computadora.
         </p>
       </div>
-      <div class="grid grid-2">
-        <div class="card">
-          <h3 class="card-title">Privacidad verificable</h3>
-          <p class="card-body">
-            Sin telemetría, sin servicios de análisis, sin publicidad, sin
-            servidores propios. La comunicación se establece directamente
-            entre el dispositivo del usuario y los servidores oficiales de
-            UPLA o Microsoft.
-          </p>
-        </div>
-        <div class="card">
-          <h3 class="card-title">Funcionamiento sin conexión</h3>
-          <p class="card-body">
-            Los datos consultados permanecen en caché local. La aplicación
-            sigue mostrando la información disponible incluso sin
-            conectividad.
-          </p>
-        </div>
-        <div class="card">
-          <h3 class="card-title">Tolerante a fallos</h3>
-          <p class="card-body">
-            Patrón Resolver con conmutación automática entre la universidad e
-            portales universitarios. Si una fuente presenta indisponibilidad, la
-            aplicación continúa funcionando con la alternativa.
-          </p>
-        </div>
-        <div class="card">
-          <h3 class="card-title">Multiplataforma</h3>
-          <p class="card-body">
-            La misma base de código produce binarios nativos para Android,
-            iOS, Windows, macOS, Linux y Web. La experiencia se adapta a
-            las convenciones de cada plataforma.
-          </p>
-        </div>
-        <div class="card">
-          <h3 class="card-title">Notificaciones útiles</h3>
-          <p class="card-body">
-            Recordatorios de clases quince minutos antes del inicio, avisos
-            de vencimiento de cuotas un día antes de la fecha límite y
-            detección de calificaciones nuevas. Notificaciones locales,
-            sin servicios push.
-          </p>
-        </div>
-        <div class="card">
-          <h3 class="card-title">Sin telemetría</h3>
-          <p class="card-body">
-            La aplicación no recopila estadísticas de uso, no integra
-            servicios de análisis y no transmite información a terceros.
-            El proyecto desconoce cuántas personas la utilizan, salvo por
-            los reportes voluntarios en GitHub.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section data-reveal>
-      <div class="section-header-split">
+      <dl class="teachers-list">
         <div>
-          <span class="eyebrow">Filosofía técnica</span>
-          <h2>Cliente puro, sin infraestructura intermedia.</h2>
+          <dt>Pasar lista</dt>
+          <dd>Presente, falta o justificado con un toque. Lo marcado se guarda en el teléfono hasta que SIGMA lo recibe.</dd>
         </div>
         <div>
-          <p>
-            Nexo no opera servidores propios. Las solicitudes que realiza la
-            aplicación son equivalentes a las que se observan en las
-            herramientas de desarrollo de cualquier navegador al utilizar los
-            portales oficiales de UPLA. Esta arquitectura elimina la
-            dependencia de infraestructura mantenida por el responsable del
-            proyecto y permite verificar de forma independiente que la
-            información del usuario no transita por sistemas no autorizados.
-          </p>
-          <p><a href="architecture.html">Leer la arquitectura completa →</a></p>
+          <dt>Registrar notas</dt>
+          <dd>La tabla de la sección completa, con la columna de alumnos fija. Puedes pegar las notas desde Excel.</dd>
         </div>
-      </div>
+        <div>
+          <dt>Ver quién necesita atención</dt>
+          <dd>Alumnos con asistencia crítica o desaprobando, en todas tus secciones.</dd>
+        </div>
+        <div>
+          <dt>Marcación</dt>
+          <dd>Tu historial de ingreso y las clases virtuales del día.</dd>
+        </div>
+      </dl>
     </section>
 
-    <section data-reveal>
-      <div class="cta">
-        <h2>Comenzá ahora.</h2>
-        <p>La instalación toma menos de un minuto.</p>
-        <div class="hero-actions">
-          <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android"
-            class="btn btn-primary">
-            Descargar APK universal
-          </a>
-          <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="windows"
-            class="btn btn-secondary">
-            Descargar para Windows
-          </a>
-          <a href="install.html" class="btn btn-secondary"
-            style="border-color: transparent; background: transparent; text-decoration: underline;">Guía de
-            instalación</a>
-        </div>
+    <!-- Privacidad: la promesa en una frase -->
+    <section class="promise" data-reveal aria-labelledby="promise-title">
+      <h2 id="promise-title" class="promise-line">
+        Tus datos van de tu teléfono a la UPLA. A nadie más.
+      </h2>
+      <div class="promise-facts">
+        <p><strong>Sin servidores propios.</strong> Nexo habla directo con SIGMA y la Intranet, igual que tu navegador.</p>
+        <p><strong>Sin telemetría.</strong> No hay analíticas, publicidad ni rastreo. No sabemos ni cuánta gente la usa.</p>
+        <p><strong>Tu contraseña no sale del dispositivo.</strong> Se guarda en el almacén seguro del sistema.</p>
       </div>
+      <a class="promise-link" href="privacy.html">Leer la política de privacidad</a>
+    </section>
+
+    <!-- Descarga -->
+    <section class="get" data-reveal aria-labelledby="get-title">
+      <div class="get-copy">
+        <h2 id="get-title">Instálala en un minuto.</h2>
+        <p>
+          La app se actualiza sola: cuando sale una versión nueva, la descarga y
+          te avisa.
+        </p>
+      </div>
+      <ul class="get-list">
+        <li>
+          <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android">
+            <span class="get-os">Android</span>
+            <span class="get-meta" data-dynamic-meta="android">APK</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="windows">
+            <span class="get-os">Windows</span>
+            <span class="get-meta" data-dynamic-meta="windows">Instalador</span>
+          </a>
+        </li>
+        <li>
+          <a href="downloads.html">
+            <span class="get-os">macOS y Linux</span>
+            <span class="get-meta">Ver descargas</span>
+          </a>
+        </li>
+      </ul>
+      <p class="get-foot">¿Primera vez? <a href="install.html">Guía de instalación</a></p>
     </section>
 
   </main>
@@ -278,7 +261,7 @@
           Nexo
         </a>
         <p>
-          Cliente no oficial para estudiantes y docentes de la Universidad
+          App no oficial para estudiantes y docentes de la Universidad
           Peruana Los Andes. Proyecto independiente, sin afiliación
           institucional.
         </p>
@@ -287,8 +270,8 @@
         <h4>Producto</h4>
         <ul>
           <li><a href="downloads.html">Descargas</a></li>
-
           <li><a href="install.html">Instalación</a></li>
+          <li><a href="changelog.html">Novedades</a></li>
           <li><a href="https://github.com/Auralix-Studio/nexo/releases">Versiones</a></li>
         </ul>
       </div>
@@ -298,16 +281,15 @@
           <li><a href="docs.html">Índice</a></li>
           <li><a href="architecture.html">Arquitectura</a></li>
           <li><a href="faq.html">Preguntas frecuentes</a></li>
-          <li><a href="https://github.com/auralix-studio/nexo/blob/main/docs/troubleshoot.md">Diagnóstico</a></li>
+          <li><a href="troubleshoot.html">Diagnóstico</a></li>
         </ul>
       </div>
       <div>
         <h4>Legal</h4>
         <ul>
           <li><a href="privacy.html">Política de privacidad</a></li>
-          <li><a href="https://github.com/auralix-studio/nexo/blob/main/LICENSE">Licencia</a></li>
+          <li><a href="license.html">Licencia</a></li>
           <li><a href="https://github.com/auralix-studio/nexo/issues">Reportar un problema</a></li>
-
         </ul>
       </div>
     </div>
@@ -316,7 +298,8 @@
     </div>
   </footer>
 
-  <script src="app.js?v=1.0.5" defer></script>
+  <script src="app.js?v=2.0.0" defer></script>
+  <script src="home.js?v=2.0.0" defer></script>
 </body>
 
 </html>
