@@ -16,15 +16,16 @@
   <meta name="twitter:image" content="https://auralix-studio.github.io/nexo/assets/social-preview.png">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
   <link rel="preload" href="assets/fonts/super-mindset.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="style.css?v=2.0.0">
-  <link rel="stylesheet" href="home.css?v=2.0.0">
+  <link rel="stylesheet" href="style.css?v=2.1.0">
+  <link rel="stylesheet" href="home.css?v=2.1.0">
   <script>
     /* La intro se muestra una vez por sesión y nunca con "reducir movimiento".
        Se decide antes de pintar para que el hero no parpadee. */
     (function () {
       try {
         var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (!reduce && !sessionStorage.getItem('nexo.intro')) {
+        var asked = location.hash === '#intro';  /* enlace "Ver la intro" */
+        if (asked || (!reduce && !sessionStorage.getItem('nexo.intro'))) {
           document.documentElement.classList.add('intro-pending');
           /* Red de seguridad: si el script de la intro no carga, se muestra el sitio. */
           setTimeout(function () { document.documentElement.classList.remove('intro-pending'); }, 6000);
@@ -97,46 +98,77 @@
           </p>
         </div>
 
-        <div class="stage-device" data-stage-in aria-hidden="true">
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-screen">
-              <div class="app-top">
-                <span class="app-greet">Buenos días, Ana</span>
-                <span class="app-avatar">AQ</span>
-              </div>
-              <div class="app-card app-next">
-                <span class="app-kicker"><i class="live-dot"></i>En 25 minutos</span>
-                <strong>Programación IV</strong>
-                <span>Laboratorio 05 · 10:00 – 11:40</span>
-              </div>
-              <div class="app-row">
-                <div class="app-card app-mini">
-                  <span class="app-kicker">Promedio</span>
-                  <strong class="app-num">15.4</strong>
-                  <span class="app-bar"><i style="width:77%"></i></span>
+        <div class="stage-device" data-stage-in>
+          <div class="device-box">
+            <div class="device" data-form="phone" aria-hidden="true">
+              <div class="device-frame">
+                <span class="device-cam"></span>
+                <div class="device-screen">
+                  <div class="win-bar"><span>Nexo</span><i></i><i></i><i></i></div>
+                  <div class="app">
+                    <nav class="app-side">
+                      <span class="app-logo">Nexo</span>
+                      <span class="on">Inicio</span><span>Horario</span><span>Notas</span><span>Pagos</span>
+                    </nav>
+                    <div class="app-main">
+                      <div class="app-top">
+                        <span class="app-greet">Buenos días, Ana</span>
+                        <span class="app-avatar">AQ</span>
+                      </div>
+                      <div class="app-grid">
+                        <div class="app-card app-next">
+                          <span class="app-kicker"><i class="live-dot"></i>En 25 minutos</span>
+                          <strong>Programación IV</strong>
+                          <span>Laboratorio 05 · 10:00 a 11:40</span>
+                        </div>
+                        <div class="app-card app-mini">
+                          <span class="app-kicker">Promedio</span>
+                          <strong class="app-num">15.4</strong>
+                          <span class="app-bar"><i style="width:77%"></i></span>
+                        </div>
+                        <div class="app-card app-mini">
+                          <span class="app-kicker">Cuota</span>
+                          <strong class="app-num">S/ 380</strong>
+                          <span>Vence el viernes</span>
+                        </div>
+                        <div class="app-card app-grades">
+                          <span class="app-kicker">Notas nuevas</span>
+                          <ul class="app-list app-scores">
+                            <li><b>16</b> Base de Datos I <em>Evidencia de desempeño</em></li>
+                            <li><b>14</b> Estadística <em>Evidencia de conocimiento</em></li>
+                          </ul>
+                        </div>
+                        <div class="app-card app-today">
+                          <span class="app-kicker">Hoy</span>
+                          <ul class="app-list">
+                            <li><b>08:00</b> Ingeniería de Software <em>Pab. I 302</em></li>
+                            <li class="now"><b>10:00</b> Programación IV <em>Lab. 05</em></li>
+                            <li><b>15:00</b> Estadística <em>Pab. G 104</em></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="app-tabbar">
+                    <span class="on">Inicio</span><span>Horario</span><span>Notas</span><span>Pagos</span>
+                  </div>
                 </div>
-                <div class="app-card app-mini">
-                  <span class="app-kicker">Cuota</span>
-                  <strong class="app-num">S/ 380</strong>
-                  <span>Vence el viernes</span>
-                </div>
               </div>
-              <div class="app-card">
-                <span class="app-kicker">Hoy</span>
-                <ul class="app-list">
-                  <li><b>08:00</b> Ingeniería de Software <em>Pab. I 302</em></li>
-                  <li class="now"><b>10:00</b> Programación IV <em>Lab. 05</em></li>
-                  <li><b>15:00</b> Estadística <em>Pab. G 104</em></li>
-                </ul>
-              </div>
-              <div class="app-tabbar">
-                <span class="on">Inicio</span><span>Horario</span><span>Notas</span><span>Pagos</span>
-              </div>
+              <div class="device-base"></div>
             </div>
+          </div>
+          <div class="device-switch" role="group" aria-label="Ver Nexo en">
+            <button type="button" data-form="phone" aria-pressed="true">Teléfono</button>
+            <button type="button" data-form="tablet" aria-pressed="false">Tablet</button>
+            <button type="button" data-form="laptop" aria-pressed="false">Computadora</button>
           </div>
         </div>
       </div>
+
+      <button class="stage-replay" type="button" data-replay-intro>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Ver la intro
+      </button>
 
       <a class="stage-scroll" href="#conexiones" aria-label="Ver qué hace Nexo">
         <span></span>
@@ -146,10 +178,11 @@
     <!-- El "nexo": cada parte de la universidad conectada en un lugar -->
     <section class="hub" id="conexiones" aria-labelledby="hub-title">
       <div class="hub-intro">
-        <h2 id="hub-title">Lo que estaba repartido entre SIGMA y la Intranet.</h2>
+        <h2 id="hub-title">Todo tu ciclo, en una sola pantalla.</h2>
         <p>
-          Nexo entra a los dos con tu misma cuenta de la UPLA y lo junta en una
-          sola pantalla. Toca cada parte para ver qué hace.
+          Nexo entra a los sistemas de la universidad con tu misma cuenta de la
+          UPLA y junta lo que antes estaba en varias páginas. Toca cada parte
+          para ver qué hace.
         </p>
       </div>
 
@@ -189,7 +222,7 @@
       <dl class="teachers-list">
         <div>
           <dt>Pasar lista</dt>
-          <dd>Presente, falta o justificado con un toque. Lo marcado se guarda en el teléfono hasta que SIGMA lo recibe.</dd>
+          <dd>Presente, falta o justificado con un toque. Lo marcado se guarda en el teléfono hasta que la universidad lo recibe.</dd>
         </div>
         <div>
           <dt>Registrar notas</dt>
@@ -212,7 +245,7 @@
         Tus datos van de tu teléfono a la UPLA. A nadie más.
       </h2>
       <div class="promise-facts">
-        <p><strong>Sin servidores propios.</strong> Nexo habla directo con SIGMA y la Intranet, igual que tu navegador.</p>
+        <p><strong>Sin servidores propios.</strong> Nexo habla directo con los sistemas de la UPLA, igual que tu navegador.</p>
         <p><strong>Sin telemetría.</strong> No hay analíticas, publicidad ni rastreo. No sabemos ni cuánta gente la usa.</p>
         <p><strong>Tu contraseña no sale del dispositivo.</strong> Se guarda en el almacén seguro del sistema.</p>
       </div>
@@ -269,6 +302,7 @@
       <div>
         <h4>Producto</h4>
         <ul>
+          <li><a href="index.html#intro" data-replay-intro>Ver la intro</a></li>
           <li><a href="downloads.html">Descargas</a></li>
           <li><a href="install.html">Instalación</a></li>
           <li><a href="changelog.html">Novedades</a></li>
@@ -298,8 +332,8 @@
     </div>
   </footer>
 
-  <script src="app.js?v=2.0.0" defer></script>
-  <script src="home.js?v=2.0.0" defer></script>
+  <script src="app.js?v=2.1.0" defer></script>
+  <script src="home.js?v=2.1.0" defer></script>
 </body>
 
 </html>

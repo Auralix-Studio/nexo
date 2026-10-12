@@ -36,7 +36,7 @@
       id: 'offline', label: 'Sin conexión',
       title: 'Funciona aunque no haya señal',
       body: 'Lo último que consultaste queda guardado en el teléfono. En el aula sin wifi, tu horario sigue ahí.',
-      items: ['Se actualiza solo al volver la conexión', 'Si SIGMA falla, usa la Intranet', 'Los datos de cada cuenta quedan separados'],
+      items: ['Se actualiza solo al volver la conexión', 'Si un sistema de la universidad falla, usa otro', 'Los datos de cada cuenta quedan separados'],
       icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1.2" fill="currentColor"/></svg>'
     },
     {
@@ -194,8 +194,30 @@
     requestAnimationFrame(function () { stage.classList.add('ready'); });
   }
 
+  var introRunning = false;
+
   function initIntro() {
-    if (!root.classList.contains('intro-pending')) { revealStage(false); return; }
+    if (!root.classList.contains('intro-pending')) { revealStage(false); }
+    else { runIntro(); }
+    /* "Ver la intro": botón del escenario y enlace del pie */
+    document.querySelectorAll('[data-replay-intro]').forEach(function (el) {
+      el.addEventListener('click', function (e) { e.preventDefault(); replayIntro(); });
+    });
+  }
+
+  function replayIntro() {
+    if (introRunning || !stage) return;
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    stage.classList.remove('ready', 'handoff');
+    root.classList.add('intro-pending');
+    runIntro();
+  }
+
+  function runIntro() {
+    introRunning = true;
+    if (location.hash === '#intro') {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
     try { sessionStorage.setItem('nexo.intro', '1'); } catch (e) { /* sin almacenamiento */ }
 
     var overlay = document.createElement('div');
@@ -312,6 +334,7 @@
     function finish() {
       if (done) return;
       done = true;
+      introRunning = false;
       cancelAnimationFrame(raf);
       revealStage(true);
       overlay.classList.add('leaving');
@@ -405,8 +428,38 @@
     map.addEventListener('pointerenter', stopAuto);
   }
 
+  /* ── Dispositivo: teléfono → tablet → computadora ─────────────────── */
+  function initDevice() {
+    var device = document.querySelector('.device');
+    var buttons = document.querySelectorAll('.device-switch button');
+    if (!device || !buttons.length) return;
+    var forms = ['phone', 'tablet', 'laptop'];
+    var i = 0, timer = 0, stopped = false;
+
+    function show(form) {
+      i = forms.indexOf(form);
+      device.setAttribute('data-form', form);
+      buttons.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.form === form ? 'true' : 'false'); });
+    }
+    function next() { show(forms[(i + 1) % forms.length]); }
+    function start() { if (!reduce && !stopped && !timer) timer = setInterval(next, 3600); }
+    function pause() { clearInterval(timer); timer = 0; }
+
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () { stopped = true; pause(); show(b.dataset.form); });
+    });
+    var box = document.querySelector('.stage-device');
+    box.addEventListener('pointerenter', pause);
+    box.addEventListener('pointerleave', start);
+    box.addEventListener('focusin', pause);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { es[0].isIntersecting ? start() : pause(); }, { threshold: 0.3 }).observe(box);
+    } else { start(); }
+  }
+
   function init() {
     initHeader();
+    initDevice();
     initSky();
     initHub();
     initIntro();

@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arquitectura · Nexo</title>
-  <meta name="description" content="Arquitectura de comunicación de Nexo con SIGMA, Intranet UPLA y Microsoft Graph. Patrón Resolver, persistencia y seguridad de transporte.">
+  <meta name="description" content="Cómo se comunica Nexo con los sistemas de la UPLA: sin servidores intermedios, respaldo entre fuentes, almacenamiento local y seguridad del transporte.">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
-  <link rel="stylesheet" href="style.css?v=2.0.0">
+  <link rel="stylesheet" href="style.css?v=2.1.0">
 </head>
 <body>
 
@@ -44,80 +44,59 @@
 
     <section data-reveal>
       <h2>Visión general</h2>
-<div class="ascii-diagram">â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         HTTPS         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚                  â”‚  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¶  â”‚  sigma.upla.edu.pe  â”‚
-â”‚   Dispositivo    â”‚  Acceso/Login (JWT)   â”‚  (autenticación +   â”‚
-â”‚   del usuario    â”‚  Estudiante/*         â”‚   datos académicos) â”‚
-â”‚                  â”‚                       â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
-â”‚  â”‚ AppStore   â”‚  â”‚         HTTPS         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚  â”‚ (memoria)  â”‚  â”‚  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¶  â”‚ intranet.upla.edu.peâ”‚
-â”‚  â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚  Cookie PHPSESSID     â”‚ (datos complementa- â”‚
-â”‚       â”‚          â”‚                       â”‚  rios)              â”‚
-â”‚  â”Œâ”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”  â”‚                       â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-â”‚  â”‚ Persisten- â”‚  â”‚
-â”‚  â”‚ cia local  â”‚  â”‚         HTTPS         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚  â”‚ (SQLite +  â”‚  â”‚  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¶  â”‚ login.microsoft     â”‚
-â”‚  â”‚ SharedPref)â”‚  â”‚  OAuth2 Device Code   â”‚ online.com +        â”‚
-â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚  (opcional)           â”‚ graph.microsoft.com â”‚
-â”‚                  â”‚                       â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-â”‚                  â”‚  No se realizan solicitudes adicionales:
-â”‚                  â”‚  ningún servidor propio, ninguna telemetría.
-â”‚                  â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜</div>
-    </section>
-
-    <section data-reveal>
-      <h2>Integraciones</h2>
-
-      <h3>1. SIGMA</h3>
-      <ul>
-        <li><strong>URL base:</strong> <code>https://sigma.upla.edu.pe/api</code></li>
-        <li><strong>Autenticación:</strong> JWT. La aplicación envía las credenciales al endpoint <code>Acceso/Login</code>, recibe un token y lo conserva en <code>SharedPreferences</code>. Cada solicitud posterior incluye la cabecera <code>Authorization: Bearer &lt;token&gt;</code>.</li>
-      </ul>
-      <p><strong>Endpoints utilizados</strong> (representativos):</p>
-      <ul>
-        <li><code>Estudiante/perfil</code></li>
-        <li><code>Estudiante/horario</code></li>
-        <li><code>Estudiante/notas</code></li>
-        <li><code>Estudiante/cuotas</code></li>
-        <li><code>Estudiante/Publicaciones</code></li>
-        <li><code>Acceso/cambiarPassword</code></li>
-      </ul>
-      <p>Los endpoints utilizados son los mismos que invoca el portal web oficial de SIGMA.</p>
-
-      <h3>2. Intranet UPLA</h3>
-      <p>La Intranet (<code>intranet.upla.edu.pe</code>) expone información complementaria no disponible en SIGMA, mediante cookies de sesión PHP:</p>
-      <ul>
-        <li><code>consultarPensiones</code> y <code>consultartotalPensiones</code></li>
-        <li><code>obtenerCronograma</code></li>
-        <li><code>repRankingPromocionalEst</code></li>
-        <li><code>repMallaCurricularEst</code></li>
-        <li><code>verhorariomatriz-matriculadosEstudiante</code></li>
-      </ul>
-      <p>Nexo autentica con las mismas credenciales de SIGMA y conserva la cookie <code>PHPSESSID</code> localmente hasta su caducidad.</p>
-
-      <h3>3. Microsoft Graph Education (opcional)</h3>
-      <ol>
-        <li><strong>Autenticación:</strong> OAuth2 Device Code Flow contra <code>https://login.microsoftonline.com/organizations/oauth2/v2.0/</code>.</li>
-        <li><strong>API:</strong> Microsoft Graph Education.</li>
-        <li><strong>Permisos delegados:</strong> <code>EduRoster.ReadBasic</code>, <code>EduAssignments.ReadBasic</code>, <code>User.Read</code>, <code>openid</code>, <code>profile</code>, <code>offline_access</code>.</li>
-      </ol>
-      <p>Los tokens se almacenan localmente y se renuevan automáticamente.</p>
-      <div class="notice">
-        <p>Sin activación explícita, Nexo no realiza ninguna solicitud a servicios de Microsoft.</p>
-      </div>
-    </section>
-
-    <section data-reveal>
-      <h2>Patrón Resolver</h2>
       <p>
-        Determinados datos están disponibles en SIGMA y en la Intranet
-        UPLA. Nexo implementa un patrón Resolver: para cada dato se
-        declara una cadena de fuentes y se selecciona la primera que
-        responda con información válida. Si una fuente presenta
-        indisponibilidad temporal, la aplicación continúa funcionando con
-        la alternativa.
+        Nexo es un cliente: se conecta directamente desde tu dispositivo a
+        los sistemas web de la UPLA por HTTPS, igual que lo haría tu
+        navegador. No existe ningún servidor de Nexo en medio.
+      </p>
+      <div class="flow" role="img" aria-label="Tu dispositivo se conecta por HTTPS a los sistemas de la UPLA, sin servidores intermedios">
+        <div class="flow-node">
+          <strong>Tu dispositivo</strong>
+          <span>App Nexo, datos guardados en el propio equipo</span>
+        </div>
+        <div class="flow-link"><span>HTTPS</span></div>
+        <div class="flow-node">
+          <strong>Sistemas de la UPLA</strong>
+          <span>Los mismos que usas desde el navegador</span>
+        </div>
+      </div>
+      <p class="flow-note">Ninguna otra conexión: sin servidores propios, sin analíticas y sin servicios de terceros.</p>
+    </section>
+
+    <section data-reveal>
+      <h2>Conexiones</h2>
+
+      <h3>Sistema académico</h3>
+      <p>
+        Perfil, horario, notas, cuotas, publicaciones y, para docentes,
+        cursos, asistencia y registro de notas. La sesión usa un token que
+        la universidad entrega al iniciar sesión; la app lo envía en cada
+        consulta y lo renueva sola cuando vence.
+      </p>
+
+      <h3>Portal web</h3>
+      <p>
+        Información complementaria: pensiones, cronograma de pagos, ranking
+        promocional, malla curricular y horario matriculado. Usa la misma
+        cuenta de la UPLA; la sesión se conserva en el dispositivo hasta que
+        caduca.
+      </p>
+
+      <p>
+        Las consultas son las mismas que hacen las páginas oficiales de la
+        universidad. Nexo no accede a nada que tu cuenta no vea ya desde el
+        navegador.
+      </p>
+    </section>
+
+    <section data-reveal>
+      <h2>Respaldo entre fuentes</h2>
+      <p>
+        Algunos datos están disponibles en más de un sistema de la
+        universidad. Para cada uno, Nexo declara un orden de fuentes y usa
+        la primera que responda con información válida. Si un sistema no
+        está disponible, la app sigue funcionando con el otro o con lo
+        último que guardó.
       </p>
     </section>
 
@@ -139,18 +118,14 @@
         <table>
           <thead><tr><th>Dato</th><th>Ubicación</th><th>Eliminación</th></tr></thead>
           <tbody>
-            <tr><td>Token SIGMA</td><td>SharedPreferences</td><td>Logout o desinstalación</td></tr>
-            <tr><td>Cookie Intranet</td><td>SharedPreferences</td><td>Logout o desinstalación</td></tr>
-            <tr><td>Tokens Microsoft</td><td>SharedPreferences (JSON)</td><td>Revocación o desinstalación</td></tr>
-            <tr><td>Credenciales (con "Recordar")</td><td>SharedPreferences (Base64)</td><td>Desactivación o desinstalación</td></tr>
-            <tr><td>Perfil, horario, cuotas (caché)</td><td>SharedPreferences (JSON con TTL)</td><td>Logout o desinstalación</td></tr>
-            <tr><td>Histórico de pagos</td><td>SQLite local</td><td>Logout o desinstalación</td></tr>
-            <tr><td>Snapshot de calificaciones</td><td>SharedPreferences</td><td>Logout o desinstalación</td></tr>
-            <tr><td>Preferencias (tema, idioma)</td><td>SharedPreferences</td><td>Desinstalación</td></tr>
+            <tr><td>Sesión, credenciales y cuentas guardadas</td><td>Almacén seguro del sistema (Keychain, Keystore, DPAPI)</td><td>Cerrar sesión, quitar la cuenta o desinstalar</td></tr>
+            <tr><td>Horario, notas, cuotas y cursos (caché)</td><td>SQLite local, ligada a la cuenta</td><td>Cerrar sesión o cambiar de cuenta</td></tr>
+            <tr><td>Registro de notas para avisar cambios</td><td>Preferencias de la app</td><td>Cerrar sesión o desinstalar</td></tr>
+            <tr><td>Preferencias (tema, idioma, avisos)</td><td>Preferencias de la app</td><td>Desinstalar</td></tr>
           </tbody>
         </table>
       </div>
-      <p>Toda la información persistida reside en el sandbox privado de la aplicación. En Android moderno no es accesible a otras aplicaciones sin acceso root.</p>
+      <p>Todo queda en el espacio privado de la aplicación. En la versión web no se guarda la sesión: al cerrar la pestaña se pierde.</p>
     </section>
 
     <section data-reveal>
@@ -161,7 +136,8 @@
         problema observado en producción: determinados dispositivos
         Android (modelos Xiaomi con MIUI antiguo, algunos Samsung)
         presentan un almacén raíz desactualizado o reciben certificados
-        intermedios incompletos por parte de SIGMA, lo que provoca el
+        intermedios incompletos por parte de algunos servidores de la
+        universidad, lo que provoca el
         error <code>CERTIFICATE_VERIFY_FAILED</code>.
       </p>
       <p>
@@ -187,7 +163,7 @@
         <table>
           <thead><tr><th>Aspecto</th><th>Portal web UPLA</th><th>Nexo</th></tr></thead>
           <tbody>
-            <tr><td><strong>Autenticación</strong></td><td>Independiente por sistema</td><td>Unificada con credenciales SIGMA</td></tr>
+            <tr><td><strong>Inicio de sesión</strong></td><td>Por separado en cada sistema</td><td>Una sola vez, con tu cuenta UPLA</td></tr>
             <tr><td><strong>Modo sin conexión</strong></td><td>No disponible</td><td>Disponible (datos en caché)</td></tr>
             <tr><td><strong>Notificaciones</strong></td><td>No disponibles</td><td>Disponibles (locales)</td></tr>
             <tr><td><strong>Diseño móvil</strong></td><td>Parcial</td><td>Optimizado</td></tr>
@@ -222,6 +198,7 @@
       <div>
         <h4>Producto</h4>
         <ul>
+          <li><a href="index.html#intro" data-replay-intro>Ver la intro</a></li>
           <li><a href="downloads.html">Descargas</a></li>
           <li><a href="https://github.com/Auralix-Studio/nexo-code">Código fuente</a></li>
           <li><a href="install.html">Instalación</a></li>
@@ -250,6 +227,6 @@
     <div class="footer-bottom">© 2026 Alessandro Villogas Gaspar. Documentación bajo Creative Commons BY 4.0.</div>
   </footer>
 
-  <script src="app.js?v=2.0.0" defer></script>
+  <script src="app.js?v=2.1.0" defer></script>
 </body>
 </html>

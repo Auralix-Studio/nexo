@@ -1,7 +1,8 @@
 /* Nexo · Sitio público */
 
 /* Tipografías propias (servidas desde el sitio, sin terceros).
-   Super Mindset: la del logotipo NEXO de la app. Schibsted Grotesk: texto (OFL). */
+   Super Mindset: la del logotipo NEXO de la app. Nunito: texto, redondeada
+   como el logotipo para que todo hable el mismo idioma (OFL). */
 @font-face {
   font-family: 'Super Mindset';
   src: url('assets/fonts/super-mindset.woff') format('woff');
@@ -9,9 +10,9 @@
   font-display: swap;
 }
 @font-face {
-  font-family: 'Schibsted Grotesk';
-  src: url('assets/fonts/schibsted-grotesk.woff') format('woff');
-  font-weight: 400 900;
+  font-family: 'Nunito';
+  src: url('assets/fonts/nunito.woff') format('woff');
+  font-weight: 200 1000;
   font-display: swap;
 }
 
@@ -44,9 +45,9 @@
   --shadow-md: 0 4px 12px rgba(11, 18, 32, 0.05), 0 1px 3px rgba(11, 18, 32, 0.03);
   --shadow-lg: 0 16px 40px rgba(11, 18, 32, 0.08);
 
-  --font: 'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI Variable',
+  --font: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI Variable',
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --display: 'Super Mindset', 'Schibsted Grotesk', system-ui, sans-serif;
+  --display: 'Super Mindset', 'Nunito', system-ui, sans-serif;
   --accent: #22D3EE;
   --night: #080A12;
   --mono: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', Consolas, monospace;
@@ -1730,3 +1731,50 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   to { opacity: 1; }
 }
 
+
+
+/* Diagrama de conexión (arquitectura) */
+.flow {
+  display: grid;
+  grid-template-columns: 1fr minmax(80px, 0.6fr) 1fr;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 12px;
+}
+.flow-node {
+  padding: 18px 20px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+.flow-node strong { display: block; color: var(--text-strong); font-size: 1.05rem; }
+.flow-node span { color: var(--text-soft); font-size: 0.92rem; }
+.flow-link {
+  position: relative;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+.flow-link::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: -5px;
+  border: 6px solid transparent;
+  border-left: 8px solid var(--accent);
+}
+.flow-link span {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+.flow-note { color: var(--text-soft); font-size: 0.95rem; }
+@media (max-width: 640px) {
+  .flow { grid-template-columns: 1fr; }
+  .flow-link { width: 2px; height: 40px; margin: 0 auto; background: linear-gradient(180deg, var(--primary), var(--accent)); }
+  .flow-link::after { right: auto; left: -5px; top: auto; bottom: -6px; border: 6px solid transparent; border-top: 8px solid var(--accent); }
+  .flow-link span { left: 14px; bottom: 50%; transform: translateY(50%); }
+}
