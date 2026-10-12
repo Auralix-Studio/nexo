@@ -44,6 +44,51 @@
     <div class="split-content">
 
     <section data-reveal>
+      <h2>Versión 1.8.0</h2>
+
+      <h3>Cambio rápido de cuenta</h3>
+      <ul>
+        <li>Hasta 5 cuentas guardadas en el dispositivo (almacén seguro del sistema); se cambia con un toque desde Perfil, la barra lateral o Ctrl/Cmd + Shift + A</li>
+        <li>El login muestra "Continuar como" con las cuentas guardadas</li>
+        <li>"Agregar otra cuenta" conserva la actual; "Cerrar sesión" la olvida del dispositivo</li>
+        <li>Si la contraseña cambió en SIGMA, la cuenta queda en la lista y pide la nueva con el usuario ya escrito</li>
+      </ul>
+
+      <h3>Publicación</h3>
+      <ul>
+        <li>Publicación 100 % automática al fusionar en <code>main</code>: versión, tag, compilación de todas las plataformas, verificación de Windows, <code>SHA256SUMS.txt</code>, notas con tabla de descargas, release en <code>Auralix-Studio/nexo</code> y changelog del sitio (ver docs/versionado.md)</li>
+      </ul>
+
+      <h3>Docentes</h3>
+      <ul>
+        <li>Inicio reorganizado: saludo, cifras (cursos, alumnos, periodo), agenda de hoy, pendientes y cursos con sus números</li>
+        <li>Agenda de hoy con el estado de cada clase y si ya tiene asistencia registrada, con acceso directo a tomarla</li>
+        <li>Pendientes: clases de las últimas dos semanas sin asistencia en SIGMA (omite feriados nacionales y se pueden descartar) y alumnos que necesitan atención en todas las secciones (asistencia crítica, cerca del límite o desaprobando)</li>
+        <li>Tabla de notas de la sección con la columna de alumnos fija</li>
+        <li>Pegar notas desde Excel (por código de alumno o en el orden de la lista), sin adivinar filas ambiguas</li>
+        <li>Lo marcado al pasar lista se guarda en el dispositivo y se recupera si la app se cierra o falla el envío</li>
+        <li>El horario se arma con las asignaturas ya descargadas: una consulta menos a SIGMA al abrir el inicio</li>
+        <li>Nombres de asignaturas legibles y sin paréntesis ("Base de Datos I"); las electivas llevan su etiqueta</li>
+        <li>Cabecera del curso y pestaña Cursos en palabras: "Sección A1 · Ciclo 4 · Presencial", horario por día y aula; el NRC queda discreto y copiable</li>
+        <li>Foto del docente (SIGMA la guarda en otra carpeta que la de los alumnos)</li>
+        <li>Animaciones: cambios de estado con fundido, tarjetas que crecen suave al cargar y cifras que cuentan; todo respeta "reducir movimiento" del sistema</li>
+      </ul>
+
+      <h3>Correcciones</h3>
+      <ul>
+        <li>"Alumnos: 0" en el inicio docente por rosters vacíos guardados por versiones anteriores</li>
+        <li>Métricas del inicio del estudiante otra vez en 2 × 2 en celulares angostos o con letra grande (antes bajaban de a una por fila); la tarjeta se compacta y los montos largos se achican para caber</li>
+        <li>Desbordes con letra grande en tomar asistencia, confirmaciones e inicio docente</li>
+      </ul>
+
+      <h3>Legal</h3>
+      <ul>
+        <li>Términos y Condiciones, Política de Privacidad y Política de Cookies completos, con ley peruana aplicable y límites de responsabilidad, a nombre de Auralix Studio (versión 4: se pide aceptarlos de nuevo)</li>
+      </ul>
+    </section>
+
+
+    <section data-reveal>
       <h2>Versión 1.2.0</h2>
       <p>Sesión de Intranet resiliente y sistema de actualización dentro de la app.</p>
 
