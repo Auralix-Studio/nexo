@@ -16,8 +16,8 @@
   <meta name="twitter:image" content="https://auralix-studio.github.io/nexo/assets/social-preview.png">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
   <link rel="preload" href="assets/fonts/super-mindset.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="style.css?v=2.1.0">
-  <link rel="stylesheet" href="home.css?v=2.1.0">
+  <link rel="stylesheet" href="style.css?v=2.2.0">
+  <link rel="stylesheet" href="home.css?v=2.2.0">
   <script>
     /* La intro se muestra una vez por sesión y nunca con "reducir movimiento".
        Se decide antes de pintar para que el hero no parpadee. */
@@ -93,7 +93,7 @@
             </a>
           </div>
           <p class="stage-foot" data-stage-in>
-            Versión <span data-dynamic-version>más reciente</span>. Android 7.0 o superior y Windows 10 u 11.
+            Versión <span data-dynamic-version>más reciente</span>. Para Android, Windows, macOS y Linux.
             <a href="downloads.html">Otras plataformas</a>
           </p>
         </div>
@@ -275,13 +275,19 @@
           </a>
         </li>
         <li>
-          <a href="downloads.html">
-            <span class="get-os">macOS y Linux</span>
-            <span class="get-meta">Ver descargas</span>
+          <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="macos">
+            <span class="get-os">macOS</span>
+            <span class="get-meta" data-dynamic-meta="macos">ZIP</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="linux">
+            <span class="get-os">Linux</span>
+            <span class="get-meta" data-dynamic-meta="linux">tar.gz</span>
           </a>
         </li>
       </ul>
-      <p class="get-foot">¿Primera vez? <a href="install.html">Guía de instalación</a></p>
+      <p class="get-foot">¿Primera vez? <a href="install.html">Guía de instalación</a>. En iPhone y iPad todavía no está disponible.</p>
     </section>
 
   </main>
@@ -332,8 +338,8 @@
     </div>
   </footer>
 
-  <script src="app.js?v=2.1.0" defer></script>
-  <script src="home.js?v=2.1.0" defer></script>
+  <script src="app.js?v=2.2.0" defer></script>
+  <script src="home.js?v=2.2.0" defer></script>
 </body>
 
 </html>

@@ -6,7 +6,7 @@
   <title>Instalación · Nexo</title>
   <meta name="description" content="Guía paso a paso de instalación de Nexo en Android, Windows, iOS, macOS, Linux y Web.">
   <link rel="icon" type="image/png" href="assets/nexo-icon.png">
-  <link rel="stylesheet" href="style.css?v=2.1.0">
+  <link rel="stylesheet" href="style.css?v=2.2.0">
 </head>
 <body>
 
@@ -126,26 +126,31 @@
     </section>
 
     <section data-reveal>
-      <h2>iOS</h2>
+      <h2>iPhone y iPad</h2>
       <p>
-        La aplicación compila correctamente para iOS, pero no se
-        distribuye oficialmente en App Store. La instalación requiere
-        compilación local con Xcode y sideload mediante una cuenta Apple
-        Developer.
-      </p>
-      <p>
-        La publicación oficial en App Store está condicionada a la
-        disponibilidad de los fondos necesarios para el programa.
+        Todavía no hay versión para iPhone ni iPad. Apple solo permite
+        instalar apps firmadas y distribuidas por la App Store o TestFlight,
+        lo que requiere el programa Apple Developer. Mientras tanto puedes
+        usar Nexo en Android, Windows, macOS o Linux.
       </p>
     </section>
 
     <section data-reveal>
-      <h2>macOS y Linux</h2>
-      <p>
-        No existe distribución oficial actualmente. La aplicación compila
-        para ambas plataformas. Para obtener un binario, abrir un issue
-        en el repositorio público.
-      </p>
+      <h2>macOS</h2>
+      <ol>
+        <li>Descargar <a href="downloads.html#macos" data-dynamic-dl="macos">nexo-macos.zip</a> y abrirlo para descomprimir.</li>
+        <li>Arrastrar <code>Nexo.app</code> a la carpeta Aplicaciones.</li>
+        <li>La primera vez: clic derecho sobre Nexo → <strong>Abrir</strong> → confirmar. La app no está firmada por Apple y macOS lo advierte una sola vez.</li>
+      </ol>
+    </section>
+
+    <section data-reveal>
+      <h2>Linux</h2>
+      <ol>
+        <li>Descargar <a href="downloads.html#linux" data-dynamic-dl="linux">nexo-linux-x64.tar.gz</a>.</li>
+        <li>Descomprimir: <code>tar -xzf nexo-*-linux-x64.tar.gz -C ~/nexo</code></li>
+        <li>Ejecutar <code>~/nexo/nexo</code>. Requiere GTK 3 y <code>libsecret</code> (incluidos en la mayoría de escritorios).</li>
+      </ol>
     </section>
 
     <section data-reveal>
@@ -220,6 +225,6 @@
     <div class="footer-bottom">© 2026 Alessandro Villogas Gaspar. Documentación bajo Creative Commons BY 4.0.</div>
   </footer>
 
-  <script src="app.js?v=2.1.0" defer></script>
+  <script src="app.js?v=2.2.0" defer></script>
 </body>
 </html>

@@ -297,128 +297,131 @@
       });
     },
 
+    /* Descargas: cada botón con data-dynamic-dl="clave" apunta al archivo
+       real de la última versión, nunca a la página de releases.
+       1) Se pide la última versión a la API de GitHub (con caché de 10 min,
+          porque GitHub limita a 60 consultas por hora sin sesión).
+       2) Si la API no responde, se usan los enlaces estables
+          /releases/latest/download/nexo-<plataforma>.* que publica el CI. */
     initDynamicDownloads: function () {
       const REPO = 'Auralix-Studio/nexo';
-      const API_URL = `https://api.github.com/repos/${REPO}/releases/latest`;
-
-      const formatBytes = (bytes, decimals = 1) => {
-        if (!+bytes) return '0 B';
-        const k = 1024, dm = decimals < 0 ? 0 : decimals, sizes = ['B', 'KB', 'MB', 'GB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+      const LATEST = `https://github.com/${REPO}/releases/latest/download/`;
+      const ASSETS = {
+        'android':        { stable: 'nexo-android.apk',          end: '-universal.apk',     kind: 'APK' },
+        'android-arm64':  { stable: 'nexo-android-arm64.apk',    end: '-arm64.apk',         kind: 'APK' },
+        'android-armv7':  { stable: 'nexo-android-armv7.apk',    end: '-armv7.apk',         kind: 'APK' },
+        'android-x86_64': { stable: 'nexo-android-x86_64.apk',   end: '-x86_64.apk',        kind: 'APK' },
+        'windows':        { stable: 'nexo-windows-setup.exe',    end: '-setup-x64.exe',     kind: 'Instalador' },
+        'windows-zip':    { stable: 'nexo-windows-x64.zip',      end: '-windows-x64.zip',   kind: 'ZIP portable' },
+        'macos':          { stable: 'nexo-macos.zip',            end: '-macos.zip',         kind: 'ZIP' },
+        'linux':          { stable: 'nexo-linux-x64.tar.gz',     end: '-linux-x64.tar.gz',  kind: 'tar.gz' }
+      };
+      const formatBytes = (bytes) => {
+        if (!+bytes) return '';
+        const mb = bytes / 1048576;
+        return (mb >= 10 ? Math.round(mb) : mb.toFixed(1)) + ' MB';
       };
 
-      fetch(API_URL)
-        .then(res => res.json())
-        .then(data => {
-          if (!data || !data.tag_name) return;
-          
-          document.querySelectorAll('[data-dynamic-version]').forEach(el => el.textContent = data.tag_name);
+      this.os = this.detectOS();
+      this.renderPlatformButtons();
 
-          const assets = data.assets || [];
-          const getAsset = (keyword, ignore) => assets.find(a => {
-            const name = a.name.toLowerCase();
-            return name.includes(keyword) && (!ignore || !name.includes(ignore));
+      const apply = (release) => {
+        const assets = (release && release.assets) || [];
+        Object.keys(ASSETS).forEach((key) => {
+          const def = ASSETS[key];
+          const asset = assets.find(a => a.name.toLowerCase().endsWith(def.end) && /^nexo-v\d/i.test(a.name));
+          const href = asset ? asset.browser_download_url : LATEST + def.stable;
+          document.querySelectorAll(`[data-dynamic-dl="${key}"]`).forEach(el => {
+            el.href = href;
+            el.setAttribute('download', '');
           });
+          if (!asset) return;
+          const size = formatBytes(asset.size);
+          document.querySelectorAll(`[data-dynamic-name="${key}"]`).forEach(el => el.textContent = asset.name);
+          document.querySelectorAll(`[data-dynamic-size="${key}"]`).forEach(el => el.textContent = size);
+          document.querySelectorAll(`[data-dynamic-downloads="${key}"]`).forEach(el => el.textContent = asset.download_count.toLocaleString('es-PE'));
+          document.querySelectorAll(`[data-dynamic-meta="${key}"]`).forEach(el => el.textContent = `${size} · ${def.kind}`);
+        });
+        if (release && release.tag_name) {
+          document.querySelectorAll('[data-dynamic-version]').forEach(el => el.textContent = release.tag_name);
+        }
+      };
 
-          // Buscar assets principales
-          const universalApk = getAsset('universal.apk');
-          const androidAsset = universalApk || getAsset('.apk');
-          const windowsAsset = getAsset('.exe') || getAsset('windows.zip');
+      // Enlaces estables desde el primer momento: ningún botón lleva a la
+      // página de GitHub aunque la API tarde o falle.
+      apply(null);
 
-          // Función helper para rellenar datos en el DOM
-          const fillData = (key, asset, type) => {
-            if (!asset) return;
-            document.querySelectorAll(`[data-dynamic-dl="${key}"]`).forEach(el => el.href = asset.browser_download_url);
-            document.querySelectorAll(`[data-dynamic-name="${key}"]`).forEach(el => el.textContent = asset.name);
-            document.querySelectorAll(`[data-dynamic-size="${key}"]`).forEach(el => el.textContent = formatBytes(asset.size));
-            document.querySelectorAll(`[data-dynamic-downloads="${key}"]`).forEach(el => el.textContent = asset.download_count.toLocaleString());
-            document.querySelectorAll(`[data-dynamic-meta="${key}"]`).forEach(el => el.textContent = `${formatBytes(asset.size)} · ${type}`);
+      const CACHE = 'nexo.release.v1';
+      try {
+        const cached = JSON.parse(sessionStorage.getItem(CACHE) || 'null');
+        if (cached && Date.now() - cached.at < 10 * 60 * 1000) { apply(cached.data); return; }
+      } catch (e) { /* sin almacenamiento */ }
+
+      fetch(`https://api.github.com/repos/${REPO}/releases/latest`, { headers: { Accept: 'application/vnd.github+json' } })
+        .then(res => res.ok ? res.json() : Promise.reject(new Error('GitHub ' + res.status)))
+        .then(data => {
+          const slim = {
+            tag_name: data.tag_name,
+            assets: (data.assets || []).map(a => ({ name: a.name, size: a.size, download_count: a.download_count, browser_download_url: a.browser_download_url }))
           };
-
-          fillData('android', androidAsset, 'APK');
-          fillData('windows', windowsAsset, windowsAsset ? windowsAsset.name.split('.').pop().toUpperCase() : 'EXE');
-
-          this.renderHeroActions(assets, formatBytes);
+          try { sessionStorage.setItem(CACHE, JSON.stringify({ at: Date.now(), data: slim })); } catch (e) { /* sin almacenamiento */ }
+          apply(slim);
         })
-        .catch(err => console.warn('Error obteniendo la última release:', err));
+        .catch(err => console.warn('No se pudo consultar la última versión; se usan los enlaces estables.', err));
     },
 
-    renderHeroActions: function (assetsList, formatBytes) {
-      const container = document.getElementById('hero-download-actions');
-      if (!container) return;
+    detectOS: function () {
+      const ua = navigator.userAgent || '';
+      const touchMac = /Macintosh/i.test(ua) && navigator.maxTouchPoints > 1; // iPad con iPadOS
+      if (/iPhone|iPad|iPod/i.test(ua) || touchMac) return 'ios';
+      if (/Android/i.test(ua) || /CrOS/i.test(ua)) return 'android';
+      if (/Windows/i.test(ua)) return 'windows';
+      if (/Macintosh|Mac OS X/i.test(ua)) return 'macos';
+      if (/Linux|X11/i.test(ua)) return 'linux';
+      return 'unknown';
+    },
 
-      const ua = navigator.userAgent;
-      let os = 'Unknown';
-      
-      if (/Windows/i.test(ua)) os = 'Windows';
-      else if (/Macintosh|Mac OS X/i.test(ua)) os = 'Mac';
-      else if (/Android/i.test(ua)) os = 'Android';
-      else if (/iPhone|iPad|iPod/i.test(ua)) os = 'iOS';
-      else if (/Linux/i.test(ua)) os = 'Linux';
+    /* Botones según el sistema de quien visita. */
+    renderPlatformButtons: function () {
+      const os = this.os;
+      const PLATFORM = {
+        android: { key: 'android', text: 'Descargar para Android', meta: 'APK' },
+        windows: { key: 'windows', text: 'Descargar para Windows', meta: 'Instalador' },
+        macos:   { key: 'macos',   text: 'Descargar para macOS',   meta: 'ZIP' },
+        linux:   { key: 'linux',   text: 'Descargar para Linux',   meta: 'tar.gz' }
+      };
+      const SECOND = { android: 'windows', windows: 'android', macos: 'windows', linux: 'android', unknown: 'windows' };
 
-      // Portada nueva: los botones ya están en el HTML con su enlace real;
-      // solo se pone primero el del sistema de quien visita.
-      if (container.hasAttribute('data-static')) {
-        const key = os === 'Windows' ? 'windows' : os === 'Android' ? 'android' : null;
-        const btn = key && container.querySelector(`[data-dynamic-dl="${key}"]`);
-        if (btn && btn !== container.firstElementChild) {
-          const first = container.firstElementChild;
-          const firstClass = first.className;
-          first.className = btn.className;
-          btn.className = firstClass;
-          container.insertBefore(btn, first);
-        }
+      // Botón "Descargar" de la cabecera en todas las páginas
+      document.querySelectorAll('.nav-cta').forEach(a => {
+        if (os === 'ios') { a.setAttribute('href', 'downloads.html'); a.removeAttribute('data-dynamic-dl'); }
+        else if (PLATFORM[os]) a.setAttribute('data-dynamic-dl', PLATFORM[os].key);
+      });
+
+      const box = document.getElementById('hero-download-actions');
+      if (!box) return;
+      const [first, second] = box.querySelectorAll('a.btn');
+      if (!first || !second) return;
+
+      if (os === 'ios') {
+        const note = document.createElement('p');
+        note.className = 'platform-note';
+        note.textContent = 'Nexo todavía no está disponible para iPhone ni iPad. Puedes usarlo en Android, Windows, macOS o Linux.';
+        box.insertBefore(note, first);
+        first.remove();
+        second.removeAttribute('data-dynamic-dl');
+        second.setAttribute('href', 'downloads.html');
+        second.innerHTML = 'Ver todas las descargas';
         return;
       }
 
-      let bestAsset = null;
-      let btnText = '';
-      let btnMeta = '';
-
-      if (os === 'Android') {
-        bestAsset = assetsList.find(a => a.name.toLowerCase().endsWith('universal.apk')) || assetsList.find(a => a.name.toLowerCase().endsWith('.apk'));
-        if (bestAsset) {
-          btnText = 'Descargar para Android'; // <-- Texto limpio, sin "(Universal)"
-          btnMeta = `${formatBytes(bestAsset.size)} · APK`;
-        }
-      } else if (os === 'Windows') {
-        bestAsset = assetsList.find(a => a.name.toLowerCase().endsWith('setup-x64.exe')) || assetsList.find(a => a.name.toLowerCase().match(/\.exe|\.msix/));
-        if (bestAsset) {
-          btnText = 'Descargar para Windows';
-          btnMeta = `${formatBytes(bestAsset.size)} · ${bestAsset.name.split('.').pop().toUpperCase()}`;
-        }
-      } else if (os === 'Linux') {
-        bestAsset = assetsList.find(a => a.name.toLowerCase().match(/linux|\.appimage|\.deb/));
-        if (bestAsset) {
-          btnText = 'Descargar para Linux';
-          btnMeta = `${formatBytes(bestAsset.size)} · ${bestAsset.name.split('.').pop().toUpperCase()}`;
-        }
-      }
-
-      container.innerHTML = '';
-
-      if (bestAsset) {
-        const a = document.createElement('a');
-        a.href = bestAsset.browser_download_url;
-        a.className = 'btn btn-primary';
-        a.innerHTML = `${btnText}\n<span class="btn-meta">${btnMeta}</span>`;
-        container.appendChild(a);
-      } else {
-        const p = document.createElement('p');
-        p.style.color = 'var(--text-muted)';
-        p.style.marginBottom = '1rem';
-        p.style.gridColumn = '1 / -1';
-        p.textContent = `Aplicación no disponible para tu dispositivo (${os}).`;
-        container.appendChild(p);
-      }
-
-      const other = document.createElement('a');
-      other.href = 'downloads.html';
-      other.className = 'btn btn-secondary';
-      other.style.cssText = 'border-color:transparent; background:transparent; text-decoration:underline;';
-      other.textContent = 'Otras plataformas';
-      container.appendChild(other);
+      const set = (a, p) => {
+        a.setAttribute('data-dynamic-dl', p.key);
+        a.innerHTML = `${p.text}\n<span class="btn-meta" data-dynamic-meta="${p.key}">${p.meta}</span>`;
+      };
+      const main = PLATFORM[os] || PLATFORM.android;
+      set(first, main);
+      set(second, PLATFORM[SECOND[os] || 'windows']);
     }
   };
 
