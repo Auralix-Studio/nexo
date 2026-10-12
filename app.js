@@ -299,8 +299,9 @@
 
     /* Descargas: cada botón con data-dynamic-dl="clave" apunta al archivo
        real de la última versión, nunca a la página de releases.
-       1) Se pide la última versión a la API de GitHub (con caché de 10 min,
-          porque GitHub limita a 60 consultas por hora sin sesión).
+       1) Se pide la última versión a la API de GitHub (con caché de 30 min
+          entre visitas, porque GitHub limita a 60 consultas por hora por IP
+          y en datos móviles muchas personas comparten la misma IP).
        2) Si la API no responde, se usan los enlaces estables
           /releases/latest/download/nexo-<plataforma>.* que publica el CI. */
     initDynamicDownloads: function () {
@@ -351,10 +352,10 @@
       // página de GitHub aunque la API tarde o falle.
       apply(null);
 
-      const CACHE = 'nexo.release.v1';
+      const CACHE = 'nexo.release.v2';
       try {
-        const cached = JSON.parse(sessionStorage.getItem(CACHE) || 'null');
-        if (cached && Date.now() - cached.at < 10 * 60 * 1000) { apply(cached.data); return; }
+        const cached = JSON.parse(localStorage.getItem(CACHE) || 'null');
+        if (cached && Date.now() - cached.at < 30 * 60 * 1000) { apply(cached.data); return; }
       } catch (e) { /* sin almacenamiento */ }
 
       fetch(`https://api.github.com/repos/${REPO}/releases/latest`, { headers: { Accept: 'application/vnd.github+json' } })
@@ -364,7 +365,7 @@
             tag_name: data.tag_name,
             assets: (data.assets || []).map(a => ({ name: a.name, size: a.size, download_count: a.download_count, browser_download_url: a.browser_download_url }))
           };
-          try { sessionStorage.setItem(CACHE, JSON.stringify({ at: Date.now(), data: slim })); } catch (e) { /* sin almacenamiento */ }
+          try { localStorage.setItem(CACHE, JSON.stringify({ at: Date.now(), data: slim })); } catch (e) { /* sin almacenamiento */ }
           apply(slim);
         })
         .catch(err => console.warn('No se pudo consultar la última versión; se usan los enlaces estables.', err));
