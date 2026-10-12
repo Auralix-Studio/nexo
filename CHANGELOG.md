@@ -13,7 +13,7 @@ numeración sigue [Semantic Versioning](https://semver.org/lang/es/).
 - Hasta 5 cuentas guardadas en el dispositivo (almacén seguro del sistema); se cambia con un toque desde Perfil, la barra lateral o Ctrl/Cmd + Shift + A
 - El login muestra "Continuar como" con las cuentas guardadas
 - "Agregar otra cuenta" conserva la actual; "Cerrar sesión" la olvida del dispositivo
-- Si la contraseña cambió en SIGMA, la cuenta queda en la lista y pide la nueva con el usuario ya escrito
+- Si la contraseña cambió en el sistema académico, la cuenta queda en la lista y pide la nueva con el usuario ya escrito
 
 ### Publicación
 - Publicación 100 % automática al fusionar en `main`: versión, tag, compilación de todas las plataformas, verificación de Windows, `SHA256SUMS.txt`, notas con tabla de descargas, release en `Auralix-Studio/nexo` y changelog del sitio (ver docs/versionado.md)
@@ -21,14 +21,14 @@ numeración sigue [Semantic Versioning](https://semver.org/lang/es/).
 ### Docentes
 - Inicio reorganizado: saludo, cifras (cursos, alumnos, periodo), agenda de hoy, pendientes y cursos con sus números
 - Agenda de hoy con el estado de cada clase y si ya tiene asistencia registrada, con acceso directo a tomarla
-- Pendientes: clases de las últimas dos semanas sin asistencia en SIGMA (omite feriados nacionales y se pueden descartar) y alumnos que necesitan atención en todas las secciones (asistencia crítica, cerca del límite o desaprobando)
+- Pendientes: clases de las últimas dos semanas sin asistencia en el sistema académico (omite feriados nacionales y se pueden descartar) y alumnos que necesitan atención en todas las secciones (asistencia crítica, cerca del límite o desaprobando)
 - Tabla de notas de la sección con la columna de alumnos fija
 - Pegar notas desde Excel (por código de alumno o en el orden de la lista), sin adivinar filas ambiguas
 - Lo marcado al pasar lista se guarda en el dispositivo y se recupera si la app se cierra o falla el envío
-- El horario se arma con las asignaturas ya descargadas: una consulta menos a SIGMA al abrir el inicio
+- El horario se arma con las asignaturas ya descargadas: una consulta menos al sistema académico al abrir el inicio
 - Nombres de asignaturas legibles y sin paréntesis ("Base de Datos I"); las electivas llevan su etiqueta
 - Cabecera del curso y pestaña Cursos en palabras: "Sección A1 · Ciclo 4 · Presencial", horario por día y aula; el NRC queda discreto y copiable
-- Foto del docente (SIGMA la guarda en otra carpeta que la de los alumnos)
+- Foto del docente (el sistema académico la guarda en otra carpeta que la de los alumnos)
 - Animaciones: cambios de estado con fundido, tarjetas que crecen suave al cargar y cifras que cuentan; todo respeta "reducir movimiento" del sistema
 
 ### Correcciones
@@ -68,8 +68,8 @@ Primera versión pública con el asistente Lumen integrado.
 - Refactorización del dominio: modelos unificados (`Student`,
   `Payment`, `ScheduleClass`, entre otros).
 - Implementación del patrón Resolver para fallback automático entre
-  SIGMA e Intranet.
-- Persistencia de la sesión de Intranet en `SharedPreferences`.
+  los sistemas de la universidad.
+- Persistencia de la sesión del portal web en `SharedPreferences`.
 - Actualización del `minSdk` de Android de 21 a 24, requisito de
   MediaPipe LLM Inference.
 
