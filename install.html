@@ -24,7 +24,7 @@
         <a href="docs.html">Documentación</a>
         <a href="about.html">Acerca</a>
         <a href="privacy.html">Privacidad</a>
-        <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android" class="nav-cta">Descargar</a>
+        <a href="https://github.com/Auralix-Studio/nexo/releases/latest/download/nexo-android.apk" data-dynamic-dl="android" class="nav-cta">Descargar</a>
       </nav>
     </div>
   </header>
@@ -48,10 +48,10 @@
 
       <h3>Procedimiento</h3>
       <ol>
-        <li>Acceder al <a href="https://github.com/auralix-studio/nexo/releases/latest">último release</a> del repositorio.</li>
-        <li>Descargar el APK correspondiente al dispositivo.</li>
+        <li>Descargar el <a href="https://github.com/Auralix-Studio/nexo/releases/latest/download/nexo-android.apk" data-dynamic-dl="android">APK de Android</a> (o la variante de tu dispositivo desde <a href="downloads.html">Descargas</a>).</li>
         <li>Abrir el archivo descargado desde el gestor de archivos.</li>
         <li>Android solicitará autorización para instalar aplicaciones de fuentes desconocidas. Activar "Permitir desde esta fuente" y confirmar la instalación.</li>
+        <li>Si Google Play Protect muestra "Se bloqueó la app para proteger tu dispositivo", tocar "Instalar de todas formas". Aparece con las apps que no se descargan de Google Play mientras Google aún no conoce al desarrollador; Nexo no pide permisos sensibles y su código es público.</li>
         <li>Abrir Nexo desde el menú de aplicaciones.</li>
         <li>Aceptar los términos y autenticarse con las credenciales de la universidad.</li>
       </ol>
@@ -61,12 +61,15 @@
         <table>
           <thead><tr><th>Variante</th><th>Tamaño</th><th>Recomendada para</th></tr></thead>
           <tbody>
-            <tr><td><code>arm64-v8a</code></td><td class="size">~160 MB</td><td>Mayoría de dispositivos modernos (Android 8.0+)</td></tr>
-            <tr><td><code>armeabi-v7a</code></td><td class="size">~27 MB</td><td>Dispositivos antiguos 32-bit</td></tr>
-            <tr><td><code>universal</code></td><td class="size">~252 MB</td><td>Cuando se desconoce la arquitectura</td></tr>
+            <tr><td><code>arm64-v8a</code></td><td class="size">~26 MB</td><td>Mayoría de dispositivos modernos (Android 7.0+)</td></tr>
+            <tr><td><code>armeabi-v7a</code></td><td class="size">~24 MB</td><td>Dispositivos antiguos 32-bit</td></tr>
+            <tr><td><code>universal</code></td><td class="size">~72 MB</td><td>Cuando se desconoce la arquitectura</td></tr>
           </tbody>
         </table>
       </div>
+
+      <h3>Si ya tenías Nexo instalado</h3>
+      <p>Desde octubre de 2026 Nexo para Android va firmado con la clave propia de Auralix Studio y tiene un identificador nuevo. Si tenías una versión anterior, desinstálala una vez antes de instalar la nueva; solo tendrás que volver a iniciar sesión. Las versiones siguientes se instalan encima sin desinstalar.</p>
 
       <h3>Permisos solicitados</h3>
       <div class="table-wrap">
@@ -138,7 +141,7 @@
     <section data-reveal>
       <h2>macOS</h2>
       <ol>
-        <li>Descargar <a href="downloads.html#macos" data-dynamic-dl="macos">nexo-macos.zip</a> y abrirlo para descomprimir.</li>
+        <li>Descargar <a href="https://github.com/Auralix-Studio/nexo/releases/latest/download/nexo-macos.zip" data-dynamic-dl="macos">nexo-macos.zip</a> y abrirlo para descomprimir.</li>
         <li>Arrastrar <code>Nexo.app</code> a la carpeta Aplicaciones.</li>
         <li>La primera vez: clic derecho sobre Nexo → <strong>Abrir</strong> → confirmar. La app no está firmada por Apple y macOS lo advierte una sola vez.</li>
       </ol>
@@ -147,7 +150,7 @@
     <section data-reveal>
       <h2>Linux</h2>
       <ol>
-        <li>Descargar <a href="downloads.html#linux" data-dynamic-dl="linux">nexo-linux-x64.tar.gz</a>.</li>
+        <li>Descargar <a href="https://github.com/Auralix-Studio/nexo/releases/latest/download/nexo-linux-x64.tar.gz" data-dynamic-dl="linux">nexo-linux-x64.tar.gz</a>.</li>
         <li>Descomprimir: <code>tar -xzf nexo-*-linux-x64.tar.gz -C ~/nexo</code></li>
         <li>Ejecutar <code>~/nexo/nexo</code>. Requiere GTK 3 y <code>libsecret</code> (incluidos en la mayoría de escritorios).</li>
       </ol>
@@ -177,7 +180,7 @@
         <h2>¿Listo para instalar?</h2>
         <p>Comenzá con la descarga directa de Android.</p>
         <div class="hero-actions">
-          <a href="https://github.com/Auralix-Studio/nexo/releases/latest" data-dynamic-dl="android" class="btn btn-primary">Descargar APK universal</a>
+          <a href="https://github.com/Auralix-Studio/nexo/releases/latest/download/nexo-android.apk" data-dynamic-dl="android" class="btn btn-primary">Descargar APK universal</a>
           <a href="downloads.html" class="btn btn-secondary">Todas las descargas</a>
         </div>
       </div>
@@ -225,6 +228,6 @@
     <div class="footer-bottom">© 2026 Alessandro Villogas Gaspar. Documentación bajo Creative Commons BY 4.0.</div>
   </footer>
 
-  <script src="app.js?v=2.2.0" defer></script>
+  <script src="app.js?v=2.2.1" defer></script>
 </body>
 </html>
