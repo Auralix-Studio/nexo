@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "version": "1.10.0",
+  "build": 25,
+  "date": "2026-10-14",
+  "min_build": 0,
+  "notes_url": "https://nexo.aurx.pro/changelog.html",
+  "assets": {
+    "android-arm64": {
+      "name": "nexo-v1.10.0-arm64.apk",
+      "url": "https://github.com/Auralix-Studio/nexo/releases/download/v1.10.0/nexo-v1.10.0-arm64.apk",
+      "size": 11746925,
+      "sha256": "bd29f24619c557fc110ad0d1a1fd73cff2310e69304def3a976c18522d8eba9e"
+    },
+    "android-universal": {
+      "name": "nexo-v1.10.0-universal.apk",
+      "url": "https://github.com/Auralix-Studio/nexo/releases/download/v1.10.0/nexo-v1.10.0-universal.apk",
+      "size": 21911100,
+      "sha256": "94f483028bff6bf28f544f097e7f3fd2f56b379b20ef26e2d0dc9435292d778f"
+    },
+    "android-armv7": {
+      "name": "nexo-v1.10.0-armv7.apk",
+      "url": "https://github.com/Auralix-Studio/nexo/releases/download/v1.10.0/nexo-v1.10.0-armv7.apk",
+      "size": 11373959,
+      "sha256": "8da5d7720e07a2a444f601d59ce8e53356dcd616fda0da35031aee217e1adc1b"
+    },
+    "android-x86_64": {
+      "name": "nexo-v1.10.0-x86_64.apk",
+      "url": "https://github.com/Auralix-Studio/nexo/releases/download/v1.10.0/nexo-v1.10.0-x86_64.apk",
+      "size": 11956158,
+      "sha256": "ce66955f2cef9dd44eebfe36b6b673cd44348f1f7d03239ce384866f434dd830"
+    },
+    "windows-x64": {
+      "name": "nexo-v1.10.0-setup-x64.exe",
+      "url": "https://github.com/Auralix-Studio/nexo/releases/download/v1.10.0/nexo-v1.10.0-setup-x64.exe",
+      "size": 19706880,
+      "sha256": "02a194ba968ead45ad6bf9db9c5129c802fba18e3aef6d3d49a73b062741cd9c"
+    }
+  }
+}
