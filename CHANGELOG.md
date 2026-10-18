@@ -7,6 +7,11 @@ numeración sigue [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [1.10.1] - 2026-10-17
+
+### Correcciones
+- ci: Add automated semantic versioning, CI workflows, and build scripts
+
 ## [1.10.0] - 2026-10-14
 
 ### Tipografía
