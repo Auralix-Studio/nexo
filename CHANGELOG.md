@@ -7,6 +7,11 @@ numeración sigue [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [1.11.0] - 2026-10-19
+
+### Novedades
+- Add session management and shared UI components for user profiles
+
 ## [1.10.1] - 2026-10-17
 
 ### Correcciones
