@@ -7,6 +7,11 @@ numeración sigue [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [1.12.0] - 2026-10-20
+
+### Novedades
+- Add connectivity service, update checkers, and native Android widgets
+
 ## [1.11.0] - 2026-10-19
 
 ### Novedades
