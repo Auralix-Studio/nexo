@@ -7,6 +7,11 @@ numeración sigue [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [1.12.1] - 2026-10-28
+
+### Correcciones
+- android: Conservar el constructor Room de WorkManager en release
+
 ## [1.12.0] - 2026-10-20
 
 ### Novedades
