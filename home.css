@@ -795,3 +795,6 @@ html.intro-pending body { overflow: hidden; }
   color: var(--stage-soft);
   max-width: 46ch;
 }
+
+/* El botón de Google Play mantiene logo y texto juntos a lo ancho. */
+.stage-actions .btn-play { justify-content: center; padding-top: 10px; padding-bottom: 10px; }

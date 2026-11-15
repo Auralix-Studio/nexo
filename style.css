@@ -1778,3 +1778,21 @@ td .btn { padding: 8px 14px; font-size: 0.84rem; }
   .flow-link::after { right: auto; left: -5px; top: auto; bottom: -6px; border: 6px solid transparent; border-top: 8px solid var(--accent); }
   .flow-link span { left: 14px; bottom: 50%; transform: translateY(50%); }
 }
+
+/* Google Play: botón negro con el logo, legible en tema claro y oscuro. */
+.btn-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px 9px 14px;
+  border-radius: 12px;
+  background: #000;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  text-decoration: none;
+  line-height: 1.1;
+}
+.btn-play:hover { color: #fff; background: #111; transform: translateY(-1px); }
+.btn-play .play-logo { width: 26px; height: 26px; flex: none; }
+.btn-play .play-text { display: flex; flex-direction: column; font-weight: 600; font-size: 1.05rem; letter-spacing: -0.2px; }
+.btn-play .play-text small { font-size: 0.68rem; font-weight: 500; opacity: 0.8; letter-spacing: 0.3px; text-transform: uppercase; }

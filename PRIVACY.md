@@ -1,227 +1,120 @@
 # Política de Privacidad
 
-**Versión:** 1.0
-**Vigente desde:** 7 de junio de 2026
-**Responsable del tratamiento:** Alessandro Villogas Gaspar
-**Contacto:** [GitHub Issues](https://github.com/auralix-studio/nexo/issues)
+Versión 6 · Vigente desde el 15 de noviembre de 2026.
 
-Este documento describe el tratamiento que la aplicación Nexo
-(en adelante, "la Aplicación") realiza sobre los datos del usuario.
-Se redacta en lenguaje directo a fin de garantizar su comprensión por
-parte de personas no técnicas.
+## 1. Responsable y contacto
 
----
+El responsable del desarrollo de Nexo y del tratamiento de los datos personales que realiza su servidor es Auralix Studio (en adelante, «el Desarrollador»), con domicilio en Huancayo, Perú.
 
-## 1. Principios
+- Correo electrónico: alessandrovillogas@outlook.es
+- WhatsApp: +51 907 924 307 (sección Soporte de la aplicación)
 
-La Aplicación se diseñó conforme a los siguientes principios:
+## 2. Marco normativo
 
-1. **Cliente directo.** La Aplicación se comunica exclusivamente con
-   los servidores oficiales de la Universidad Peruana Los Andes y, de
-   forma opcional, con Microsoft Graph. No existe un servidor
-   intermedio operado por el responsable.
-2. **Procesamiento local.** Toda la información del usuario se
-   almacena y procesa en el dispositivo. El asistente Lumen ejecuta su
-   inferencia íntegramente en el procesador del equipo.
-3. **Ausencia de telemetría.** La Aplicación no recopila estadísticas
-   de uso, eventos de interfaz ni métricas de rendimiento.
-4. **Reversibilidad.** Toda la información almacenada por la
-   Aplicación puede eliminarse mediante los controles previstos al
-   efecto o desinstalando el programa.
+Esta Política se rige por la **Ley N.º 29733, Ley de Protección de Datos Personales**, y su Reglamento, aprobado por **Decreto Supremo N.º 016-2024-JUS**, así como por las demás normas peruanas aplicables. Los términos «dato personal», «tratamiento», «titular» y «encargado» se entienden en el sentido que les da esa normativa.
 
----
+## 3. Cómo funciona Nexo
 
-## 2. Datos tratados
+La aplicación se comunica **solo con la API de Nexo** (https://api.nexo.aurx.pro), un servidor propio del Desarrollador. La API inicia sesión en los sistemas de la UPLA (SIGMA, Intranet y Centro de Idiomas) **en tu nombre**, consulta tu información y te la devuelve ordenada. La aplicación ya no se conecta directamente con esos sistemas.
 
-### 2.1. Credenciales de acceso a SIGMA
+- **Tu contraseña nunca se guarda en el servidor.** Se usa una sola vez para iniciar sesión en la UPLA y se descarta.
+- Lo que el servidor sí conserva son las **sesiones que la universidad emite** al iniciar sesión (token de SIGMA, cookies de la Intranet y token del Centro de Idiomas), **cifradas con AES-256-GCM**, para atender tus siguientes consultas sin pedirte la clave otra vez. Se eliminan al cerrar sesión.
+- La aplicación guarda tus credenciales **solo en tu dispositivo**, en su almacenamiento seguro, para volver a iniciar sesión cuando la sesión de la universidad vence.
 
-El usuario debe introducir su nombre de usuario y contraseña de SIGMA
-UPLA para utilizar las funciones que dependen de dicha plataforma.
+## 4. Datos que se tratan
 
-- Las credenciales se transmiten exclusivamente al endpoint oficial de
-  autenticación de SIGMA (`https://sigma.upla.edu.pe/api/Acceso/...`)
-  mediante TLS.
-- Si el usuario activa la opción "Recordar credenciales", éstas se
-  almacenan localmente en el área privada de la aplicación
-  (`SharedPreferences` de Android, equivalente en iOS), codificadas en
-  Base64 a efectos de ofuscación.
-- Las credenciales no se transmiten a ningún servicio adicional ni a
-  terceros.
+**a) Credenciales y sesión.** Código de usuario y contraseña (solo en tránsito hacia la UPLA; nunca se almacenan en el servidor), las sesiones de la universidad cifradas y los tokens de acceso de Nexo.
 
-### 2.2. Datos académicos y administrativos
+**b) Identidad.** Código, nombres y apellidos, y la dirección de la fotografía institucional que publica la UPLA. La fotografía se descarga directamente desde los servidores de la universidad.
 
-Mientras la sesión está activa, la Aplicación consulta los siguientes
-datos a través de las APIs oficiales de UPLA:
+**c) Datos académicos.** Notas, horario, avance curricular, periodos, matrícula y cursos de idiomas, según lo que la UPLA ponga a disposición de cada cuenta.
 
-- **Perfil del estudiante:** nombre completo, código, carrera,
-  facultad, ciclo, modalidad, sede, créditos aprobados.
-- **Horario académico:** asignaturas, docentes, aulas, horarios y
-  modalidad del periodo activo.
-- **Calificaciones:** promedio acumulado, promedios por periodo, notas
-  por asignatura y ranking promocional.
-- **Información financiera:** cuotas pendientes y vencidas, histórico
-  de operaciones, cronograma de pagos del periodo.
-- **Trámites:** constancias generadas, certificados, etc.
+**d) Datos económicos.** Cuotas, pagos, deudas, tasas e historial de pagos.
 
-Esta información se almacena en caché en el dispositivo
-(`SharedPreferences` para metadatos y SQLite local para listas
-extensas) con el fin de habilitar el modo sin conexión y acelerar la
-carga de pantallas. La caché se elimina al cerrar sesión o desinstalar
-la Aplicación.
+**e) Credencial de Wi-Fi institucional.** Se lee de SIGMA solo cuando la pides y se te muestra; **nunca se guarda** ni se registra en el servidor.
 
-### 2.3. Integración con Microsoft 365 (opcional)
+**f) Datos del módulo docente.** Si eres docente: tus secciones, las listas de estudiantes de esas secciones (nombres, código, fotografía institucional) y las notas y asistencias que registras.
 
-Cuando el usuario activa la integración con Microsoft Teams:
+**g) Datos de funciones opcionales.** Los accesos al directorio que conceden los administradores, los datos del apoderado (DNI y PIN protegido) y su consentimiento, lo que decidas compartir con integraciones y los permisos que apruebes (ver sección 7).
 
-- La Aplicación inicia un flujo OAuth2 Device Code Flow contra
-  `login.microsoftonline.com`.
-- Se solicitan permisos delegados mínimos: `EduRoster.ReadBasic`,
-  `EduAssignments.ReadBasic`, `User.Read`, `openid`, `profile` y
-  `offline_access`.
-- Los tokens (access y refresh) se almacenan localmente como JSON.
-- El usuario puede revocar el acceso en cualquier momento desde
-  <https://myaccount.microsoft.com>.
+**h) Datos de seguridad y técnicos.** Dirección IP, fecha y hora de las peticiones, versión de la aplicación, el identificador de notificaciones del dispositivo (si tienes los avisos de notas activos) y el registro de auditoría de acciones sensibles (inicio de sesión, registros docentes, consultas al directorio, cambios de consentimiento, aceptación de estos documentos).
 
-### 2.4. Notificaciones locales
+**i) Preferencias y uso local.** Tema, idioma, formato de hora, configuración de notificaciones y del inicio, borradores de asistencia y avisos descartados. Se guardan solo en tu dispositivo.
 
-La Aplicación programa notificaciones a través del sistema operativo
-para los siguientes eventos:
+Nexo no solicita datos sensibles adicionales, no accede a tu ubicación, contactos, cámara ni micrófono, y no elabora perfiles con fines comerciales.
 
-- Recordatorios de clases (quince minutos antes del inicio).
-- Avisos de vencimiento de cuotas (un día antes de la fecha límite).
-- Detección de calificaciones nuevas (al actualizar el registro).
+## 5. Finalidades
 
-Las notificaciones se generan localmente. La Aplicación no utiliza
-servicios de notificaciones push (Firebase Cloud Messaging, Apple Push
-Notification Service ni equivalentes).
+Los datos se tratan únicamente para:
 
----
+- Iniciar y mantener tu sesión en los servicios de la UPLA a través de la API de Nexo.
+- Mostrarte tu información académica y administrativa de forma organizada, también sin conexión.
+- Programar en tu dispositivo recordatorios y notificaciones locales de clases y pagos, y mostrar widgets de pantalla de inicio.
+- En el módulo docente, permitir al docente consultar y registrar la asistencia y las notas de sus secciones.
+- Prestar las funciones opcionales que tú o un administrador activen.
+- Proteger el servicio: limitar abusos, detectar accesos indebidos y poder demostrar quién accedió a qué.
+- Comprobar si existe una versión nueva de la aplicación y atender tus consultas a soporte.
 
-## 3. Asistente Lumen
+## 6. Base del tratamiento
 
-Lumen es un módulo opcional. Su activación requiere la descarga única
-de un modelo de lenguaje (entre 290 MB y 530 MB según la variante
-elegida) desde un release público de GitHub.
+El tratamiento se realiza con tu consentimiento, que otorgas al aceptar esta Política, y porque es necesario para prestarte el servicio que solicitas. En el módulo docente, los datos de los estudiantes se tratan dentro de la relación académica que la universidad ya habilita al docente en SIGMA, y para las mismas finalidades. Las funciones opcionales requieren un consentimiento propio.
 
-### 3.1. Funcionamiento
+Puedes retirar tu consentimiento en cualquier momento cerrando sesión y dejando de usar la aplicación, o desactivando cada función opcional.
 
-- El modelo se ejecuta en el procesador del dispositivo mediante
-  MediaPipe LLM Inference.
-- Lumen accede únicamente a la información ya disponible en la
-  Aplicación: perfil, horario, cuotas y notas.
-- El usuario formula una consulta. El sistema construye en memoria un
-  prompt que incluye únicamente los datos relevantes para esa
-  consulta, lo envía al motor de inferencia local y muestra la
-  respuesta en pantalla.
+## 7. Funciones opcionales
 
-### 3.2. Lo que Lumen no hace
+- **Directorio de estudiantes.** Solo lo ven las cuentas a las que un administrador concede acceso. Cada ficha consultada queda registrada con el código de quien la abrió.
+- **Acceso de apoderados.** Un padre, madre o tutor puede ver la información del estudiante con su DNI y un PIN, únicamente con el consentimiento correspondiente, que puede revocarse.
+- **Calendario (.ics).** Si lo activas, se crea un enlace privado con tu horario para suscribirte desde cualquier aplicación de calendario. Solo se guarda una huella del enlace; puedes renovarlo o desactivarlo.
+- **«Conectar con Nexo».** Una aplicación de terceros puede pedirte acceso mediante un código; solo recibe los permisos que apruebes (perfil, horario) y puedes revocarlo cuando quieras. El tratamiento que haga esa aplicación se rige por su propia política.
+- **Avisos de notas.** Cuando un docente registra una nota tuya desde Nexo, el servidor te envía una notificación con el curso, la evaluación y la nota. El servidor **no revisa tus notas periódicamente** ni inicia sesión en tu nombre para buscarlas; las notas registradas fuera de Nexo las detecta la aplicación al abrirse. Para enviarte el aviso, el servidor guarda el identificador de notificaciones de tu dispositivo, que se borra al cerrar sesión. Es opcional: puedes desactivarlo en Ajustes → «Notificaciones de notas».
 
-- No transmite la consulta del usuario a ningún servidor externo.
-- No comparte datos académicos fuera del dispositivo.
-- No registra ni reporta las interacciones del usuario.
-- No utiliza APIs de OpenAI, Google AI, Anthropic ni otros
-  proveedores en la nube.
+## 8. Destinatarios, encargados y transferencias
 
-La única solicitud de red que origina el módulo Lumen es la descarga
-inicial del modelo desde la URL pública del release. Detalles técnicos
-en [`docs/lumen.md`](./docs/lumen.md).
+Nexo no vende, alquila ni cede tus datos personales, no muestra publicidad y no incorpora herramientas de analítica ni de seguimiento de terceros. Solo intervienen:
 
----
+- **Servicios de la UPLA** (SIGMA, Intranet, Centro de Idiomas y el servidor de fotografías): reciben tus credenciales y consultas a través de la API de Nexo para devolverte tu propia información. El tratamiento que realizan se rige por las políticas de la universidad.
+- **Microsoft Azure** (Microsoft Corporation), como encargado: aloja la API de Nexo en Azure Container Apps, en la región **Chile Central**.
+- **MongoDB Atlas** (MongoDB, Inc.), como encargado: base de datos en la nube donde se guardan la cuenta, las sesiones cifradas, el registro de auditoría y los datos de las funciones opcionales.
+- **Google Firebase** (Google LLC), como encargado: **Firebase Cloud Messaging** entrega los avisos de notas a tu dispositivo; recibe el identificador de notificaciones y el contenido del aviso (curso, evaluación y nota). Se prevé usar también Firebase App Check para comprobar que solo la aplicación oficial llama a la API.
+- **GitHub** (Microsoft Corporation): recibe una consulta técnica para comprobar si hay una versión nueva. No se le envía información académica ni credenciales.
+- **WhatsApp o tu proveedor de correo**, solo si decides contactar a soporte, y únicamente con la información que tú envíes.
 
-## 4. Prácticas no realizadas
+Como estos proveedores tienen servidores fuera del Perú (por ejemplo, en Chile y en Estados Unidos), el uso de Nexo implica un **flujo transfronterizo** de datos personales, que se realiza conforme a la Ley N.º 29733 y su Reglamento y al que consientes al aceptar esta Política.
 
-A fin de evitar ambigüedad, la Aplicación no realiza ninguna de las
-siguientes prácticas:
+## 9. Almacenamiento y conservación
 
-- Recopilación de métricas de uso ni telemetría.
-- Integración con servicios de análisis (Google Analytics, Firebase
-  Analytics, Mixpanel u otros).
-- Inclusión de publicidad o SDKs de monetización.
-- Compartición de datos con terceros.
-- Procesamiento en servidores propios.
-- Comercialización de información del usuario.
+- **En el servidor:** las sesiones de la universidad se guardan cifradas y se eliminan al cerrar sesión o cuando vencen. Tu información académica y económica se consulta a la UPLA y se mantiene temporalmente en la memoria del servidor (de minutos a unas horas según el dato, como máximo un día) para responder más rápido y no sobrecargar a la universidad; se borra al cerrar sesión y no se guarda en la base de datos, salvo lo que decidas compartir con funciones opcionales. Para los avisos de notas se guarda el identificador de notificaciones del dispositivo hasta que cierres sesión o desactives los avisos. Se conserva tu registro básico (código y nombres), las secciones del docente para validar su acceso, el registro de auditoría y la constancia de aceptación de estos documentos durante el tiempo necesario para fines de seguridad y para acreditar el cumplimiento legal.
+- **En el dispositivo:** las credenciales y los datos de sesión se guardan en el almacenamiento seguro del sistema operativo (Keychain, Keystore o el equivalente en Windows). En la versión web, la sesión se mantiene solo en memoria. La información académica se guarda en una base de datos local, sin cifrado adicional al que ofrezca el sistema operativo. Los borradores de asistencia se conservan como máximo dos días o hasta que se registran.
+- **Cerrar sesión elimina** las sesiones de la universidad en el servidor y, en el dispositivo, las credenciales, la información en caché y los borradores. Desinstalar la aplicación elimina todos sus datos locales.
 
----
+## 10. Seguridad
 
-## 5. Derechos del usuario
+- Todas las comunicaciones usan conexiones cifradas (HTTPS/TLS).
+- Las sesiones de la universidad se cifran en el servidor con AES-256-GCM y las contraseñas nunca se almacenan.
+- La API limita la cantidad de peticiones para frenar abusos y registra en un registro de auditoría las acciones sensibles.
+- Se prevé exigir Firebase App Check para que solo la aplicación oficial pueda llamar a la API.
 
-El usuario puede ejercer en todo momento los siguientes controles:
+La seguridad depende también del bloqueo de pantalla, las actualizaciones del sistema y el cuidado del usuario. Ninguna medida es infalible.
 
-- **Cerrar sesión** (Perfil → Cerrar sesión): elimina el token de
-  acceso y la caché. Las credenciales recordadas se eliminan si la
-  opción "Recordar" se desactiva previamente.
-- **Desactivar Lumen** (Lumen → Configuración → Borrar modelo): elimina
-  el modelo descargado y libera el almacenamiento ocupado.
-- **Limpiar historial de Lumen** (Lumen → Configuración → Limpiar
-  historial): elimina la conversación actual.
-- **Revocar el acceso de Microsoft 365** (<https://myaccount.microsoft.com>):
-  invalida los tokens almacenados.
-- **Desinstalar la Aplicación**: el sistema operativo elimina la
-  totalidad de los datos privados de la Aplicación.
+## 11. Derechos del titular
 
----
+Conforme a la Ley N.º 29733, puedes ejercer tus derechos de información, acceso, rectificación, cancelación y oposición, y los demás que reconozca la normativa vigente.
 
-## 6. Medidas de seguridad
+- Puedes consultar tus datos en la aplicación, actualizarlos en los sistemas de la UPLA, eliminar tus sesiones del servidor y los datos locales cerrando sesión, y desactivar cada función opcional.
+- Para cualquier solicitud, incluida la eliminación de lo que el servidor conserve sobre ti, escribe a alessandrovillogas@outlook.es. Se responderá dentro de los plazos establecidos por la normativa.
+- Si consideras que tus derechos no han sido atendidos, puedes presentar una reclamación ante la **Autoridad Nacional de Protección de Datos Personales** del Ministerio de Justicia y Derechos Humanos.
 
-- Toda la comunicación con SIGMA, Intranet UPLA y Microsoft Graph
-  utiliza TLS (HTTPS).
-- La Aplicación incluye el almacén de autoridades certificadoras de
-  Mozilla (`assets/certs/cacert.pem`) y lo carga en un
-  `SecurityContext` propio para mitigar fallos de validación TLS en
-  dispositivos cuyo almacén raíz se encuentre desactualizado.
-- Las credenciales almacenadas localmente se codifican en Base64.
-  Esta medida ofusca el valor pero no constituye cifrado robusto. Los
-  usuarios que requieran un nivel de seguridad superior deberían
-  abstenerse de utilizar la opción "Recordar credenciales".
+La rectificación de información académica (por ejemplo, una nota) solo puede hacerla la universidad en sus sistemas oficiales.
 
----
+## 12. Menores de edad
 
-## 7. Menores de edad
+Nexo está dirigida a estudiantes y docentes universitarios. El tratamiento de datos de menores de edad se sujeta a las reglas especiales de la Ley N.º 29733 y su Reglamento; los menores de catorce años no deben usar la aplicación sin la autorización de sus padres o tutores.
 
-La Aplicación se dirige a estudiantes universitarios. Se recomienda
-que los usuarios menores de edad consulten esta política con sus
-padres o tutores antes de utilizar el servicio.
+## 13. Deber de confidencialidad
 
----
+El docente, y cualquier persona con acceso al directorio o como apoderado, que acceda a datos de estudiantes a través de Nexo está obligado a guardar confidencialidad sobre ellos y a usarlos solo para la finalidad autorizada, conforme al artículo 17 de la Ley N.º 29733. Está prohibido capturar, difundir o compartir dichos datos con terceros.
 
-## 8. Modificaciones de esta política
+## 14. Cambios en esta Política
 
-Cualquier modificación sustancial de esta política se reflejará en:
-
-1. La publicación de una nueva versión de este documento en el
-   repositorio público.
-2. Una entrada en el [`CHANGELOG.md`](./CHANGELOG.md) que indique el
-   cambio.
-
-El usuario no está obligado a aceptar modificaciones futuras y puede
-desinstalar la Aplicación en cualquier momento.
-
----
-
-## 9. Limitación de responsabilidad
-
-La Aplicación se distribuye sin garantías expresas ni implícitas. El
-responsable no se hace cargo de:
-
-- Pérdida o corrupción de datos.
-- Decisiones académicas, administrativas o financieras tomadas con
-  base en información mostrada por la Aplicación.
-- Interrupciones del servicio derivadas de fallos en los sistemas de
-  UPLA o de Microsoft.
-- Modificaciones de las políticas o APIs de terceros que afecten al
-  correcto funcionamiento de la Aplicación.
-
-Para trámites legales, académicos o financieros, el usuario debe
-verificar la información en las fuentes oficiales.
-
----
-
-## 10. Contacto
-
-Las consultas, reclamaciones o solicitudes relativas a esta política
-pueden remitirse mediante un issue en el repositorio público:
-
-<https://github.com/auralix-studio/nexo/issues>
-
-Para asuntos que requieran reserva, se ruega indicar la palabra
-`PRIVADO` en el título del issue.
+Si cambia de forma relevante el modo en que se tratan los datos, se actualizará esta Política y se indicará su nueva versión y fecha. La versión vigente se publica en la API de Nexo, así que la aplicación la detecta sin necesidad de actualizarse, te muestra un resumen de los cambios y te solicita una nueva aceptación antes de continuar.
